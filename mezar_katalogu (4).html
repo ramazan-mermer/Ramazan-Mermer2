@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mezar Kataloğu</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #f2f2f2; font-family: Arial, sans-serif; color: #222; }
+
+header {
+  background: #2c2c2c;
+  color: #fff;
+  text-align: center;
+  padding: 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.list { padding: 12px; display: flex; flex-direction: column; gap: 12px; }
+
+.card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+.card-img {
+  width: 100%; aspect-ratio: 4/3;
+  object-fit: cover; display: block;
+  background: #ddd;
+}
+.card-img-ph {
+  width: 100%; aspect-ratio: 4/3;
+  background: #e0dcd7;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem; color: #bbb;
+}
+
+.card-info {
+  padding: 12px 14px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-left { display: flex; flex-direction: column; gap: 3px; }
+.card-num { font-size: 0.7rem; color: #888; }
+.card-name { font-size: 0.95rem; font-weight: bold; }
+.card-price {
+  font-size: 1.05rem; font-weight: bold;
+  color: #fff; background: #2c2c2c;
+  padding: 7px 14px; border-radius: 6px;
+  white-space: nowrap;
+}
+/* admin */
+.card-price.editable { cursor: pointer; background: #444; }
+.price-inp {
+  font-size: 1rem; font-weight: bold; color: #2c2c2c;
+  border: 2px solid #2c2c2c; border-radius: 6px;
+  padding: 6px 10px; width: 130px; text-align: right; outline: none;
+}
+.admin-row {
+  display: none;
+  gap: 8px; padding: 0 14px 12px;
+}
+.admin-row.show { display: flex; }
+.abtn {
+  flex: 1; padding: 8px; border: none; border-radius: 6px;
+  font-size: 0.8rem; cursor: pointer; font-weight: bold;
+}
+.abtn-edit { background: #e8e8e8; color: #333; }
+.abtn-del  { background: #fde8e8; color: #c00; }
+
+/* admin bar */
+#adminBar {
+  display: none; background: #fff3cd; border-bottom: 1px solid #ffc107;
+  padding: 8px; text-align: center; font-size: 0.78rem; color: #856404;
+}
+
+/* lock btn */
+#lockBtn {
+  position: fixed; bottom: 18px; right: 16px; z-index: 99;
+  background: #2c2c2c; color: #fff;
+  border: none; border-radius: 50px; padding: 11px 18px;
+  font-size: 0.78rem; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+}
+#addBtn {
+  display: none;
+  position: fixed; bottom: 18px; left: 16px; z-index: 99;
+  background: #2c7a2c; color: #fff;
+  border: none; border-radius: 50px; padding: 11px 18px;
+  font-size: 0.78rem; cursor: pointer; box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+/* sheet modal */
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 200; align-items: flex-end; justify-content: center; }
+.overlay.open { display: flex; }
+.sheet { background: #fff; border-radius: 16px 16px 0 0; padding: 1.4rem 1.4rem 2.4rem; width: 100%; max-width: 500px; max-height: 88vh; overflow-y: auto; }
+.sheet h3 { font-size: 1rem; margin-bottom: 1rem; color: #2c2c2c; }
+.fg { margin-bottom: 0.8rem; }
+.fg label { display: block; font-size: 0.72rem; color: #888; margin-bottom: 4px; }
+.fg input, .fg textarea, .fg select {
+  width: 100%; border: 1px solid #ddd; border-radius: 7px;
+  padding: 9px 11px; font-size: 0.88rem; font-family: inherit; outline: none; background: #fafafa;
+}
+.fg input:focus, .fg textarea:focus { border-color: #2c2c2c; }
+.fg textarea { resize: vertical; min-height: 60px; }
+.sbtns { display: flex; gap: 9px; margin-top: 1rem; }
+.sbtn { flex: 1; padding: 11px; border-radius: 9px; border: none; font-size: 0.88rem; font-weight: bold; cursor: pointer; }
+.sbtn-save { background: #2c2c2c; color: #fff; }
+.sbtn-cancel { background: #eee; color: #555; }
+
+/* pass modal */
+#passModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 300; align-items: center; justify-content: center; }
+#passModal.open { display: flex; }
+.pbox { background: #fff; border-radius: 14px; padding: 1.6rem; width: 280px; text-align: center; }
+.pbox h3 { font-size: 0.95rem; margin-bottom: 1rem; }
+.pbox input {
+  width: 100%; text-align: center; border: 1px solid #ddd; border-radius: 8px;
+  padding: 10px; font-size: 1.1rem; letter-spacing: 5px; outline: none; margin-bottom: 6px;
+}
+.pbox input:focus { border-color: #2c2c2c; }
+.perr { color: #c00; font-size: 0.75rem; min-height: 16px; margin-bottom: 8px; }
+.pbtns { display: flex; gap: 8px; }
+.pbtns button { flex: 1; padding: 10px; border-radius: 8px; border: none; font-size: 0.85rem; font-weight: bold; cursor: pointer; }
+.pbtn-ok { background: #2c2c2c; color: #fff; }
+.pbtn-cancel { background: #eee; color: #555; }
+</style>
+</head>
+<body>
+
+<div id="adminBar">✏️ Düzenleme modu açık</div>
+<header>MEZAR KATALOGİ</header>
+<div class="list" id="list"></div>
+
+<button id="lockBtn" onclick="openPass()">🔒 Yönetici</button>
+<button id="addBtn" onclick="openAdd()">+ Yeni Model</button>
+
+<!-- Düzenle/Ekle -->
+<div class="overlay" id="editOverlay">
+  <div class="sheet">
+    <h3 id="sheetTitle">Model Düzenle</h3>
+    <div class="fg"><label>Model Adı</label><input type="text" id="f-name"></div>
+    <div class="fg">
+      <label>Malzeme (opsiyonel)</label>
+      <select id="f-mat">
+        <option value="">—</option>
+        <option>Mermer</option><option>Granit</option><option>Bazalt</option>
+        <option>Kireçtaşı</option><option>Kompozit</option><option>Diğer</option>
+      </select>
+    </div>
+    <div class="fg"><label>Fiyat (₺)</label><input type="number" id="f-price" min="0"></div>
+    <div class="fg"><label>Fotoğraf URL <small style="color:#aaa">(boş bırakabilirsiniz)</small></label><input type="text" id="f-img" placeholder="https://..."></div>
+    <div class="sbtns">
+      <button class="sbtn sbtn-cancel" onclick="closeEdit()">İptal</button>
+      <button class="sbtn sbtn-save" onclick="saveModel()">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Şifre -->
+<div id="passModal">
+  <div class="pbox">
+    <h3>Yönetici Girişi</h3>
+    <input type="password" id="passIn" placeholder="••••" maxlength="20" onkeydown="if(event.key==='Enter')checkPass()">
+    <div class="perr" id="passErr"></div>
+    <div class="pbtns">
+      <button class="pbtn-cancel" onclick="closePass()">İptal</button>
+      <button class="pbtn-ok" onclick="checkPass()">Giriş</button>
+    </div>
+    <p style="font-size:0.66rem;color:#bbb;margin-top:12px">İlk şifre: 1234</p>
+  </div>
+</div>
+
+<script>
+const DK = 'mz_simple', PK = 'mz_pass';
+let admin = false, editId = null;
+
+const seed = [
+  {name:"Klasik Mermer Mezar", mat:"Mermer", price:18000, img:""},
+  {name:"Granit Anıt Mezar",   mat:"Granit", price:24000, img:""},
+  {name:"Osmanlı Servi Modeli",mat:"Mermer", price:22000, img:""},
+  {name:"Modern Plaka Mezar",  mat:"Granit", price:15000, img:""},
+  {name:"Kırma Taş Mezar",     mat:"Bazalt", price:12000, img:""},
+  {name:"Çift Kitabeli Anıt",  mat:"Mermer", price:28000, img:""},
+  {name:"Granit Aile Mezarı",  mat:"Granit", price:45000, img:""},
+  {name:"Sütunlu Anıt",        mat:"Mermer", price:35000, img:""},
+  {name:"Kare Granit Mezar",   mat:"Granit", price:19000, img:""},
+  {name:"Lazerli Portre Mezar",mat:"Granit", price:26000, img:""},
+  {name:"Çocuk Mezar Modeli",  mat:"Mermer", price:9000,  img:""},
+  {name:"Mermer Sanduka",      mat:"Mermer", price:32000, img:""},
+];
+
+function get(){ try{ const d=localStorage.getItem(DK); if(d) return JSON.parse(d); }catch(e){} const m=seed.map((x,i)=>({...x,id:Date.now()+i})); set(m); return m; }
+function set(a){ localStorage.setItem(DK,JSON.stringify(a)); }
+function getPass(){ return localStorage.getItem(PK)||'1234'; }
+function fmt(n){ return Number(n).toLocaleString('tr-TR')+' ₺'; }
+
+function render(){
+  const models = get();
+  const list = document.getElementById('list');
+  list.innerHTML = models.map((m,i) => `
+    <div class="card" data-id="${m.id}">
+      ${m.img
+        ? `<img class="card-img" src="${m.img}" alt="${m.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+          + `<div class="card-img-ph" style="display:none">🪨</div>`
+        : `<div class="card-img-ph">🪨</div>`
+      }
+      <div class="card-info">
+        <div class="card-left">
+          <span class="card-num">Model ${i+1}${m.mat ? ' · '+m.mat : ''}</span>
+          <span class="card-name">${m.name}</span>
+        </div>
+        ${admin
+          ? `<input class="price-inp" type="number" value="${m.price}"
+               onblur="updatePrice('${m.id}',this.value)"
+               onkeydown="if(event.key==='Enter')this.blur()">`
+          : `<span class="card-price">${fmt(m.price)}</span>`
+        }
+      </div>
+      <div class="admin-row ${admin?'show':''}">
+        <button class="abtn abtn-edit" onclick="openEdit('${m.id}')">✏️ Düzenle</button>
+        <button class="abtn abtn-del"  onclick="delModel('${m.id}')">🗑 Sil</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updatePrice(id, val){
+  const ms = get();
+  const idx = ms.findIndex(m=>String(m.id)===String(id));
+  if(idx>-1){ ms[idx].price=parseInt(val)||0; set(ms); render(); }
+}
+
+function delModel(id){
+  if(!confirm('Bu modeli silmek istediğinizden emin misiniz?')) return;
+  set(get().filter(m=>String(m.id)!==String(id)));
+  render();
+}
+
+let editScroll = 0;
+function openEdit(id){
+  editId=id; editScroll=window.scrollY;
+  const m=get().find(x=>String(x.id)===String(id)); if(!m) return;
+  document.getElementById('sheetTitle').textContent='Model Düzenle';
+  document.getElementById('f-name').value=m.name;
+  document.getElementById('f-mat').value=m.mat||'';
+  document.getElementById('f-price').value=m.price;
+  document.getElementById('f-img').value=m.img||'';
+  document.getElementById('editOverlay').classList.add('open');
+}
+function openAdd(){
+  editId=null; editScroll=window.scrollY;
+  document.getElementById('sheetTitle').textContent='Yeni Model Ekle';
+  ['f-name','f-price','f-img'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-mat').value='';
+  document.getElementById('editOverlay').classList.add('open');
+}
+function closeEdit(){ document.getElementById('editOverlay').classList.remove('open'); }
+function saveModel(){
+  const name=document.getElementById('f-name').value.trim();
+  if(!name){alert('Model adı zorunludur.');return;}
+  const entry={name,mat:document.getElementById('f-mat').value,price:parseInt(document.getElementById('f-price').value)||0,img:document.getElementById('f-img').value.trim()};
+  const ms=get();
+  if(editId){ const i=ms.findIndex(m=>String(m.id)===String(editId)); if(i>-1) ms[i]={...ms[i],...entry}; }
+  else { entry.id=Date.now(); ms.push(entry); }
+  set(ms); closeEdit(); render();
+  setTimeout(()=>window.scrollTo(0,editScroll),50);
+}
+
+function openPass(){
+  if(admin){admin=false;applyAdmin();return;}
+  document.getElementById('passIn').value='';
+  document.getElementById('passErr').textContent='';
+  document.getElementById('passModal').classList.add('open');
+  setTimeout(()=>document.getElementById('passIn').focus(),100);
+}
+function closePass(){ document.getElementById('passModal').classList.remove('open'); }
+function checkPass(){
+  if(document.getElementById('passIn').value===getPass()){
+    admin=true; closePass(); applyAdmin();
+  } else { document.getElementById('passErr').textContent='Yanlış şifre!'; }
+}
+function applyAdmin(){
+  document.getElementById('adminBar').style.display=admin?'block':'none';
+  document.getElementById('lockBtn').textContent=admin?'🔓 Çıkış':'🔒 Yönetici';
+  document.getElementById('addBtn').style.display=admin?'block':'none';
+  render();
+}
+
+document.getElementById('editOverlay').addEventListener('click',function(e){if(e.target===this)closeEdit();});
+document.getElementById('passModal').addEventListener('click',function(e){if(e.target===this)closePass();});
+
+render();
+</script>
+</body>
+</html>
