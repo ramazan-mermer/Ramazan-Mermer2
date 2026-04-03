@@ -7,7 +7,12 @@
 
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #f2f2f2; font-family: sans-serif; color: #222; }
+
+body {
+  background: #f2f2f2;
+  font-family: sans-serif;
+  color: #222;
+}
 
 header {
   background: #2c2c2c;
@@ -30,20 +35,63 @@ header {
   color: #856404;
 }
 
+/* LIST CONTAINER */
 .list {
   padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding-bottom: 100px;
+  padding-bottom: 140px;
 }
 
+/* ================= GRID MODE ================= */
+.list.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+@media (min-width: 600px) {
+  .list.grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .list.grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1200px) {
+  .list.grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ================= TABLE MODE ================= */
+.list.table-view {
+  display: block;
+}
+
+.list.table-view .card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.list.table-view .card img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  aspect-ratio: unset;
+}
+
+/* CARD */
 .card {
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.02);
 }
 
 .card img {
@@ -59,10 +107,11 @@ header {
   align-items: center;
 }
 
-#lockBtn, #addBtn {
+/* BUTTONS */
+#lockBtn, #addBtn, #viewBtn {
   position: fixed;
   bottom: 20px;
-  padding: 15px 25px;
+  padding: 12px 20px;
   border: none;
   border-radius: 50px;
   color: #fff;
@@ -74,7 +123,9 @@ header {
 
 #lockBtn { right: 20px; background: #2c2c2c; }
 #addBtn { left: 20px; background: #2a6e2a; display: none; }
+#viewBtn { left: 50%; transform: translateX(-50%); background: #444; }
 
+/* MODAL */
 .overlay {
   display: none;
   position: fixed;
@@ -93,12 +144,6 @@ header {
   max-width: 500px;
   border-radius: 20px 20px 0 0;
   padding: 20px;
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
 }
 
 .fg { margin-bottom: 12px; }
@@ -107,12 +152,18 @@ header {
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #ddd;
-  font-size: 1rem;
 }
 
-.sbtns { display: flex; gap: 10px; margin-top: 10px; }
-.sbtn { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+.sbtns { display: flex; gap: 10px; }
+.sbtn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
+/* PASS */
 #passModal {
   display: none;
   position: fixed;
@@ -138,8 +189,6 @@ header {
   padding: 10px;
   margin-bottom: 15px;
   text-align: center;
-  font-size: 1.2rem;
-  letter-spacing: 5px;
 }
 </style>
 </head>
@@ -151,32 +200,35 @@ header {
 
 <div class="list" id="list"></div>
 
-<button id="lockBtn" onclick="openPass()">🔒 Yönetici</button>
-<button id="addBtn" onclick="openAdd()">+ Yeni Ekle</button>
+<button id="lockBtn" onclick="openPass()">🔐 Yönetici</button>
+<button id="addBtn" onclick="openAdd()">➕ Yeni Ekle</button>
+<button id="viewBtn" onclick="toggleView()">📦 Kart Görünüm</button>
 
+<!-- EDIT MODAL -->
 <div class="overlay" id="editOverlay">
   <div class="sheet">
-    <h3 id="sheetTitle" style="margin-bottom:15px">Model Düzenle</h3>
+    <h3 id="sheetTitle">Model</h3>
+
     <div class="fg"><input id="f-name" placeholder="Model adı"></div>
-    <div class="fg"><input id="f-price" placeholder="Fiyat (Sadece rakam)"></div>
-    <div class="fg"><input id="f-img" placeholder="Resim linki (URL)"></div>
+    <div class="fg"><input id="f-price" placeholder="Fiyat"></div>
+    <div class="fg"><input id="f-img" placeholder="Resim URL"></div>
 
     <div class="sbtns">
-      <button class="sbtn" onclick="closeEdit()" style="background:#eee">İptal</button>
+      <button class="sbtn" onclick="closeEdit()">İptal</button>
       <button class="sbtn" onclick="saveModel()" style="background:#2c2c2c;color:#fff">Kaydet</button>
     </div>
 
-    <p id="delBtn" onclick="deleteModel()" style="color:red;text-align:center;margin-top:20px;cursor:pointer;font-weight:bold">Bu Modeli Sil</p>
+    <p id="delBtn" onclick="deleteModel()" style="color:red;text-align:center;margin-top:15px;cursor:pointer">Sil</p>
   </div>
 </div>
 
+<!-- PASS MODAL -->
 <div id="passModal">
   <div class="pbox">
     <h3>Yönetici Girişi</h3>
-    <p style="font-size: 0.8rem; color: #666; margin-bottom: 15px;">Lütfen şifreyi giriniz</p>
-    <input type="password" id="passIn" placeholder="****">
-    <button onclick="checkPass()" style="width:100%; padding:12px; background:#2c2c2c; color:#fff; border:none; border-radius:8px; cursor:pointer">Giriş Yap</button>
-    <button onclick="closePass()" style="margin-top:10px; background:none; border:none; color: #999; cursor:pointer">Kapat</button>
+    <input type="password" id="passIn">
+    <button onclick="checkPass()" style="width:100%">Giriş</button>
+    <button onclick="closePass()">Kapat</button>
   </div>
 </div>
 
@@ -191,8 +243,7 @@ const firebaseConfig = {
   projectId: "ramazan-mermer",
   storageBucket: "ramazan-mermer.firebasestorage.app",
   messagingSenderId: "364821737549",
-  appId: "1:364821737549:web:1422a2eee2544d13f5ec04",
-  measurementId: "G-2MH2KM2XHQ"
+  appId: "1:364821737549:web:1422a2eee2544d13f5ec04"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -200,103 +251,115 @@ const db = getDatabase(app);
 
 let editId = null;
 let isAdmin = false;
+let isGrid = true;
 
-// Verileri Dinle ve Listele
-const renderList = () => {
-    onValue(ref(db, "models"), snap => {
-      list.innerHTML = "";
-      const data = snap.val();
-      if (!data) return;
+const list = document.getElementById("list");
 
-      Object.entries(data).forEach(([id, item]) => {
-        const div = document.createElement("div");
-        div.className = "card";
-        div.innerHTML = `
-          <img src="${item.img}">
-          <div class="card-info">
-            <div style="font-weight:bold">${item.name}</div>
-            <div style="color:#2a6e2a; font-weight:bold">${item.price} ₺</div>
-          </div>
-        `;
-        if (isAdmin) div.onclick = () => openEdit(id, item);
-        list.appendChild(div);
-      });
+/* RENDER */
+function renderList() {
+  onValue(ref(db, "models"), snap => {
+    list.innerHTML = "";
+    const data = snap.val();
+    if (!data) return;
+
+    Object.entries(data).forEach(([id, item]) => {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <img src="${item.img}">
+        <div class="card-info">
+          <div>${item.name}</div>
+          <div>${item.price} ₺</div>
+        </div>
+      `;
+      if (isAdmin) div.onclick = () => openEdit(id, item);
+      list.appendChild(div);
     });
-};
+  });
+}
 
 renderList();
 
-// Yönetici Şifre Kontrolü (Firebase'den Çeker)
+/* PASS */
 window.checkPass = async () => {
-  const inputPass = document.getElementById("passIn").value;
-  
-  try {
-      const snapshot = await get(ref(db, "adminPass"));
-      const correctPass = snapshot.val();
+  const val = document.getElementById("passIn").value;
+  const snap = await get(ref(db, "adminPass"));
 
-      if (inputPass === String(correctPass)) {
-        isAdmin = true;
-        document.getElementById("addBtn").style.display = "block";
-        document.getElementById("adminBar").style.display = "block";
-        document.getElementById("lockBtn").style.display = "none";
-        document.getElementById("passModal").classList.remove("open");
-        alert("Giriş Başarılı! Artık modellere tıklayarak düzenleyebilir veya yeni ekleyebilirsiniz.");
-        renderList(); // Admin yetkisiyle listeyi tekrar yükle
-      } else {
-        alert("Hatalı şifre!");
-      }
-  } catch (error) {
-      alert("Hata: Veritabanına bağlanılamadı.");
-  }
+  if (val === String(snap.val())) {
+    isAdmin = true;
+    document.getElementById("addBtn").style.display = "block";
+    document.getElementById("adminBar").style.display = "block";
+    document.getElementById("lockBtn").style.display = "none";
+    document.getElementById("passModal").classList.remove("open");
+    renderList();
+  } else alert("Hatalı şifre");
 };
 
 window.openPass = () => document.getElementById("passModal").classList.add("open");
 window.closePass = () => document.getElementById("passModal").classList.remove("open");
 
+/* ADD / EDIT */
 window.openAdd = () => {
   editId = null;
-  document.getElementById("sheetTitle").innerText = "Yeni Model Ekle";
-  document.getElementById("f-name").value = "";
-  document.getElementById("f-price").value = "";
-  document.getElementById("f-img").value = "";
+  openEditBox("", "", "");
+  document.getElementById("sheetTitle").innerText = "Yeni Model";
   document.getElementById("delBtn").style.display = "none";
-  document.getElementById("editOverlay").classList.add("open");
 };
 
 window.openEdit = (id, item) => {
   editId = id;
-  document.getElementById("sheetTitle").innerText = "Modeli Düzenle";
-  document.getElementById("f-name").value = item.name;
-  document.getElementById("f-price").value = item.price;
-  document.getElementById("f-img").value = item.img;
+  openEditBox(item.name, item.price, item.img);
+  document.getElementById("sheetTitle").innerText = "Düzenle";
   document.getElementById("delBtn").style.display = "block";
-  document.getElementById("editOverlay").classList.add("open");
 };
 
-window.closeEdit = () => document.getElementById("editOverlay").classList.remove("open");
+function openEditBox(n,p,i){
+  document.getElementById("f-name").value = n;
+  document.getElementById("f-price").value = p;
+  document.getElementById("f-img").value = i;
+  document.getElementById("editOverlay").classList.add("open");
+}
+
+window.closeEdit = () =>
+  document.getElementById("editOverlay").classList.remove("open");
 
 window.saveModel = () => {
   const name = document.getElementById("f-name").value;
   const price = document.getElementById("f-price").value;
   const img = document.getElementById("f-img").value;
 
-  if (!name || !price || !img) return alert("Lütfen tüm alanları doldurun");
+  if (!name || !price || !img) return;
 
-  if (editId)
-    set(ref(db, "models/" + editId), { name, price, img });
-  else
-    push(ref(db, "models"), { name, price, img });
+  if (editId) set(ref(db,"models/"+editId),{name,price,img});
+  else push(ref(db,"models"),{name,price,img});
 
   closeEdit();
 };
 
 window.deleteModel = () => {
   if (!editId) return;
-  if(confirm("Bu modeli silmek istediğinize emin misiniz?")) {
-      remove(ref(db, "models/" + editId));
-      closeEdit();
+  remove(ref(db,"models/"+editId));
+  closeEdit();
+};
+
+/* VIEW TOGGLE (GRID / TABLE) */
+window.toggleView = () => {
+  const btn = document.getElementById("viewBtn");
+
+  isGrid = !isGrid;
+
+  if (isGrid) {
+    list.classList.add("grid");
+    list.classList.remove("table-view");
+    btn.innerText = "📦 Kart Görünüm";
+  } else {
+    list.classList.remove("grid");
+    list.classList.add("table-view");
+    btn.innerText = "📋 Tablo Görünüm";
   }
 };
+
+document.getElementById("list").classList.add("grid");
 </script>
 
 </body>
