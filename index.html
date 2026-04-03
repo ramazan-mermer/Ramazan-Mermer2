@@ -1,226 +1,346 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Katalog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramazan Mermer | Katalog</title>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
+    <style>
+        :root {
+            --primary-color: #1d6ca1; /* Logodaki mavi tonu */
+            --accent-color: #b32025;  /* Logodaki kırmızı tonu */
+            --dark-bg: #121212;
+            --card-bg: #ffffff;
+            --text-main: #333;
+        }
 
-body{font-family:sans-serif;background:#f2f2f2}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: all 0.25s ease-in-out;
+        }
 
-header{
-  background:#2c2c2c;
-  color:#fff;
-  padding:20px;
-  text-align:center;
-  position:sticky;
-  top:0;
-}
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f0f2f5;
+            color: var(--text-main);
+        }
 
-.list{
-  padding:15px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  padding-bottom:120px;
-}
+        /* --- MODERN HEADER --- */
+        header {
+            background: #fff;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
 
-@media(max-width:600px){
-  .list{grid-template-columns:1fr;}
-}
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 1200px;
+            width: 100%;
+        }
 
-.card{
-  background:#fff;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
+        header img {
+            height: 60px; /* Logo boyutu */
+            width: auto;
+            object-fit: contain;
+        }
 
-.card img{
-  width:100%;
-  aspect-ratio:9/16;
-  object-fit:cover;
-}
+        header h1 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #222;
+            text-transform: uppercase;
+        }
 
-.card-info{
-  padding:12px;
-  display:flex;
-  justify-content:space-between;
-}
+        /* --- LISTE YAPISI --- */
+        .list {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Varsayılan 4'lü */
+            gap: 20px;
+            padding-bottom: 120px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-#lockBtn,#addBtn{
-  position:fixed;
-  bottom:20px;
-  padding:12px 18px;
-  border:none;
-  border-radius:30px;
-  color:#fff;
-}
+        @media(max-width: 900px) {
+            .list { grid-template-columns: repeat(2, 1fr); }
+        }
 
-#lockBtn{right:20px;background:#333}
-#addBtn{left:20px;background:green;display:none}
+        @media(max-width: 600px) {
+            .list { grid-template-columns: 1fr; }
+        }
 
-#colSelect{
-  position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  padding:10px;
-  border-radius:20px;
-}
+        /* --- KART TASARIMI --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
 
-.overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.7);
-  justify-content:center;
-  align-items:flex-end;
-}
-.overlay.open{display:flex}
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
 
-.sheet{
-  background:#fff;
-  width:100%;
-  max-width:500px;
-  padding:20px;
-  border-radius:20px 20px 0 0;
-}
+        .card img {
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Kare mermer görselleri için ideal */
+            object-fit: cover;
+            display: block;
+        }
 
-.sheet input{
-  width:100%;
-  padding:10px;
-  margin-bottom:10px;
-}
-</style>
+        .card-info {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .card-info .title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: #222;
+        }
+
+        .card-info .price {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        /* --- BUTONLAR VE KONTROLLER --- */
+        #lockBtn, #addBtn {
+            position: fixed;
+            bottom: 25px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1100;
+        }
+
+        #lockBtn { right: 25px; background: #333; }
+        #addBtn { left: 25px; background: #28a745; display: none; }
+
+        #colSelect {
+            position: fixed;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 15px;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            font-weight: 500;
+            z-index: 1100;
+            outline: none;
+        }
+
+        /* --- MODAL / OVERLAY --- */
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .overlay.open { display: flex; }
+
+        .sheet {
+            background: #fff;
+            width: 90%;
+            max-width: 400px;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .sheet h3 { margin-bottom: 15px; text-align: center; }
+
+        .sheet input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .sheet button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .delete-text {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>KATALOG</header>
+<header>
+    <div class="header-content">
+        <img src="https://i.ibb.co/2Yqg5zqb/Gemini-Generated-mage-3egbvx3egbvx3egb-Photoroom.png" alt="Ramazan Mermer Logo">
+        <h1>RAMAZAN MERMER</h1>
+    </div>
+</header>
 
 <div class="list" id="list"></div>
 
-<button id="lockBtn" onclick="openPass()">Admin</button>
-<button id="addBtn" onclick="openAdd()">Ekle</button>
+<button id="lockBtn" onclick="openPass()">Yönetici</button>
+<button id="addBtn" onclick="openAdd()">+ Yeni Ekle</button>
 
 <select id="colSelect" onchange="setColumns()">
-  <option value="1">Tekli görüntüleme</option>
-  <option value="2">İkili görüntüleme</option>
-  <option value="3">Üçlü görüntüleme</option>
-  <option value="4" selected>Dörtlü görüntüleme</option>
+    <option value="1">Tekli Görünüm</option>
+    <option value="2">İkili Görünüm</option>
+    <option value="3">Üçlü Görünüm</option>
+    <option value="4" selected>Dörtlü Görünüm</option>
 </select>
 
 <div class="overlay" id="editOverlay">
-  <div class="sheet">
-    <input id="name" placeholder="Ad">
-    <input id="price" placeholder="Fiyat">
-    <input id="img" placeholder="Resim">
+    <div class="sheet">
+        <h3 id="modalTitle">Ürün Düzenle</h3>
+        <input id="name" placeholder="Ürün Adı">
+        <input id="price" placeholder="Fiyat (₺)">
+        <input id="img" placeholder="Görsel URL">
 
-    <button onclick="save()">Kaydet</button>
-    <p onclick="del()" style="color:red;cursor:pointer">Sil</p>
-  </div>
+        <button onclick="save()">Veriyi Kaydet</button>
+        <div class="delete-text" onclick="del()">Ürünü Sil</div>
+        <button style="background:#888; margin-top:10px;" onclick="document.getElementById('editOverlay').classList.remove('open')">İptal</button>
+    </div>
 </div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, push, set, onValue, remove, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-const app = initializeApp({
-apiKey:"AIzaSyD6TKF0EJbmJtl9jVNKS-Lz24weFjYKGeE",
-authDomain:"ramazan-mermer.firebaseapp.com",
-databaseURL:"https://ramazan-mermer-default-rtdb.europe-west1.firebasedatabase.app",
-projectId:"ramazan-mermer"
-});
-
-const db=getDatabase(app);
-
-let editId=null;
-let isAdmin=false;
-
-const list=document.getElementById("list");
-const modal=document.getElementById("editOverlay");
-
-const nameEl=document.getElementById("name");
-const priceEl=document.getElementById("price");
-const imgEl=document.getElementById("img");
-
-/* RENDER */
-onValue(ref(db,"models"),snap=>{
-list.innerHTML="";
-const data=snap.val();
-if(!data) return;
-
-Object.entries(data).forEach(([id,item])=>{
-const div=document.createElement("div");
-div.className="card";
-div.innerHTML=`
-<img src="${item.img}">
-<div class="card-info">
-<div>${item.name}</div>
-<div>${item.price}₺</div>
-</div>
-`;
-if(isAdmin) div.onclick=()=>edit(id,item);
-list.appendChild(div);
-});
-});
-
-/* ADMIN */
-window.openPass=async()=>{
-const pass=prompt("Şifre");
-const snap=await get(ref(db,"adminPass"));
-
-if(pass==snap.val()){
-isAdmin=true;
-addBtn.style.display="block";
-lockBtn.style.display="none";
-}
+const firebaseConfig = {
+    apiKey: "AIzaSyD6TKF0EJbmJtl9jVNKS-Lz24weFjYKGeE",
+    authDomain: "ramazan-mermer.firebaseapp.com",
+    databaseURL: "https://ramazan-mermer-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "ramazan-mermer"
 };
 
-window.openAdd=()=>{
-editId=null;
-nameEl.value="";
-priceEl.value="";
-imgEl.value="";
-modal.classList.add("open");
-};
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-window.edit=(id,item)=>{
-editId=id;
-nameEl.value=item.name;
-priceEl.value=item.price;
-imgEl.value=item.img;
-modal.classList.add("open");
-};
+let editId = null;
+let isAdmin = false;
 
-window.save=()=>{
-if(editId){
-set(ref(db,"models/"+editId),{
-name:nameEl.value,
-price:priceEl.value,
-img:imgEl.value
+const list = document.getElementById("list");
+const modal = document.getElementById("editOverlay");
+const nameEl = document.getElementById("name");
+const priceEl = document.getElementById("price");
+const imgEl = document.getElementById("img");
+
+/* VERİLERİ OKU */
+onValue(ref(db, "models"), (snap) => {
+    list.innerHTML = "";
+    const data = snap.val();
+    if (!data) return;
+
+    Object.entries(data).forEach(([id, item]) => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+            <img src="${item.img}" loading="lazy" onerror="this.src='https://via.placeholder.com/400?text=Gorsel+Yok'">
+            <div class="card-info">
+                <div class="title">${item.name}</div>
+                <div class="price">${item.price} ₺</div>
+            </div>
+        `;
+        if (isAdmin) div.onclick = () => edit(id, item);
+        list.appendChild(div);
+    });
 });
-}else{
-push(ref(db,"models"),{
-name:nameEl.value,
-price:priceEl.value,
-img:imgEl.value
-});
-}
-modal.classList.remove("open");
+
+/* ADMİN GİRİŞİ */
+window.openPass = async () => {
+    const pass = prompt("Yönetici Şifresi:");
+    const snap = await get(ref(db, "adminPass"));
+
+    if (pass === snap.val()) {
+        isAdmin = true;
+        document.getElementById("addBtn").style.display = "block";
+        document.getElementById("lockBtn").style.display = "none";
+        alert("Yönetici modu aktif. Düzenlemek için ürünlere tıklayın.");
+    } else {
+        alert("Hatalı şifre!");
+    }
 };
 
-window.del=()=>{
-remove(ref(db,"models/"+editId));
-modal.classList.remove("open");
+window.openAdd = () => {
+    editId = null;
+    document.getElementById("modalTitle").innerText = "Yeni Ürün Ekle";
+    nameEl.value = ""; priceEl.value = ""; imgEl.value = "";
+    modal.classList.add("open");
 };
 
-window.setColumns=()=>{
-const v=document.getElementById("colSelect").value;
-list.style.gridTemplateColumns=`repeat(${v},1fr)`;
+window.edit = (id, item) => {
+    editId = id;
+    document.getElementById("modalTitle").innerText = "Ürünü Güncelle";
+    nameEl.value = item.name;
+    priceEl.value = item.price;
+    imgEl.value = item.img;
+    modal.classList.add("open");
+};
+
+window.save = () => {
+    const obj = { name: nameEl.value, price: priceEl.value, img: imgEl.value };
+    if (editId) {
+        set(ref(db, "models/" + editId), obj);
+    } else {
+        push(ref(db, "models"), obj);
+    }
+    modal.classList.remove("open");
+};
+
+window.del = () => {
+    if(confirm("Silmek istediğinize emin misiniz?")) {
+        remove(ref(db, "models/" + editId));
+        modal.classList.remove("open");
+    }
+};
+
+window.setColumns = () => {
+    const val = document.getElementById("colSelect").value;
+    list.style.gridTemplateColumns = `repeat(${val}, 1fr)`;
 };
 </script>
 
