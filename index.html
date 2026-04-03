@@ -5,246 +5,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ramazan Mermer - Mezar Kataloğu</title>
 <style>
+/* Görsel Tasarım Ayarları */
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #f2f2f2; font-family: Arial, sans-serif; color: #222; }
+body { background: #f2f2f2; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #222; }
 
 header {
   background: #2c2c2c; color: #fff;
-  text-align: center; padding: 16px;
-  font-size: 1rem; font-weight: bold; letter-spacing: 1px;
+  text-align: center; padding: 20px;
+  font-size: 1.1rem; font-weight: bold; letter-spacing: 1px;
   position: sticky; top: 0; z-index: 10;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
 #adminBar {
   display: none; background: #fff3cd;
   border-bottom: 1px solid #ffc107;
-  padding: 8px; text-align: center;
-  font-size: 0.78rem; color: #856404;
+  padding: 10px; text-align: center;
+  font-size: 0.85rem; color: #856404; font-weight: bold;
 }
 
-.list { padding: 12px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 80px; }
+.list { padding: 15px; display: flex; flex-direction: column; gap: 15px; padding-bottom: 100px; }
 
-.card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+.card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border: 1px solid #eee; }
 
 .card img {
   width: 100%;
   aspect-ratio: 9/16;
   object-fit: cover;
   display: block;
-  background: #ddd;
+  background: #f0f0f0;
 }
 
 .card-info {
-  padding: 12px 14px;
+  padding: 15px;
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
 }
-.card-left { display: flex; flex-direction: column; gap: 3px; }
-.card-num { font-size: 0.7rem; color: #888; }
-.card-name { font-size: 0.95rem; font-weight: bold; }
+.card-left { display: flex; flex-direction: column; gap: 4px; }
+.card-num { font-size: 0.75rem; color: #999; text-transform: uppercase; }
+.card-name { font-size: 1.1rem; font-weight: bold; color: #333; }
 .card-price {
-  font-size: 1rem; font-weight: bold; color: #fff;
-  background: #2c2c2c; padding: 7px 14px;
-  border-radius: 6px; white-space: nowrap;
+  font-size: 1.1rem; font-weight: bold; color: #fff;
+  background: #2c2c2c; padding: 8px 15px;
+  border-radius: 8px; white-space: nowrap;
 }
 
-.edit-row { display: none; padding: 0 14px 12px; gap: 8px; }
+.edit-row { display: none; padding: 0 15px 15px; gap: 10px; }
 .edit-row.show { display: flex; }
 .ebtn {
-  flex: 1; padding: 9px; border: none; border-radius: 6px;
-  font-size: 0.82rem; font-weight: bold; cursor: pointer;
-  background: #e8e8e8; color: #333;
+  flex: 1; padding: 10px; border: none; border-radius: 8px;
+  font-size: 0.9rem; font-weight: bold; cursor: pointer;
+  background: #f0f0f0; color: #333; transition: 0.2s;
 }
+.ebtn:hover { background: #e0e0e0; }
 
+/* Butonlar */
 #lockBtn {
-  position: fixed; bottom: 18px; right: 16px; z-index: 99;
+  position: fixed; bottom: 20px; right: 20px; z-index: 99;
   background: #2c2c2c; color: #fff; border: none;
-  border-radius: 50px; padding: 12px 20px;
-  font-size: 0.82rem; cursor: pointer;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  border-radius: 50px; padding: 14px 24px;
+  font-size: 0.9rem; cursor: pointer; font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 #addBtn {
-  display: none; position: fixed; bottom: 18px; left: 16px; z-index: 99;
+  display: none; position: fixed; bottom: 20px; left: 20px; z-index: 99;
   background: #2a6e2a; color: #fff; border: none;
-  border-radius: 50px; padding: 12px 20px;
-  font-size: 0.82rem; cursor: pointer;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+  border-radius: 50px; padding: 14px 24px;
+  font-size: 0.9rem; cursor: pointer; font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 200; align-items: flex-end; justify-content: center; }
-.overlay.open { display: flex; }
-.sheet {
-  background: #fff; border-radius: 16px 16px 0 0;
-  padding: 1.4rem 1.4rem 2.8rem;
-  width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto;
-}
-.sheet h3 { font-size: 1rem; margin-bottom: 1rem; color: #2c2c2c; }
-.fg { margin-bottom: 0.85rem; }
-.fg label { display: block; font-size: 0.72rem; color: #888; margin-bottom: 4px; }
-.fg input {
-  width: 100%; border: 1px solid #ddd; border-radius: 7px;
-  padding: 9px 11px; font-size: 0.88rem; outline: none;
-}
-.sbtns { display: flex; gap: 9px; margin-top: 1rem; }
-.sbtn { flex: 1; padding: 11px; border-radius: 9px; border: none; font-size: 0.88rem; font-weight: bold; cursor: pointer; }
-.sbtn-save { background: #2c2c2c; color: #fff; }
-.sbtn-cancel { background: #eee; color: #555; }
-.del-link { display: block; text-align: center; margin-top: 14px; color: #c00; font-size: 0.8rem; cursor: pointer; }
-
-#passModal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 300; align-items: center; justify-content: center; }
-#passModal.open { display: flex; }
-.pbox { background: #fff; border-radius: 14px; padding: 1.6rem; width: 280px; text-align: center; }
-.pbox input {
-  width: 100%; text-align: center; border: 1px solid #ddd; border-radius: 8px;
-  padding: 10px; font-size: 1.2rem; letter-spacing: 6px; outline: none; margin-bottom: 6px;
-}
-</style>
-</head>
-<body>
-
-<div id="adminBar">✏️ Düzenleme modu açık — model ekleyebilir, düzenleyebilir, silebilirsiniz</div>
-<header>RAMAZAN MERMER KATALOG</header>
-<div class="list" id="list"></div>
-
-<button id="lockBtn" onclick="openPass()">🔒 Yönetici</button>
-<button id="addBtn" onclick="openAdd()">+ Yeni Model</button>
-
-<div class="overlay" id="editOverlay">
-  <div class="sheet">
-    <h3 id="sheetTitle">Model İşlemi</h3>
-    <div class="fg"><label>Model Adı</label><input type="text" id="f-name"></div>
-    <div class="fg"><label>Fiyat (₺)</label><input type="number" id="f-price"></div>
-    <div class="fg"><label>Fotoğraf Linki (URL)</label><input type="text" id="f-img"></div>
-    <div class="sbtns">
-      <button class="sbtn sbtn-cancel" onclick="closeEdit()">İptal</button>
-      <button class="sbtn sbtn-save" onclick="saveModel()">Kaydet</button>
-    </div>
-    <span class="del-link" id="delLink" onclick="deleteModel()">Bu modeli sil</span>
-  </div>
-</div>
-
-<div id="passModal">
-  <div class="pbox">
-    <h3>🔒 Yönetici Girişi</h3>
-    <input type="password" id="passIn" maxlength="20">
-    <div id="passErr" style="color:red; font-size:0.8rem; margin-bottom:10px;"></div>
-    <div class="pbtns" style="display:flex; gap:10px;">
-      <button onclick="closePass()" style="flex:1; padding:10px; border-radius:8px; border:none; cursor:pointer;">İptal</button>
-      <button onclick="checkPass()" style="flex:1; padding:10px; border-radius:8px; border:none; cursor:pointer; background:#2c2c2c; color:white;">Giriş</button>
-    </div>
-  </div>
-</div>
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyD6TKF0EJbmJtl9jVNKS-Lz24weFjYKGeE",
-    authDomain: "ramazan-mermer.firebaseapp.com",
-    databaseURL: "https://ramazan-mermer-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "ramazan-mermer",
-    storageBucket: "ramazan-mermer.firebasestorage.app",
-    messagingSenderId: "364821737549",
-    appId: "1:364821737549:web:1422a2eee2544d13f5ec04",
-    measurementId: "G-2MH2KM2XHQ"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-  const colRef = collection(db, "modeller");
-
-  let admin = false;
-  let editId = null;
-
-  // Verileri Çek ve Listele
-  onSnapshot(query(colRef), (snapshot) => {
-    let modeller = [];
-    snapshot.docs.forEach(doc => {
-      modeller.push({ ...doc.data(), id: doc.id });
-    });
-    render(modeller);
-  });
-
-  function fmt(n) { return Number(n).toLocaleString('tr-TR') + ' ₺'; }
-
-  function render(models) {
-    const list = document.getElementById('list');
-    list.innerHTML = models.map((m, i) => `
-      <div class="card">
-        <img src="${m.img || 'https://via.placeholder.com/400x700?text=Resim+Yok'}">
-        <div class="card-info">
-          <div class="card-left">
-            <span class="card-num">Model ${i + 1}</span>
-            <span class="card-name">${m.name}</span>
-          </div>
-          <span class="card-price">${fmt(m.price)}</span>
-        </div>
-        <div class="edit-row ${admin ? 'show' : ''}">
-          <button class="ebtn" onclick="window.openEdit('${m.id}', ${JSON.stringify(models).replace(/"/g, '&quot;')})">✏️ Düzenle</button>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  // Fonksiyonları Dışarı Aktar
-  window.saveModel = async function() {
-    const name = document.getElementById('f-name').value;
-    const price = parseInt(document.getElementById('f-price').value) || 0;
-    const img = document.getElementById('f-img').value;
-
-    if (editId) {
-      await updateDoc(doc(db, "modeller", editId), { name, price, img });
-    } else {
-      await addDoc(colRef, { name, price, img, createdAt: Date.now() });
-    }
-    closeEdit();
-  };
-
-  window.deleteModel = async function() {
-    if(confirm("Silmek istiyor musunuz?")) {
-      await deleteDoc(doc(db, "modeller", editId));
-      closeEdit();
-    }
-  };
-
-  window.openEdit = function(id, models) {
-    editId = id;
-    const m = models.find(x => x.id === id);
-    document.getElementById('f-name').value = m.name;
-    document.getElementById('f-price').value = m.price;
-    document.getElementById('f-img').value = m.img;
-    document.getElementById('editOverlay').classList.add('open');
-    document.getElementById('delLink').style.display = 'block';
-  };
-
-  window.openAdd = function() {
-    editId = null;
-    document.getElementById('f-name').value = '';
-    document.getElementById('f-price').value = '';
-    document.getElementById('f-img').value = '';
-    document.getElementById('editOverlay').classList.add('open');
-    document.getElementById('delLink').style.display = 'none';
-  };
-
-  window.closeEdit = () => document.getElementById('editOverlay').classList.remove('open');
-  window.openPass = () => { if(admin){ admin=false; applyAdmin(); } else { document.getElementById('passModal').classList.add('open'); } };
-  window.closePass = () => document.getElementById('passModal').classList.remove('open');
-  window.checkPass = () => {
-    if(document.getElementById('passIn').value === '1234') {
-      admin = true; closePass(); applyAdmin();
-    } else {
-      document.getElementById('passErr').textContent = 'Hatalı Şifre!';
-    }
-  };
-
-  function applyAdmin() {
-    document.getElementById('adminBar').style.display = admin ? 'block' : 'none';
-    document.getElementById('lockBtn').textContent = admin ? '🔓 Çıkış' : '🔒 Yönetici';
-    document.getElementById('addBtn').style.display = admin ? 'block' : 'none';
-    const currentHTML = document.getElementById('list').innerHTML;
-    if(admin) document.querySelectorAll('.edit-row').forEach(r => r.classList.add('show'));
-    else document.querySelectorAll('.edit-row').forEach(r => r.classList.remove('show'));
-  }
-</script>
-</body>
-</html>
+/* Modal ve Formlar */
+.overlay { display: none; position
