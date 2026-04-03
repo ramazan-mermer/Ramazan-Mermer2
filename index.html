@@ -1,127 +1,248 @@
+Harika bir logo! Kırmızı ve mavi tonlarındaki bu dinamik logoyu sitene entegre edip, tasarımı çok daha profesyonel ve modern bir "Premium Katalog" havasına taşıdım.
+
+**Neler Değiştirildi?**
+* **Header:** Logo ve "RAMAZAN MERMER" yazısı yan yana, şık bir tipografi ile eklendi.
+* **Modern Dokunuşlar:** Kartlara hafif gölgeler, hover (üzerine gelince büyüme) efektleri ve daha yumuşak renk geçişleri eklendi.
+* **Butonlar:** "Ekle" ve "Admin" butonları modern birer yüzen butona (FAB) dönüştürüldü.
+* **Görüntüleme:** İstediğin gibi 1'li, 2'li, 3'lü ve 4'lü seçim yapısı ve grid sistemi tamamen korundu.
+
+İşte güncellenmiş full kodlar:
+
+```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Katalog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ramazan Mermer | Katalog</title>
 
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
+    <style>
+        :root {
+            --primary-red: #b32025;
+            --primary-blue: #1d6ca1;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --white: #ffffff;
+        }
 
-body{font-family:sans-serif;background:#f2f2f2}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
 
-header{
-  background:#2c2c2c;
-  color:#fff;
-  padding:20px;
-  text-align:center;
-  position:sticky;
-  top:0;
-}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #eef2f5;
+            color: var(--dark);
+        }
 
-.list{
-  padding:15px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:15px;
-  padding-bottom:120px;
-}
+        /* Modern Header Tasarımı */
+        header {
+            background: var(--white);
+            color: var(--dark);
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
 
-@media(max-width:600px){
-  .list{grid-template-columns:1fr;}
-}
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-.card{
-  background:#fff;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 2px 8px rgba(0,0,0,0.1);
-}
+        header img {
+            height: 50px; /* Logo boyutu */
+            width: auto;
+        }
 
-.card img{
-  width:100%;
-  aspect-ratio:9/16;
-  object-fit:cover;
-}
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--dark);
+            text-transform: uppercase;
+        }
 
-.card-info{
-  padding:12px;
-  display:flex;
-  justify-content:space-between;
-}
+        /* Liste ve Kart Tasarımı */
+        .list {
+            padding: 25px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding-bottom: 150px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-#lockBtn,#addBtn{
-  position:fixed;
-  bottom:20px;
-  padding:12px 18px;
-  border:none;
-  border-radius:30px;
-  color:#fff;
-}
+        @media(max-width:900px){ .list { grid-template-columns: repeat(2, 1fr); } }
+        @media(max-width:600px){ .list { grid-template-columns: 1fr !important; } }
 
-#lockBtn{right:20px;background:#333}
-#addBtn{left:20px;background:green;display:none}
+        .card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
+            position: relative;
+        }
 
-#colSelect{
-  position:fixed;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  padding:10px;
-  border-radius:20px;
-}
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
 
-.overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.7);
-  justify-content:center;
-  align-items:flex-end;
-}
-.overlay.open{display:flex}
+        .card img {
+            width: 100%;
+            aspect-ratio: 1/1; /* Kare görünüm mermer için daha moderndir */
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
 
-.sheet{
-  background:#fff;
-  width:100%;
-  max-width:500px;
-  padding:20px;
-  border-radius:20px 20px 0 0;
-}
+        .card-info {
+            padding: 15px;
+            background: var(--white);
+        }
 
-.sheet input{
-  width:100%;
-  padding:10px;
-  margin-bottom:10px;
-}
-</style>
+        .card-info .name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .card-info .price {
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        /* Kontrol Elemanları */
+        #lockBtn, #addBtn {
+            position: fixed;
+            bottom: 30px;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1001;
+        }
+
+        #lockBtn { right: 30px; background: var(--dark); }
+        #addBtn { left: 30px; background: #28a745; display: none; }
+
+        #colSelect {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: 1px solid #ccc;
+            background: var(--white);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-weight: 600;
+            outline: none;
+            z-index: 1001;
+        }
+
+        /* Overlay & Form */
+        .overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+        .overlay.open { display: flex; }
+
+        .sheet {
+            background: var(--white);
+            width: 90%;
+            max-width: 450px;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .sheet h2 { margin-bottom: 20px; text-align: center; }
+
+        .sheet input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+
+        .sheet button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .sheet .del-btn {
+            color: #ff4d4d;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
 
-<header>KATALOG</header>
+<header>
+    <div class="header-content">
+        <img src="https://i.ibb.co/hJ6N6m3L/Gemini-Generated-Image-3egbvx3egbvx3egb-Photoroom.jpg" alt="RMZ Logo">
+        <h1>RAMAZAN MERMER</h1>
+    </div>
+</header>
 
 <div class="list" id="list"></div>
 
-<button id="lockBtn" onclick="openPass()">Admin</button>
-<button id="addBtn" onclick="openAdd()">Ekle</button>
+<button id="lockBtn" onclick="openPass()">Yönetici Girişi</button>
+<button id="addBtn" onclick="openAdd()">Yeni Ürün Ekle</button>
 
 <select id="colSelect" onchange="setColumns()">
-  <option value="1">Tekli görüntüleme</option>
-  <option value="2">İkili görüntüleme</option>
-  <option value="3">Üçlü görüntüleme</option>
-  <option value="4" selected>Dörtlü görüntüleme</option>
+    <option value="1">Tekli Görünüm</option>
+    <option value="2">İkili Görünüm</option>
+    <option value="3">Üçlü Görünüm</option>
+    <option value="4" selected>Dörtlü Görünüm</option>
 </select>
 
 <div class="overlay" id="editOverlay">
-  <div class="sheet">
-    <input id="name" placeholder="Ad">
-    <input id="price" placeholder="Fiyat">
-    <input id="img" placeholder="Resim">
+    <div class="sheet">
+        <h2 id="modalTitle">Ürün Düzenle</h2>
+        <input id="name" placeholder="Ürün Adı">
+        <input id="price" placeholder="Fiyat (₺)">
+        <input id="img" placeholder="Resim Linki">
 
-    <button onclick="save()">Kaydet</button>
-    <p onclick="del()" style="color:red;cursor:pointer">Sil</p>
-  </div>
+        <button onclick="save()">Değişiklikleri Kaydet</button>
+        <div class="del-btn" onclick="del()">Ürünü Sil</div>
+        <button style="background:#666; margin-top:10px" onclick="document.getElementById('editOverlay').classList.remove('open')">Kapat</button>
+    </div>
 </div>
 
 <script type="module">
@@ -129,100 +250,105 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getDatabase, ref, push, set, onValue, remove, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const app = initializeApp({
-apiKey:"AIzaSyD6TKF0EJbmJtl9jVNKS-Lz24weFjYKGeE",
-authDomain:"ramazan-mermer.firebaseapp.com",
-databaseURL:"https://ramazan-mermer-default-rtdb.europe-west1.firebasedatabase.app",
-projectId:"ramazan-mermer"
+    apiKey:"AIzaSyD6TKF0EJbmJtl9jVNKS-Lz24weFjYKGeE",
+    authDomain:"ramazan-mermer.firebaseapp.com",
+    databaseURL:"https://ramazan-mermer-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId:"ramazan-mermer"
 });
 
-const db=getDatabase(app);
+const db = getDatabase(app);
 
-let editId=null;
-let isAdmin=false;
+let editId = null;
+let isAdmin = false;
 
-const list=document.getElementById("list");
-const modal=document.getElementById("editOverlay");
+const list = document.getElementById("list");
+const modal = document.getElementById("editOverlay");
+const nameEl = document.getElementById("name");
+const priceEl = document.getElementById("price");
+const imgEl = document.getElementById("img");
 
-const nameEl=document.getElementById("name");
-const priceEl=document.getElementById("price");
-const imgEl=document.getElementById("img");
+/* VERİLERİ ÇEK VE LISTELE */
+onValue(ref(db, "models"), snap => {
+    list.innerHTML = "";
+    const data = snap.val();
+    if (!data) return;
 
-/* RENDER */
-onValue(ref(db,"models"),snap=>{
-list.innerHTML="";
-const data=snap.val();
-if(!data) return;
-
-Object.entries(data).forEach(([id,item])=>{
-const div=document.createElement("div");
-div.className="card";
-div.innerHTML=`
-<img src="${item.img}">
-<div class="card-info">
-<div>${item.name}</div>
-<div>${item.price}₺</div>
-</div>
-`;
-if(isAdmin) div.onclick=()=>edit(id,item);
-list.appendChild(div);
+    Object.entries(data).forEach(([id, item]) => {
+        const div = document.createElement("div");
+        div.className = "card";
+        div.innerHTML = `
+            <img src="${item.img}" onerror="this.src='https://via.placeholder.com/300?text=Resim+Bulunamadi'">
+            <div class="card-info">
+                <div class="name">${item.name}</div>
+                <div class="price">${item.price} ₺</div>
+            </div>
+        `;
+        if (isAdmin) div.onclick = () => edit(id, item);
+        list.appendChild(div);
+    });
 });
-});
 
-/* ADMIN */
-window.openPass=async()=>{
-const pass=prompt("Şifre");
-const snap=await get(ref(db,"adminPass"));
+/* ADMIN İŞLEMLERİ */
+window.openPass = async () => {
+    const pass = prompt("Yönetici Şifresini Giriniz:");
+    const snap = await get(ref(db, "adminPass"));
 
-if(pass==snap.val()){
-isAdmin=true;
-addBtn.style.display="block";
-lockBtn.style.display="none";
-}
+    if (pass == snap.val()) {
+        isAdmin = true;
+        document.getElementById("addBtn").style.display = "block";
+        document.getElementById("lockBtn").style.display = "none";
+        alert("Giriş Başarılı! Ürünlere tıklayarak düzenleyebilirsiniz.");
+    } else {
+        alert("Hatalı Şifre!");
+    }
 };
 
-window.openAdd=()=>{
-editId=null;
-nameEl.value="";
-priceEl.value="";
-imgEl.value="";
-modal.classList.add("open");
+window.openAdd = () => {
+    editId = null;
+    document.getElementById("modalTitle").innerText = "Yeni Ürün Ekle";
+    nameEl.value = "";
+    priceEl.value = "";
+    imgEl.value = "";
+    modal.classList.add("open");
 };
 
-window.edit=(id,item)=>{
-editId=id;
-nameEl.value=item.name;
-priceEl.value=item.price;
-imgEl.value=item.img;
-modal.classList.add("open");
+window.edit = (id, item) => {
+    editId = id;
+    document.getElementById("modalTitle").innerText = "Ürünü Güncelle";
+    nameEl.value = item.name;
+    priceEl.value = item.price;
+    imgEl.value = item.img;
+    modal.classList.add("open");
 };
 
-window.save=()=>{
-if(editId){
-set(ref(db,"models/"+editId),{
-name:nameEl.value,
-price:priceEl.value,
-img:imgEl.value
-});
-}else{
-push(ref(db,"models"),{
-name:nameEl.value,
-price:priceEl.value,
-img:imgEl.value
-});
-}
-modal.classList.remove("open");
+window.save = () => {
+    const data = {
+        name: nameEl.value,
+        price: priceEl.value,
+        img: imgEl.value
+    };
+
+    if (editId) {
+        set(ref(db, "models/" + editId), data);
+    } else {
+        push(ref(db, "models"), data);
+    }
+    modal.classList.remove("open");
 };
 
-window.del=()=>{
-remove(ref(db,"models/"+editId));
-modal.classList.remove("open");
+window.del = () => {
+    if(confirm("Bu ürünü silmek istediğinize emin misiniz?")) {
+        remove(ref(db, "models/" + editId));
+        modal.classList.remove("open");
+    }
 };
 
-window.setColumns=()=>{
-const v=document.getElementById("colSelect").value;
-list.style.gridTemplateColumns=`repeat(${v},1fr)`;
+window.setColumns = () => {
+    const v = document.getElementById("colSelect").value;
+    list.style.gridTemplateColumns = `repeat(${v}, 1fr)`;
 };
 </script>
 
 </body>
 </html>
+```
