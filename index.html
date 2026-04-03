@@ -176,22 +176,22 @@ let admin = false, editId = null;
 
 const seed = [
   {name:"Klasik Mermer Mezar", mat:"Mermer", price:20000, img:"https://i.hizliresim.com/dfsefxr.jpg"},
-  {name:"Granit Anıt Mezar",   mat:"Granit", price:24000, img:""},
-  {name:"Osmanlı Servi Modeli",mat:"Mermer", price:22000, img:""},
-  {name:"Modern Plaka Mezar",  mat:"Granit", price:15000, img:""},
-  {name:"Kırma Taş Mezar",     mat:"Bazalt", price:12000, img:""},
-  {name:"Çift Kitabeli Anıt",  mat:"Mermer", price:28000, img:""},
-  {name:"Granit Aile Mezarı",  mat:"Granit", price:45000, img:""},
-  {name:"Sütunlu Anıt",        mat:"Mermer", price:35000, img:""},
-  {name:"Kare Granit Mezar",   mat:"Granit", price:19000, img:""},
-  {name:"Lazerli Portre Mezar",mat:"Granit", price:26000, img:""},
-  {name:"Çocuk Mezar Modeli",  mat:"Mermer", price:9000,  img:""},
-  {name:"Mermer Sanduka",      mat:"Mermer", price:32000, img:""},
+  {name:"Granit Anıt Mezar",   mat:"Granit", price:24000, img:"https://erentpskl.github.io/Ramazan-Mermer2/"},
+  {name:"Osmanlı Servi Modeli",mat:"Mermer", price:22000, img:"https://erentpskl.github.io/Ramazan-Mermer2/"},
+  {name:"Modern Plaka Mezar",  mat:"Granit", price:15000, img:"https://erentpskl.github.io/Ramazan-Mermer2/"},
+  {name:"Kırma Taş Mezar",     mat:"Bazalt", price:12000, img:"https://erentpskl.github.io/Ramazan-Mermer2/"},
+  {name:"Çift Kitabeli Anıt",  mat:"Mermer", price:28000, img:"https://erentpskl.github.io/Ramazan-Mermer2/"},
+  {name:"Granit Aile Mezarı",  mat:"Granit", price:45000, img:"https://erentpskl.github.io/Ramazan-Mermer2/"},
+  {name:"Sütunlu Anıt",        mat:"Mermer", price:35000, img:"https://erentpskl.github.io/Ramazan-Mermer2/"},
+  {name:"Kare Granit Mezar",   mat:"Granit", price:19000, img:"https://erentpskl.github.io/Ramazan-Mermer2/"},
+  {name:"Lazerli Portre Mezar",mat:"Granit", price:26000, img:"https://erentpskl.github.io/Ramazan-Mermer2/"},
+  {name:"Çocuk Mezar Modeli",  mat:"Mermer", price:9000,  img:"https://erentpskl.github.io/Ramazan-Mermer2/"},
+  {name:"Mermer Sanduka",      mat:"Mermer", price:32000, img:"https://erentpskl.github.io/Ramazan-Mermer2/"},
 ];
 
 function get(){ try{ const d=localStorage.getItem(DK); if(d) return JSON.parse(d); }catch(e){} const m=seed.map((x,i)=>({...x,id:Date.now()+i})); set(m); return m; }
 function set(a){ localStorage.setItem(DK,JSON.stringify(a)); }
-function getPass(){ return localStorage.getItem(PK)||'1234'; }
+function getPass(){ return localStorage.getItem(PK)||''; }
 function fmt(n){ return Number(n).toLocaleString('tr-TR')+' ₺'; }
 
 function render(){
