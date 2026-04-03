@@ -22,46 +22,38 @@ header {
   font-size: 0.78rem; color: #856404;
 }
 
-.list { 
-  padding: 12px; 
-  display: grid; 
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Yan yana sığması için grid yapıldı */
-  gap: 12px; 
-  padding-bottom: 80px; 
-}
+.list { padding: 12px; display: flex; flex-direction: column; gap: 12px; padding-bottom: 80px; }
 
-.card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+.card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
 
-/* 9:16 Oranı Ayarı */
+/* 🔥 BURASI DEĞİŞTİ (9:16) */
 .card img {
-  width: 100%; 
-  aspect-ratio: 9 / 16; /* Dikey oran */
-  object-fit: cover; 
+  width: 100%;
+  aspect-ratio: 9/16;
+  object-fit: cover;
   display: block;
-  background: #eee;
+  background: #ddd;
 }
 
 .card-info {
-  padding: 10px;
-  display: flex; 
-  flex-direction: column; 
-  gap: 6px;
+  padding: 12px 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
 }
-.card-left { display: flex; flex-direction: column; gap: 2px; }
-.card-num { font-size: 0.65rem; color: #888; }
-.card-name { font-size: 0.85rem; font-weight: bold; line-height: 1.2; min-height: 2.4em; }
+.card-left { display: flex; flex-direction: column; gap: 3px; }
+.card-num { font-size: 0.7rem; color: #888; }
+.card-name { font-size: 0.95rem; font-weight: bold; }
 .card-price {
-  font-size: 0.9rem; font-weight: bold; color: #fff;
-  background: #2c2c2c; padding: 6px;
-  border-radius: 6px; text-align: center;
+  font-size: 1rem; font-weight: bold; color: #fff;
+  background: #2c2c2c; padding: 7px 14px;
+  border-radius: 6px; white-space: nowrap;
 }
 
 /* Admin düzenle butonu */
-.edit-row { display: none; padding: 0 10px 10px; }
-.edit-row.show { display: block; }
+.edit-row { display: none; padding: 0 14px 12px; gap: 8px; }
+.edit-row.show { display: flex; }
 .ebtn {
-  width: 100%; padding: 8px; border: none; border-radius: 6px;
-  font-size: 0.75rem; font-weight: bold; cursor: pointer;
+  flex: 1; padding: 9px; border: none; border-radius: 6px;
+  font-size: 0.82rem; font-weight: bold; cursor: pointer;
   background: #e8e8e8; color: #333;
 }
 
@@ -123,18 +115,19 @@ header {
 <body>
 
 <div id="adminBar">✏️ Düzenleme modu açık — model ekleyebilir, düzenleyebilir, silebilirsiniz</div>
-<header>MEZAR KATALOĞU</header>
+<header>MEZAR KATALOGİ</header>
 <div class="list" id="list"></div>
 
 <button id="lockBtn" onclick="openPass()">🔒 Yönetici</button>
 <button id="addBtn" onclick="openAdd()">+ Yeni Model</button>
 
+<!-- Düzenle / Ekle -->
 <div class="overlay" id="editOverlay">
   <div class="sheet">
     <h3 id="sheetTitle">Model Düzenle</h3>
-    <div class="fg"><label>Model Adı</label><input type="text" id="f-name" placeholder="ör. Klasik Mermer Mezar"></div>
-    <div class="fg"><label>Fiyat (₺)</label><input type="number" id="f-price" min="0" placeholder="ör. 20000"></div>
-    <div class="fg"><label>Fotoğraf Linki <small style="color:#aaa">(i.ibb.co/... formatında)</small></label><input type="text" id="f-img" placeholder="https://i.ibb.co/..."></div>
+    <div class="fg"><label>Model Adı</label><input type="text" id="f-name"></div>
+    <div class="fg"><label>Fiyat (₺)</label><input type="number" id="f-price"></div>
+    <div class="fg"><label>Fotoğraf Linki</label><input type="text" id="f-img"></div>
     <div class="sbtns">
       <button class="sbtn sbtn-cancel" onclick="closeEdit()">İptal</button>
       <button class="sbtn sbtn-save" onclick="saveModel()">Kaydet</button>
@@ -143,24 +136,24 @@ header {
   </div>
 </div>
 
+<!-- Şifre -->
 <div id="passModal">
   <div class="pbox">
     <h3>🔒 Yönetici Girişi</h3>
-    <input type="password" id="passIn" placeholder="••••" maxlength="20" onkeydown="if(event.key==='Enter')checkPass()">
+    <input type="password" id="passIn" maxlength="20" onkeydown="if(event.key==='Enter')checkPass()">
     <div class="perr" id="passErr"></div>
     <div class="pbtns">
       <button class="pbtn-cancel" onclick="closePass()">İptal</button>
       <button class="pbtn-ok" onclick="checkPass()">Giriş</button>
     </div>
-    <p style="font-size:0.66rem;color:#bbb;margin-top:12px">Varsayılan Şifre: 1234</p>
   </div>
 </div>
 
 <script>
 const INITIAL = [
-  { id: 1, name: "Antik Granit Model", price: 25000, img: "https://i.ibb.co/Y7pqTf8f/RMZ.jpg" },
-  { id: 2, name: "Beyaz Mermer İşleme", price: 18500, img: "https://i.ibb.co/F45Nj8h4/RMZ2.jpg" },
-  { id: 3, name: "Modern Kabristan", price: 32000, img: "https://i.ibb.co/27ySwb6L/RMZ3.jpg" },
+  { id: 1, name: "Model 1", price: 20000, img: "https://i.ibb.co/Y7pqTf8f/RMZ.jpg" },
+  { id: 2, name: "Model 2", price: 20000, img: "https://i.ibb.co/F45Nj8h4/RMZ2.jpg" },
+  { id: 3, name: "Model 3", price: 20000, img: "https://i.ibb.co/27ySwb6L/RMZ3.jpg" },
 ];
 
 const DK = 'mz_v4';
@@ -168,12 +161,10 @@ let admin = false;
 let editId = null;
 
 function get() {
-  try {
-    const d = localStorage.getItem(DK);
-    if (d) return JSON.parse(d);
-  } catch(e) {}
-  sv(INITIAL);
-  return JSON.parse(JSON.stringify(INITIAL));
+  const d = localStorage.getItem(DK);
+  if (d) return JSON.parse(d);
+  localStorage.setItem(DK, JSON.stringify(INITIAL));
+  return INITIAL;
 }
 function sv(a) { localStorage.setItem(DK, JSON.stringify(a)); }
 function fmt(n) { return Number(n).toLocaleString('tr-TR') + ' ₺'; }
@@ -182,10 +173,10 @@ function render() {
   const models = get();
   document.getElementById('list').innerHTML = models.map((m, i) => `
     <div class="card">
-      <img src="${m.img}" alt="${m.name}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2290%22 height=%22160%22><rect fill=%22%23e0dcd7%22 width=%22100%25%22 height=%22100%25%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2224%22>🖼️</text></svg>'">
+      <img src="${m.img}">
       <div class="card-info">
         <div class="card-left">
-          <span class="card-num">Model NO: ${i + 1}</span>
+          <span class="card-num">Model ${i + 1}</span>
           <span class="card-name">${m.name}</span>
         </div>
         <span class="card-price">${fmt(m.price)}</span>
@@ -200,39 +191,32 @@ function render() {
 function openEdit(id) {
   editId = id;
   const m = get().find(x => x.id === id);
-  if (!m) return;
-  document.getElementById('sheetTitle').textContent = 'Model Düzenle';
   document.getElementById('f-name').value = m.name;
   document.getElementById('f-price').value = m.price;
   document.getElementById('f-img').value = m.img;
-  document.getElementById('delLink').style.display = 'block';
   document.getElementById('editOverlay').classList.add('open');
 }
 
 function openAdd() {
   editId = null;
-  document.getElementById('sheetTitle').textContent = 'Yeni Model Ekle';
   document.getElementById('f-name').value = '';
   document.getElementById('f-price').value = '';
   document.getElementById('f-img').value = '';
-  document.getElementById('delLink').style.display = 'none';
   document.getElementById('editOverlay').classList.add('open');
 }
 
 function closeEdit() { document.getElementById('editOverlay').classList.remove('open'); }
 
 function saveModel() {
-  const name = document.getElementById('f-name').value.trim();
-  if (!name) { alert('Model adı zorunludur.'); return; }
-  const entry = {
-    name,
-    price: parseInt(document.getElementById('f-price').value) || 0,
-    img: document.getElementById('f-img').value.trim(),
-  };
   const ms = get();
+  const entry = {
+    name: document.getElementById('f-name').value,
+    price: parseInt(document.getElementById('f-price').value) || 0,
+    img: document.getElementById('f-img').value,
+  };
   if (editId) {
-    const idx = ms.findIndex(m => m.id === editId);
-    if (idx > -1) ms[idx] = { ...ms[idx], ...entry };
+    const i = ms.findIndex(m => m.id === editId);
+    ms[i] = { ...ms[i], ...entry };
   } else {
     entry.id = Date.now();
     ms.push(entry);
@@ -241,17 +225,13 @@ function saveModel() {
 }
 
 function deleteModel() {
-  if (!confirm('Bu modeli silmek istediğinizden emin misiniz?')) return;
   sv(get().filter(m => m.id !== editId));
   closeEdit(); render();
 }
 
 function openPass() {
   if (admin) { admin = false; applyAdmin(); return; }
-  document.getElementById('passIn').value = '';
-  document.getElementById('passErr').textContent = '';
   document.getElementById('passModal').classList.add('open');
-  setTimeout(() => document.getElementById('passIn').focus(), 100);
 }
 function closePass() { document.getElementById('passModal').classList.remove('open'); }
 function checkPass() {
@@ -267,9 +247,6 @@ function applyAdmin() {
   document.getElementById('addBtn').style.display = admin ? 'block' : 'none';
   render();
 }
-
-document.getElementById('editOverlay').addEventListener('click', function(e) { if (e.target === this) closeEdit(); });
-document.getElementById('passModal').addEventListener('click', function(e) { if (e.target === this) closePass(); });
 
 render();
 </script>
