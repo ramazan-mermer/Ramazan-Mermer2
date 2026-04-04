@@ -149,6 +149,30 @@ header{
   margin:5px 0;
   padding:8px;
 }
+
+.admin-box .btn-group{
+  display:flex;
+  gap:10px;
+  margin-top:5px;
+}
+
+.admin-box button{
+  flex:1;
+  padding:8px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.admin-box button#loginBtn{
+  background:#25D366;
+  color:#fff;
+}
+
+.admin-box button#cancelBtn{
+  background:#ccc;
+  color:#000;
+}
 </style>
 </head>
 
@@ -188,8 +212,10 @@ header{
   <div class="admin-box">
     <h3>Admin Giriş</h3>
     <input type="password" id="pass" placeholder="Şifre">
-    <button onclick="login()">Giriş</button>
-
+    <div class="btn-group">
+      <button id="loginBtn" onclick="login()">Giriş</button>
+      <button id="cancelBtn" onclick="closeAdmin()">İptal</button>
+    </div>
     <div id="adminArea" style="display:none;">
       <h4>Ürün Ekle</h4>
       <input id="name" placeholder="Model adı">
@@ -314,6 +340,13 @@ document.getElementById("adminArea").style.display="block";
 }else{
 alert("Hatalı şifre");
 }
+};
+
+/* İPTAL BUTONU */
+window.closeAdmin=()=>{
+document.getElementById("adminPanel").style.display="none";
+document.getElementById("adminArea").style.display="none";
+document.getElementById("pass").value="";
 };
 
 window.addProduct=()=>{
