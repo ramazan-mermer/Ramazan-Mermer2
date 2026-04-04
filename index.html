@@ -695,7 +695,7 @@ function render(){
           <div>${item.name}</div>
           <div>${item.price}₺</div>
         </div>
-        <button class="wp-item" onclick="sendWhatsApp(event,'${item.name}','${link}')">
+        <button class="wp-item" onclick="sendWhatsApp(event,'${item.name}','${item.img}')">
           WhatsApp'tan sor
         </button>
       </div>
@@ -852,11 +852,16 @@ window.closeViewer = () => {
   document.getElementById("viewer").style.display = "none";
 };
 
-window.sendWhatsApp = (e, name, link) => {
+window.sendWhatsApp = (e, name, img) => {
   e.stopPropagation();
   if(isAdmin) return;
-  const msg = `Merhaba, ${name} modeli hakkında bilgi almak istiyorum.\nÜrün linki: ${link}`;
-  window.open("https://wa.me/905423189711?text=" + encodeURIComponent(msg), "_blank");
+
+  const msg = `Merhaba, ${name} modeli hakkında bilgi almak istiyorum.\n\n📷 Ürün görseli:\n${img}`;
+
+  window.open(
+    "https://wa.me/905423189711?text=" + encodeURIComponent(msg),
+    "_blank"
+  );
 };
 
 window.callPhone = () => {
