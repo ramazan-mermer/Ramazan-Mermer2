@@ -891,7 +891,7 @@ window.secretClick = () => {
 window.login = () => {
   const pass = document.getElementById("pass").value;
 
-  get(ref(db, "adminPassword")).then(snapshot => {
+  get(ref(db, "adminPass")).then(snapshot => {
     const adminPassword = snapshot.val();
 
     if(pass === adminPassword){
