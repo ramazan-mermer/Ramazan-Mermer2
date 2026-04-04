@@ -792,7 +792,18 @@ window.openCatModal = () => {
 };
 
 window.openOrderModal = () => {
-  orderTemp = [...modelsData].sort((a,b) => (a.order??9999)-(b.order??9999));
+  // Aktif kategoriye göre filtrele, sonra order değerine göre sırala
+  const source = activeCat === "Tümü"
+    ? [...modelsData]
+    : modelsData.filter(i => i.category === activeCat);
+  orderTemp = source.sort((a,b) => (a.order??9999)-(b.order??9999));
+
+  // Modal başlığını güncelle
+  const modalTitle = document.querySelector("#orderModal .modal-box h3");
+  modalTitle.textContent = activeCat === "Tümü"
+    ? "↕️ Ürün Sıralaması — Tümü"
+    : `↕️ Ürün Sıralaması — ${activeCat}`;
+
   renderOrderList();
   document.getElementById("orderModal").style.display = "flex";
 };
