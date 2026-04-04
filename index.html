@@ -56,6 +56,34 @@ header{
   border-radius:8px;
 }
 
+/* KATEGORİ FİLTRE */
+.cat-bar{
+  padding:0 15px 12px;
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+
+.cat-bar::-webkit-scrollbar{display:none;}
+
+.cat-btn{
+  white-space:nowrap;
+  padding:7px 14px;
+  border-radius:20px;
+  border:2px solid #2c2c2c;
+  background:#fff;
+  font-size:13px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:all 0.15s;
+}
+
+.cat-btn.active{
+  background:#2c2c2c;
+  color:#fff;
+}
+
 .list{
   padding:15px;
   display:grid;
@@ -71,9 +99,7 @@ header{
   position:relative;
 }
 
-.card.admin-mode{
-  cursor:pointer;
-}
+.card.admin-mode{cursor:pointer;}
 
 .card.admin-mode::after{
   content:"✏️ Düzenle";
@@ -101,6 +127,13 @@ header{
   display:flex;
   justify-content:space-between;
   margin-bottom:8px;
+  font-size:13px;
+}
+
+.card-cat{
+  font-size:11px;
+  color:#888;
+  margin-bottom:6px;
 }
 
 .wp-item{
@@ -111,9 +144,9 @@ header{
   padding:8px;
   border-radius:8px;
   cursor:pointer;
+  font-size:13px;
 }
 
-/* ETİKETLER */
 .badge-wrap{
   position:absolute;
   top:8px;
@@ -132,17 +165,9 @@ header{
   white-space:nowrap;
 }
 
-.badge-bestseller{
-  background:#e65c00;
-  color:#fff;
-}
+.badge-bestseller{background:#e65c00;color:#fff;}
+.badge-campaign{background:#c0392b;color:#fff;}
 
-.badge-campaign{
-  background:#c0392b;
-  color:#fff;
-}
-
-/* Admin modundaki etiket seçici */
 .label-toggle{
   display:flex;
   gap:8px;
@@ -155,7 +180,7 @@ header{
   border:2px solid #ddd;
   border-radius:8px;
   background:#fff;
-  font-size:12px;
+  font-size:11px;
   font-weight:bold;
   cursor:pointer;
   text-align:center;
@@ -189,6 +214,7 @@ header{
   justify-content:center;
   box-shadow:0 0 0 rgba(255,59,59,0.6);
   animation:pulse 1.8s infinite;
+  z-index:50;
 }
 
 #callBtn img{width:28px}
@@ -209,10 +235,7 @@ header{
   z-index:100;
 }
 
-#viewer img{
-  max-width:95%;
-  max-height:95%;
-}
+#viewer img{max-width:95%;max-height:95%;}
 
 .modal{
   display:none;
@@ -239,7 +262,8 @@ header{
   color:#2c2c2c;
 }
 
-.modal-box input{
+.modal-box input,
+.modal-box select{
   width:100%;
   margin:5px 0;
   padding:9px;
@@ -268,12 +292,83 @@ header{
 .btn-orange{background:#e65c00;color:#fff;}
 .btn-red{background:#ff3b3b;color:#fff;}
 .btn-gray{background:#ccc;color:#000;}
+.btn-dark{background:#2c2c2c;color:#fff;}
 
 .modal-label{
   font-size:13px;
   color:#555;
   margin:10px 0 4px;
   font-weight:bold;
+}
+
+/* KATEGORİ YÖNETİM LİSTESİ */
+.cat-list-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 10px;
+  background:#f9f9f9;
+  border-radius:8px;
+  margin-bottom:6px;
+  font-size:14px;
+}
+
+.cat-list-item button{
+  flex:none;
+  padding:4px 10px;
+  font-size:12px;
+  background:#ff3b3b;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* SIRALAMA */
+.order-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  max-height:300px;
+  overflow-y:auto;
+}
+
+.order-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:#f9f9f9;
+  border-radius:8px;
+  padding:8px 10px;
+  font-size:13px;
+}
+
+.order-item img{
+  width:36px;
+  height:36px;
+  object-fit:cover;
+  border-radius:6px;
+}
+
+.order-item span{flex:1;}
+
+.order-arrows{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+
+.order-arrows button{
+  flex:none;
+  width:28px;
+  height:24px;
+  border:none;
+  border-radius:4px;
+  background:#2c2c2c;
+  color:#fff;
+  font-size:12px;
+  cursor:pointer;
+  padding:0;
 }
 
 #fbBanner{
@@ -290,10 +385,7 @@ header{
   transition:transform 0.15s, box-shadow 0.15s;
 }
 
-#fbBanner:active{
-  transform:scale(0.97);
-  box-shadow:0 1px 6px rgba(24,119,242,0.25);
-}
+#fbBanner:active{transform:scale(0.97);}
 
 #mapsBanner{
   margin:15px 15px 90px;
@@ -309,60 +401,42 @@ header{
   transition:transform 0.15s, box-shadow 0.15s;
 }
 
-#mapsBanner:active{
-  transform:scale(0.97);
-  box-shadow:0 1px 6px rgba(0,0,0,0.25);
-}
+#mapsBanner:active{transform:scale(0.97);}
 
 .fb-icon{
-  width:38px;
-  height:38px;
-  background:#fff;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-shrink:0;
+  width:38px;height:38px;background:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
 }
 
 .fb-text{flex:1;}
-
-.fb-text .fb-title{
-  color:#fff;
-  font-weight:bold;
-  font-size:14px;
-  line-height:1.3;
-}
-
-.fb-text .fb-sub{
-  color:rgba(255,255,255,0.82);
-  font-size:12px;
-  margin-top:2px;
-}
-
-.fb-arrow{
-  color:rgba(255,255,255,0.7);
-  font-size:18px;
-}
+.fb-text .fb-title{color:#fff;font-weight:bold;font-size:14px;line-height:1.3;}
+.fb-text .fb-sub{color:rgba(255,255,255,0.82);font-size:12px;margin-top:2px;}
+.fb-arrow{color:rgba(255,255,255,0.7);font-size:18px;}
 
 #adminActionBar{
   display:none;
   padding:10px 15px;
   background:#fff8f4;
   border-bottom:1px solid #ffd5b8;
+  display:none;
+  gap:8px;
+  flex-wrap:wrap;
 }
 
 #adminActionBar button{
-  width:100%;
+  flex:1;
+  min-width:120px;
   padding:10px;
-  background:#e65c00;
-  color:#fff;
   border:none;
   border-radius:8px;
-  font-size:14px;
+  font-size:13px;
   font-weight:bold;
   cursor:pointer;
 }
+
+.btn-add-product{background:#e65c00;color:#fff;}
+.btn-manage-cat{background:#2c2c2c;color:#fff;}
+.btn-order{background:#555;color:#fff;}
 </style>
 </head>
 
@@ -378,7 +452,9 @@ header{
 <div id="adminBanner">🔧 ADMİN MODU AKTİF — Çıkmak için başlığa 5 kez tıkla</div>
 
 <div id="adminActionBar">
-  <button onclick="openAddModal()">+ Yeni Ürün Ekle</button>
+  <button class="btn-add-product" onclick="openAddModal()">+ Yeni Ürün Ekle</button>
+  <button class="btn-manage-cat" onclick="openCatModal()">🗂️ Kategoriler</button>
+  <button class="btn-order" onclick="openOrderModal()">↕️ Sıralama</button>
 </div>
 
 <a id="fbBanner" href="https://www.facebook.com/karabuktesafranboludamermerciimezarciramazansonmez" target="_blank">
@@ -403,6 +479,8 @@ header{
     <option value="desc">Azalan - Artan</option>
   </select>
 </div>
+
+<div class="cat-bar" id="catBar"></div>
 
 <div class="list" id="list"></div>
 
@@ -446,6 +524,8 @@ header{
     <input id="add_name" placeholder="Model adı">
     <input id="add_price" placeholder="Fiyat (₺)" type="number">
     <input id="add_img" placeholder="Resim URL">
+    <div class="modal-label">Kategori:</div>
+    <select id="add_cat"></select>
     <div class="modal-label">Etiket:</div>
     <div class="label-toggle">
       <div class="label-btn" id="add_btn_bestseller" onclick="toggleAddLabel('bestseller')">🔥 En Çok Satılan</div>
@@ -465,6 +545,8 @@ header{
     <input id="edit_name" placeholder="Model adı">
     <input id="edit_price" placeholder="Fiyat (₺)" type="number">
     <input id="edit_img" placeholder="Resim URL">
+    <div class="modal-label">Kategori:</div>
+    <select id="edit_cat"></select>
     <div class="modal-label">Etiket:</div>
     <div class="label-toggle">
       <div class="label-btn" id="edit_btn_bestseller" onclick="toggleEditLabel('bestseller')">🔥 En Çok Satılan</div>
@@ -480,9 +562,35 @@ header{
   </div>
 </div>
 
+<!-- KATEGORİ YÖNETİMİ -->
+<div class="modal" id="catModal">
+  <div class="modal-box">
+    <h3>🗂️ Kategori Yönetimi</h3>
+    <input id="new_cat_name" placeholder="Yeni kategori adı">
+    <div class="btn-group">
+      <button class="btn-dark" onclick="addCategory()">+ Ekle</button>
+      <button class="btn-gray" onclick="closeModal('catModal')">Kapat</button>
+    </div>
+    <div style="margin-top:12px;" id="catListContainer"></div>
+  </div>
+</div>
+
+<!-- SIRALAMA -->
+<div class="modal" id="orderModal">
+  <div class="modal-box">
+    <h3>↕️ Ürün Sıralaması</h3>
+    <p style="font-size:12px;color:#888;margin-bottom:10px;">Oklarla sırayı değiştir, kaydet butonuyla uygula.</p>
+    <div class="order-list" id="orderList"></div>
+    <div class="btn-group">
+      <button class="btn-dark" onclick="saveOrder()">💾 Kaydet</button>
+      <button class="btn-gray" onclick="closeModal('orderModal')">İptal</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue, push, set, update, remove } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, onValue, push, set, update, remove, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const app = initializeApp({
   apiKey:"AIzaSyD6TKF0EJbmJtl9jVNKS-Lz24weFjYKGeE",
@@ -494,26 +602,61 @@ const app = initializeApp({
 const db = getDatabase(app);
 const listEl = document.getElementById("list");
 const sortSelect = document.getElementById("sortSelect");
+const catBar = document.getElementById("catBar");
 
 let modelsData = [];
+let categoriesData = [];
 let isAdmin = false;
 let editingId = null;
 let addLabel = "";
 let editLabel = "";
+let activeCat = "Tümü";
+let orderTemp = [];
 
+/* VERİ DİNLE */
 onValue(ref(db,"models"), snap => {
   const data = snap.val();
-  if(!data) return;
+  if(!data){modelsData=[];render();return;}
   modelsData = Object.entries(data).map(([id,item]) => ({ id, ...item }));
   render();
 });
 
+onValue(ref(db,"categories"), snap => {
+  const data = snap.val();
+  if(!data){categoriesData=[];} 
+  else { categoriesData = Object.entries(data).map(([id,item]) => ({ id, name: item.name })); }
+  renderCatBar();
+  renderCatSelects();
+  renderCatList();
+});
+
+/* RENDER ÜRÜNLER */
 function render(){
   listEl.innerHTML = "";
   let sorted = [...modelsData];
 
-  if(sortSelect.value === "asc") sorted.sort((a,b) => a.price - b.price);
-  if(sortSelect.value === "desc") sorted.sort((a,b) => b.price - a.price);
+  // Önce etiketliler üste
+  sorted.sort((a,b) => {
+    const aScore = a.label ? 1 : 0;
+    const bScore = b.label ? 1 : 0;
+    if(bScore !== aScore) return bScore - aScore;
+    // Sonra order değerine göre
+    return (a.order ?? 9999) - (b.order ?? 9999);
+  });
+
+  if(sortSelect.value === "asc") sorted.sort((a,b) => {
+    if((b.label?1:0) !== (a.label?1:0)) return (b.label?1:0)-(a.label?1:0);
+    return a.price - b.price;
+  });
+  if(sortSelect.value === "desc") sorted.sort((a,b) => {
+    if((b.label?1:0) !== (a.label?1:0)) return (b.label?1:0)-(a.label?1:0);
+    return b.price - a.price;
+  });
+
+  // Kategori filtrele
+  if(activeCat !== "Tümü"){
+    sorted = sorted.filter(i => i.category === activeCat);
+  }
 
   sorted.forEach(item => {
     const link = window.location.href + "#model-" + item.id;
@@ -527,10 +670,13 @@ function render(){
       badgeHTML = `<div class="badge-wrap"><span class="badge badge-campaign">🏷️ Kampanyalı Ürün</span></div>`;
     }
 
+    const catLabel = item.category ? `<div class="card-cat">${item.category}</div>` : "";
+
     div.innerHTML = `
-      <img src="${item.img}" onclick="handleImgClick(event,'${item.img}','${item.id}')">
+      <img src="${item.img}" onclick="handleImgClick(event,'${item.img}')">
       ${badgeHTML}
       <div class="card-info">
+        ${catLabel}
         <div class="name-price">
           <div>${item.name}</div>
           <div>${item.price}₺</div>
@@ -554,41 +700,145 @@ function render(){
 
 sortSelect.addEventListener("change", render);
 
-/* ETİKET TOGGLE - EKLE */
-window.toggleAddLabel = (type) => {
-  if(addLabel === type){
-    addLabel = "";
-  } else {
-    addLabel = type;
+/* KATEGORİ BAR */
+function renderCatBar(){
+  catBar.innerHTML = "";
+  const all = document.createElement("button");
+  all.className = "cat-btn" + (activeCat === "Tümü" ? " active" : "");
+  all.textContent = "Tümü";
+  all.onclick = () => { activeCat = "Tümü"; renderCatBar(); render(); };
+  catBar.appendChild(all);
+
+  categoriesData.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.className = "cat-btn" + (activeCat === cat.name ? " active" : "");
+    btn.textContent = cat.name;
+    btn.onclick = () => { activeCat = cat.name; renderCatBar(); render(); };
+    catBar.appendChild(btn);
+  });
+}
+
+/* KATEGORİ SELECT'LERİ DOLDUR */
+function renderCatSelects(){
+  ["add_cat","edit_cat"].forEach(id => {
+    const sel = document.getElementById(id);
+    const prev = sel.value;
+    sel.innerHTML = `<option value="">— Kategori Seç —</option>`;
+    categoriesData.forEach(cat => {
+      const opt = document.createElement("option");
+      opt.value = cat.name;
+      opt.textContent = cat.name;
+      sel.appendChild(opt);
+    });
+    sel.value = prev;
+  });
+}
+
+/* KATEGORİ LİSTESİ (modal) */
+function renderCatList(){
+  const container = document.getElementById("catListContainer");
+  if(!container) return;
+  container.innerHTML = "";
+  if(categoriesData.length === 0){
+    container.innerHTML = `<p style="font-size:13px;color:#aaa;text-align:center;">Henüz kategori yok</p>`;
+    return;
   }
+  categoriesData.forEach(cat => {
+    const row = document.createElement("div");
+    row.className = "cat-list-item";
+    row.innerHTML = `<span>${cat.name}</span><button onclick="deleteCategory('${cat.id}','${cat.name}')">Sil</button>`;
+    container.appendChild(row);
+  });
+}
+
+/* KATEGORİ EKLE */
+window.addCategory = () => {
+  const name = document.getElementById("new_cat_name").value.trim();
+  if(!name){ alert("Kategori adı gir"); return; }
+  const already = categoriesData.find(c => c.name === name);
+  if(already){ alert("Bu kategori zaten var"); return; }
+  set(push(ref(db,"categories")), { name });
+  document.getElementById("new_cat_name").value = "";
+};
+
+/* KATEGORİ SİL */
+window.deleteCategory = (id, name) => {
+  if(!confirm(`"${name}" kategorisini silmek istediğinden emin misin?`)) return;
+  remove(ref(db,"categories/" + id));
+};
+
+/* KATEGORİ MODALİ */
+window.openCatModal = () => {
+  renderCatList();
+  document.getElementById("catModal").style.display = "flex";
+};
+
+/* SIRALAMA MODALİ */
+window.openOrderModal = () => {
+  // Mevcut sıralamaya göre kopyala
+  orderTemp = [...modelsData].sort((a,b) => (a.order??9999)-(b.order??9999));
+  renderOrderList();
+  document.getElementById("orderModal").style.display = "flex";
+};
+
+function renderOrderList(){
+  const container = document.getElementById("orderList");
+  container.innerHTML = "";
+  orderTemp.forEach((item, idx) => {
+    const row = document.createElement("div");
+    row.className = "order-item";
+    row.innerHTML = `
+      <img src="${item.img}" onerror="this.style.display='none'">
+      <span>${item.name}</span>
+      <div class="order-arrows">
+        <button onclick="moveOrder(${idx},-1)">▲</button>
+        <button onclick="moveOrder(${idx},1)">▼</button>
+      </div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+window.moveOrder = (idx, dir) => {
+  const newIdx = idx + dir;
+  if(newIdx < 0 || newIdx >= orderTemp.length) return;
+  const tmp = orderTemp[idx];
+  orderTemp[idx] = orderTemp[newIdx];
+  orderTemp[newIdx] = tmp;
+  renderOrderList();
+};
+
+window.saveOrder = async () => {
+  for(let i = 0; i < orderTemp.length; i++){
+    await update(ref(db,"models/" + orderTemp[i].id), { order: i });
+  }
+  document.getElementById("orderModal").style.display = "none";
+  alert("Sıralama kaydedildi ✅");
+};
+
+/* ETİKET TOGGLE */
+window.toggleAddLabel = (type) => {
+  addLabel = addLabel === type ? "" : type;
   updateAddLabelUI();
 };
 
 function updateAddLabelUI(){
-  const bs = document.getElementById("add_btn_bestseller");
-  const cp = document.getElementById("add_btn_campaign");
-  bs.className = "label-btn" + (addLabel === "bestseller" ? " active-bestseller" : "");
-  cp.className = "label-btn" + (addLabel === "campaign" ? " active-campaign" : "");
+  document.getElementById("add_btn_bestseller").className = "label-btn" + (addLabel==="bestseller"?" active-bestseller":"");
+  document.getElementById("add_btn_campaign").className = "label-btn" + (addLabel==="campaign"?" active-campaign":"");
 }
 
-/* ETİKET TOGGLE - DÜZENLE */
 window.toggleEditLabel = (type) => {
-  if(editLabel === type){
-    editLabel = "";
-  } else {
-    editLabel = type;
-  }
+  editLabel = editLabel === type ? "" : type;
   updateEditLabelUI();
 };
 
 function updateEditLabelUI(){
-  const bs = document.getElementById("edit_btn_bestseller");
-  const cp = document.getElementById("edit_btn_campaign");
-  bs.className = "label-btn" + (editLabel === "bestseller" ? " active-bestseller" : "");
-  cp.className = "label-btn" + (editLabel === "campaign" ? " active-campaign" : "");
+  document.getElementById("edit_btn_bestseller").className = "label-btn" + (editLabel==="bestseller"?" active-bestseller":"");
+  document.getElementById("edit_btn_campaign").className = "label-btn" + (editLabel==="campaign"?" active-campaign":"");
 }
 
-window.handleImgClick = (e, src, id) => {
+/* FOTO */
+window.handleImgClick = (e, src) => {
   if(isAdmin) return;
   e.stopPropagation();
   document.getElementById("viewer").style.display = "flex";
@@ -599,6 +849,7 @@ window.closeViewer = () => {
   document.getElementById("viewer").style.display = "none";
 };
 
+/* WHATSAPP */
 window.sendWhatsApp = (e, name, link) => {
   e.stopPropagation();
   if(isAdmin) return;
@@ -610,6 +861,7 @@ window.callPhone = () => {
   window.location.href = "tel:+905423189711";
 };
 
+/* GİZLİ ADMIN */
 let clickCount = 0;
 let timer;
 
@@ -618,10 +870,7 @@ window.secretClick = () => {
     clickCount++;
     clearTimeout(timer);
     timer = setTimeout(() => clickCount = 0, 1500);
-    if(clickCount === 5){
-      logoutAdmin();
-      clickCount = 0;
-    }
+    if(clickCount === 5){ logoutAdmin(); clickCount = 0; }
     return;
   }
   clickCount++;
@@ -639,7 +888,7 @@ window.login = () => {
     isAdmin = true;
     document.getElementById("adminPanel").style.display = "none";
     document.getElementById("adminBanner").style.display = "block";
-    document.getElementById("adminActionBar").style.display = "block";
+    document.getElementById("adminActionBar").style.display = "flex";
     document.getElementById("pass").value = "";
     render();
   } else {
@@ -663,46 +912,53 @@ window.closeModal = (id) => {
   document.getElementById(id).style.display = "none";
 };
 
+/* ÜRÜN EKLE */
 window.openAddModal = () => {
   addLabel = "";
   document.getElementById("add_name").value = "";
   document.getElementById("add_price").value = "";
   document.getElementById("add_img").value = "";
+  document.getElementById("add_cat").value = "";
   updateAddLabelUI();
   document.getElementById("addModal").style.display = "flex";
 };
 
 window.addProduct = () => {
-  const name  = document.getElementById("add_name").value.trim();
-  const price = parseInt(document.getElementById("add_price").value);
-  const img   = document.getElementById("add_img").value.trim();
+  const name     = document.getElementById("add_name").value.trim();
+  const price    = parseInt(document.getElementById("add_price").value);
+  const img      = document.getElementById("add_img").value.trim();
+  const category = document.getElementById("add_cat").value;
 
   if(!name || !price || !img){ alert("Tüm alanları doldur"); return; }
 
-  set(push(ref(db,"models")), { name, price, img, label: addLabel });
+  const newOrder = modelsData.length;
+  set(push(ref(db,"models")), { name, price, img, label: addLabel, category, order: newOrder });
   document.getElementById("addModal").style.display = "none";
   alert("Ürün eklendi ✅");
 };
 
+/* ÜRÜN DÜZENLE */
 window.openEditModal = (item) => {
   editingId = item.id;
   editLabel = item.label || "";
   document.getElementById("edit_name").value  = item.name;
   document.getElementById("edit_price").value = item.price;
   document.getElementById("edit_img").value   = item.img;
+  document.getElementById("edit_cat").value   = item.category || "";
   updateEditLabelUI();
   document.getElementById("editModal").style.display = "flex";
 };
 
 window.saveEdit = () => {
   if(!editingId) return;
-  const name  = document.getElementById("edit_name").value.trim();
-  const price = parseInt(document.getElementById("edit_price").value);
-  const img   = document.getElementById("edit_img").value.trim();
+  const name     = document.getElementById("edit_name").value.trim();
+  const price    = parseInt(document.getElementById("edit_price").value);
+  const img      = document.getElementById("edit_img").value.trim();
+  const category = document.getElementById("edit_cat").value;
 
   if(!name || !price || !img){ alert("Tüm alanları doldur"); return; }
 
-  update(ref(db, "models/" + editingId), { name, price, img, label: editLabel });
+  update(ref(db,"models/" + editingId), { name, price, img, label: editLabel, category });
   document.getElementById("editModal").style.display = "none";
   editingId = null;
   alert("Kaydedildi ✅");
@@ -711,7 +967,7 @@ window.saveEdit = () => {
 window.deleteProduct = () => {
   if(!editingId) return;
   if(!confirm("Bu ürünü silmek istediğinden emin misin?")) return;
-  remove(ref(db, "models/" + editingId));
+  remove(ref(db,"models/" + editingId));
   document.getElementById("editModal").style.display = "none";
   editingId = null;
 };
