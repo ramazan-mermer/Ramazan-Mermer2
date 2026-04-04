@@ -9,7 +9,6 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:sans-serif;background:#f2f2f2}
 
-/* HEADER */
 header{
   background:#2c2c2c;
   color:#fff;
@@ -26,18 +25,14 @@ header{
   gap:10px;
 }
 
-header img{
-  height:45px;
-}
+header img{height:45px}
 
-/* TITLE */
 .section-title{
   padding:15px;
   font-weight:bold;
   font-size:18px;
 }
 
-/* LIST (2'li sabit) */
 .list{
   padding:15px;
   display:grid;
@@ -46,13 +41,11 @@ header img{
   padding-bottom:120px;
 }
 
-/* CARD */
 .card{
   background:#fff;
   border-radius:12px;
   overflow:hidden;
   box-shadow:0 2px 8px rgba(0,0,0,0.1);
-  cursor:pointer;
 }
 
 .card img{
@@ -62,39 +55,45 @@ header img{
 }
 
 .card-info{
-  padding:12px;
+  padding:10px;
+}
+
+.name-price{
   display:flex;
   justify-content:space-between;
+  margin-bottom:8px;
 }
 
-/* BUTTONS */
-#lockBtn,#addBtn,#wpBtn{
+/* WhatsApp buton (kart içi) */
+.wp-item{
+  background:#25D366;
+  color:#fff;
+  border:none;
+  width:100%;
+  padding:8px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+/* sabit buton */
+#wpBtn{
   position:fixed;
   bottom:20px;
-  padding:12px 18px;
-  border:none;
-  border-radius:30px;
-  color:#fff;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-#lockBtn{right:20px;background:#333}
-#addBtn{left:20px;background:green;display:none}
-
-#wpBtn{
-  left:50%;
-  transform:translateX(-50%);
+  right:20px;
   background:#25D366;
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  width:55px;
+  height:55px;
+  cursor:pointer;
 }
 
 #wpBtn img{
-  width:20px;
+  width:30px;
 }
 
-/* LIGHTBOX */
+/* viewer */
 #viewer{
   display:none;
   position:fixed;
@@ -102,37 +101,11 @@ header img{
   background:rgba(0,0,0,0.9);
   justify-content:center;
   align-items:center;
-  z-index:999;
 }
 
 #viewer img{
   max-width:95%;
   max-height:95%;
-}
-
-/* MODAL */
-.overlay{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.7);
-  justify-content:center;
-  align-items:flex-end;
-}
-.overlay.open{display:flex}
-
-.sheet{
-  background:#fff;
-  width:100%;
-  max-width:500px;
-  padding:20px;
-  border-radius:20px 20px 0 0;
-}
-
-.sheet input{
-  width:100%;
-  padding:10px;
-  margin-bottom:10px;
 }
 </style>
 </head>
@@ -150,33 +123,19 @@ header img{
 
 <div class="list" id="list"></div>
 
-<button id="lockBtn" onclick="openPass()">Admin</button>
-<button id="addBtn" onclick="openAdd()">Ekle</button>
-
+<!-- sabit whatsapp -->
 <button id="wpBtn" onclick="goWhatsApp()">
   <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
-  WhatsApp
 </button>
 
-<!-- FOTO TAM EKRAN -->
+<!-- foto viewer -->
 <div id="viewer" onclick="closeViewer()">
   <img id="viewerImg">
 </div>
 
-<div class="overlay" id="editOverlay">
-  <div class="sheet">
-    <input id="name" placeholder="Ad">
-    <input id="price" placeholder="Fiyat">
-    <input id="img" placeholder="Resim linki">
-
-    <button onclick="save()">Kaydet</button>
-    <p onclick="del()" style="color:red;cursor:pointer">Sil</p>
-  </div>
-</div>
-
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, push, set, onValue, remove, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, push, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const app = initializeApp({
 apiKey:"AIzaSyD6TKF0EJbmJtl9jVNKS-Lz24weFjYKGeE",
@@ -186,12 +145,7 @@ projectId:"ramazan-mermer"
 });
 
 const db=getDatabase(app);
-
-let editId=null;
-let isAdmin=false;
-
 const list=document.getElementById("list");
-const modal=document.getElementById("editOverlay");
 
 /* RENDER */
 onValue(ref(db,"models"),snap=>{
@@ -204,22 +158,25 @@ const div=document.createElement("div");
 div.className="card";
 
 div.innerHTML=`
-<img src="${item.img}">
+<img src="${item.img}" onclick="openViewer('${item.img}')">
+
 <div class="card-info">
-<div>${item.name}</div>
-<div>${item.price}₺</div>
+  <div class="name-price">
+    <div>${item.name}</div>
+    <div>${item.price}₺</div>
+  </div>
+
+  <button class="wp-item" onclick="sendWhatsApp(event,'${item.name}')">
+    WhatsApp'tan sor
+  </button>
 </div>
 `;
-
-div.onclick=()=>openViewer(item.img);
-
-if(isAdmin) div.ondblclick=()=>edit(id,item);
 
 list.appendChild(div);
 });
 });
 
-/* FOTO VIEW */
+/* foto */
 window.openViewer=(src)=>{
 document.getElementById("viewer").style.display="flex";
 document.getElementById("viewerImg").src=src;
@@ -229,53 +186,14 @@ window.closeViewer=()=>{
 document.getElementById("viewer").style.display="none";
 };
 
-/* ADMIN */
-window.openPass=async()=>{
-const pass=prompt("Şifre");
-const snap=await get(ref(db,"adminPass"));
-
-if(pass==snap.val()){
-isAdmin=true;
-addBtn.style.display="block";
-lockBtn.style.display="none";
-}
+/* ürün whatsapp */
+window.sendWhatsApp=(e,name)=>{
+e.stopPropagation();
+const msg = `Merhaba, ${name} modeli hakkında bilgi almak istiyorum.`;
+window.open("https://wa.me/905423189711?text="+encodeURIComponent(msg),"_blank");
 };
 
-window.openAdd=()=>{
-editId=null;
-document.getElementById("name").value="";
-document.getElementById("price").value="";
-document.getElementById("img").value="";
-modal.classList.add("open");
-};
-
-window.edit=(id,item)=>{
-editId=id;
-document.getElementById("name").value=item.name;
-document.getElementById("price").value=item.price;
-document.getElementById("img").value=item.img;
-modal.classList.add("open");
-};
-
-window.save=()=>{
-const name=document.getElementById("name").value;
-const price=document.getElementById("price").value;
-const img=document.getElementById("img").value;
-
-if(editId){
-set(ref(db,"models/"+editId),{name,price,img});
-}else{
-push(ref(db,"models"),{name,price,img});
-}
-modal.classList.remove("open");
-};
-
-window.del=()=>{
-remove(ref(db,"models/"+editId));
-modal.classList.remove("open");
-};
-
-/* WHATSAPP */
+/* genel whatsapp */
 window.goWhatsApp=()=>{
 window.open("https://wa.me/905423189711","_blank");
 };
