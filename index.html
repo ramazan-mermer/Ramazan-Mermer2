@@ -653,11 +653,20 @@ function render(){
   let sorted = [...modelsData];
 
   sorted.sort((a,b) => {
-    const aScore = a.label ? 1 : 0;
-    const bScore = b.label ? 1 : 0;
-    if(bScore !== aScore) return bScore - aScore;
+  const aScore = a.label ? 1 : 0;
+  const bScore = b.label ? 1 : 0;
+
+  // Etiketli ürünler üste
+  if(bScore !== aScore) return bScore - aScore;
+
+  // Aynı kategorideyse sıraya göre
+  if(a.category === b.category){
     return (a.order ?? 9999) - (b.order ?? 9999);
-  });
+  }
+
+  // Farklı kategorideyse kategori adına göre sırala
+  return (a.category || "").localeCompare(b.category || "");
+});
 
   if(sortSelect.value === "asc") sorted.sort((a,b) => {
     if((b.label?1:0) !== (a.label?1:0)) return (b.label?1:0)-(a.label?1:0);
@@ -781,7 +790,15 @@ window.openCatModal = () => {
 };
 
 window.openOrderModal = () => {
-  orderTemp = [...modelsData].sort((a,b) => (a.order??9999)-(b.order??9999));
+
+  if(activeCat === "Tümü"){
+    orderTemp = [...modelsData];
+  } else {
+    orderTemp = modelsData.filter(i => i.category === activeCat);
+  }
+
+  orderTemp.sort((a,b) => (a.order??9999)-(b.order??9999));
+
   renderOrderList();
   document.getElementById("orderModal").style.display = "flex";
 };
@@ -814,8 +831,9 @@ window.moveOrder = (idx, dir) => {
 };
 
 window.saveOrder = async () => {
-  for(let i = 0; i < orderTemp.length; i++){
-    await update(ref(db,"models/" + orderTemp[i].id), { order: i });
+for(let i = 0; i < orderTemp.length; i++){
+  await update(ref(db,"models/" + orderTemp[i].id), { order: i });
+}
   }
   document.getElementById("orderModal").style.display = "none";
   alert("Sıralama kaydedildi ✅");
