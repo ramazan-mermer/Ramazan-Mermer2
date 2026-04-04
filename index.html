@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -10,7 +9,6 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:sans-serif;background:#f2f2f2}
 
-/* HEADER */
 header{
   background:#2c2c2c;
   color:#fff;
@@ -31,7 +29,6 @@ header{
 
 .logo{height:45px}
 
-/* Admin modu banner */
 #adminBanner{
   display:none;
   background:#e65c00;
@@ -49,7 +46,6 @@ header{
   font-size:18px;
 }
 
-/* sıralama */
 .sort-bar{
   padding:0 15px 10px;
 }
@@ -60,7 +56,6 @@ header{
   border-radius:8px;
 }
 
-/* liste */
 .list{
   padding:15px;
   display:grid;
@@ -118,7 +113,6 @@ header{
   cursor:pointer;
 }
 
-/* NABIZLI ARAMA */
 #callBtn{
   position:fixed;
   bottom:20px;
@@ -144,7 +138,6 @@ header{
   100%{box-shadow:0 0 0 0 rgba(255,59,59,0);}
 }
 
-/* viewer */
 #viewer{
   display:none;
   position:fixed;
@@ -160,7 +153,6 @@ header{
   max-height:95%;
 }
 
-/* MODAL ORTAK */
 .modal{
   display:none;
   position:fixed;
@@ -216,7 +208,6 @@ header{
 .btn-red{background:#ff3b3b;color:#fff;}
 .btn-gray{background:#ccc;color:#000;}
 
-/* FACEBOOK BANNER */
 #fbBanner{
   margin:12px 15px;
   background:linear-gradient(135deg,#1877F2 0%,#0a5abf 100%);
@@ -236,10 +227,9 @@ header{
   box-shadow:0 1px 6px rgba(24,119,242,0.25);
 }
 
-/* MAPS BANNER */
 #mapsBanner{
   margin:15px 15px 90px;
-  background:linear-gradient(135deg,#1a73e8 0%,#0d5bba 100%);
+  background:linear-gradient(135deg,#3a3a3a 0%,#2c2c2c 100%);
   border-radius:14px;
   padding:14px 16px;
   display:flex;
@@ -247,13 +237,13 @@ header{
   gap:13px;
   cursor:pointer;
   text-decoration:none;
-  box-shadow:0 3px 12px rgba(26,115,232,0.35);
+  box-shadow:0 3px 12px rgba(0,0,0,0.35);
   transition:transform 0.15s, box-shadow 0.15s;
 }
 
 #mapsBanner:active{
   transform:scale(0.97);
-  box-shadow:0 1px 6px rgba(26,115,232,0.25);
+  box-shadow:0 1px 6px rgba(0,0,0,0.25);
 }
 
 .fb-icon{
@@ -265,11 +255,6 @@ header{
   align-items:center;
   justify-content:center;
   flex-shrink:0;
-}
-
-.fb-icon img{
-  width:24px;
-  height:24px;
 }
 
 .fb-text{
@@ -294,7 +279,6 @@ header{
   font-size:18px;
 }
 
-/* Admin buton barı */
 #adminActionBar{
   display:none;
   padding:10px 15px;
@@ -331,7 +315,6 @@ header{
   <button onclick="openAddModal()">+ Yeni Ürün Ekle</button>
 </div>
 
-<!-- FACEBOOK BANNER -->
 <a id="fbBanner" href="https://www.facebook.com/karabuktesafranboludamermerciimezarciramazansonmez" target="_blank">
   <div class="fb-icon">
     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#1877F2">
@@ -357,10 +340,9 @@ header{
 
 <div class="list" id="list"></div>
 
-<!-- YOL TARİFİ BANNER -->
 <a id="mapsBanner" href="https://www.google.com/maps?q=41.21827697753906,32.710208892822266&z=17&hl=tr" target="_blank">
   <div class="fb-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#1a73e8">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#2c2c2c">
       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
     </svg>
   </div>
@@ -371,17 +353,14 @@ header{
   <div class="fb-arrow">›</div>
 </a>
 
-<!-- ARAMA -->
 <button id="callBtn" onclick="callPhone()">
   <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png">
 </button>
 
-<!-- viewer -->
 <div id="viewer" onclick="closeViewer()">
   <img id="viewerImg">
 </div>
 
-<!-- 1. ADMIN GİRİŞ MODALI -->
 <div class="modal" id="adminPanel">
   <div class="modal-box">
     <h3>🔐 Admin Girişi</h3>
@@ -393,7 +372,6 @@ header{
   </div>
 </div>
 
-<!-- 2. YENİ ÜRÜN EKLE MODALI -->
 <div class="modal" id="addModal">
   <div class="modal-box">
     <h3>➕ Yeni Ürün Ekle</h3>
@@ -407,7 +385,6 @@ header{
   </div>
 </div>
 
-<!-- 3. ÜRÜN DÜZENLE MODALI -->
 <div class="modal" id="editModal">
   <div class="modal-box">
     <h3>✏️ Ürünü Düzenle</h3>
@@ -617,4 +594,3 @@ window.deleteProduct = () => {
 
 </body>
 </html>
-```
