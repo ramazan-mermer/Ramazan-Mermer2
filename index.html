@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -65,7 +66,6 @@ header{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:15px;
-  padding-bottom:120px;
 }
 
 .card{
@@ -76,7 +76,6 @@ header{
   position:relative;
 }
 
-/* Admin modunda kart üzerinde düzenle işareti */
 .card.admin-mode{
   cursor:pointer;
 }
@@ -237,6 +236,26 @@ header{
   box-shadow:0 1px 6px rgba(24,119,242,0.25);
 }
 
+/* MAPS BANNER */
+#mapsBanner{
+  margin:15px 15px 90px;
+  background:linear-gradient(135deg,#1a73e8 0%,#0d5bba 100%);
+  border-radius:14px;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  gap:13px;
+  cursor:pointer;
+  text-decoration:none;
+  box-shadow:0 3px 12px rgba(26,115,232,0.35);
+  transition:transform 0.15s, box-shadow 0.15s;
+}
+
+#mapsBanner:active{
+  transform:scale(0.97);
+  box-shadow:0 1px 6px rgba(26,115,232,0.25);
+}
+
 .fb-icon{
   width:38px;
   height:38px;
@@ -306,10 +325,8 @@ header{
   </div>
 </header>
 
-<!-- Admin modu aktifken göster -->
 <div id="adminBanner">🔧 ADMİN MODU AKTİF — Çıkmak için başlığa 5 kez tıkla</div>
 
-<!-- Admin: Yeni ürün ekle butonu -->
 <div id="adminActionBar">
   <button onclick="openAddModal()">+ Yeni Ürün Ekle</button>
 </div>
@@ -339,6 +356,20 @@ header{
 </div>
 
 <div class="list" id="list"></div>
+
+<!-- YOL TARİFİ BANNER -->
+<a id="mapsBanner" href="https://www.google.com/maps?q=41.21827697753906,32.710208892822266&z=17&hl=tr" target="_blank">
+  <div class="fb-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#1a73e8">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+    </svg>
+  </div>
+  <div class="fb-text">
+    <div class="fb-title">Yol Tarifi Al</div>
+    <div class="fb-sub">Google Maps'te işyerimizi görüntüleyin</div>
+  </div>
+  <div class="fb-arrow">›</div>
+</a>
 
 <!-- ARAMA -->
 <button id="callBtn" onclick="callPhone()">
@@ -412,7 +443,6 @@ let modelsData = [];
 let isAdmin = false;
 let editingId = null;
 
-/* VERİ */
 onValue(ref(db,"models"), snap => {
   const data = snap.val();
   if(!data) return;
@@ -420,7 +450,6 @@ onValue(ref(db,"models"), snap => {
   render();
 });
 
-/* RENDER */
 function render(){
   listEl.innerHTML = "";
   let sorted = [...modelsData];
@@ -446,10 +475,8 @@ function render(){
       </div>
     `;
 
-    // Admin modunda karta tıklayınca düzenle
     if(isAdmin){
       div.addEventListener("click", (e) => {
-        // WhatsApp butonuna tıklamayı engelleme
         if(e.target.classList.contains("wp-item")) return;
         openEditModal(item);
       });
@@ -461,12 +488,8 @@ function render(){
 
 sortSelect.addEventListener("change", render);
 
-/* FOTO */
 window.handleImgClick = (e, src, id) => {
-  if(isAdmin){
-    // Admin modunda resme tıklayınca düzenleme açılır (kart click'i handle eder)
-    return;
-  }
+  if(isAdmin) return;
   e.stopPropagation();
   document.getElementById("viewer").style.display = "flex";
   document.getElementById("viewerImg").src = src;
@@ -476,25 +499,21 @@ window.closeViewer = () => {
   document.getElementById("viewer").style.display = "none";
 };
 
-/* WHATSAPP */
 window.sendWhatsApp = (e, name, link) => {
   e.stopPropagation();
-  if(isAdmin) return; // admin modunda WA açılmasın
+  if(isAdmin) return;
   const msg = `Merhaba, ${name} modeli hakkında bilgi almak istiyorum.\nÜrün linki: ${link}`;
   window.open("https://wa.me/905423189711?text=" + encodeURIComponent(msg), "_blank");
 };
 
-/* TELEFON */
 window.callPhone = () => {
   window.location.href = "tel:+905423189711";
 };
 
-/* GİZLİ ADMIN */
 let clickCount = 0;
 let timer;
 
 window.secretClick = () => {
-  // Zaten admin ise çıkış yap
   if(isAdmin){
     clickCount++;
     clearTimeout(timer);
@@ -516,7 +535,6 @@ window.secretClick = () => {
   }
 };
 
-/* GİRİŞ */
 window.login = () => {
   const pass = document.getElementById("pass").value;
   if(pass === "1234"){
@@ -543,12 +561,10 @@ window.closeAdmin = () => {
   document.getElementById("pass").value = "";
 };
 
-/* MODAL KAPAT */
 window.closeModal = (id) => {
   document.getElementById(id).style.display = "none";
 };
 
-/* YENİ ÜRÜN EKLE */
 window.openAddModal = () => {
   document.getElementById("add_name").value = "";
   document.getElementById("add_price").value = "";
@@ -568,7 +584,6 @@ window.addProduct = () => {
   alert("Ürün eklendi ✅");
 };
 
-/* ÜRÜN DÜZENLE */
 window.openEditModal = (item) => {
   editingId = item.id;
   document.getElementById("edit_name").value  = item.name;
@@ -602,3 +617,4 @@ window.deleteProduct = () => {
 
 </body>
 </html>
+```
