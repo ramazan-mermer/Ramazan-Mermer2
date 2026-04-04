@@ -4,510 +4,666 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ramazan Mermer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
+/* ── TOKENS ── */
+:root{
+  --bg:#0e0e0f;
+  --surface:#161618;
+  --surface2:#1e1e21;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.13);
+  --gold:#c9a96e;
+  --gold2:#e8c98a;
+  --amber:#e65c00;
+  --red:#c0392b;
+  --green:#25D366;
+  --text:#f0ede8;
+  --text2:#a09890;
+  --text3:#5a5550;
+  --radius:14px;
+  --radius-sm:9px;
+  --font-display:'Cormorant Garamond',serif;
+  --font-body:'DM Sans',sans-serif;
+}
+
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:sans-serif;background:#f2f2f2}
 
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:0;
+  opacity:0.5;
+}
+
+/* ── INFO BANNER ── */
 #infoBanner{
-  background:#2c2c2c;
-  color:#e8e8e8;
-  padding:12px 15px;
-  font-size:12.5px;
-  line-height:1.7;
+  position:relative;
+  z-index:2;
+  background:linear-gradient(90deg, #1a1209 0%, #1e1610 50%, #1a1209 100%);
+  border-bottom:1px solid rgba(201,169,110,0.25);
+  padding:11px 16px;
   text-align:center;
-  border-bottom:2px solid #e65c00;
+  font-size:11.5px;
+  line-height:1.75;
+  color:var(--text2);
+  letter-spacing:0.2px;
 }
+#infoBanner strong{ color:var(--gold); font-weight:500; }
 
-#infoBanner strong{
-  color:#e65c00;
-}
-
+/* ── HEADER ── */
 header{
-  background:#2c2c2c;
-  color:#fff;
-  padding:12px;
-  text-align:center;
   position:sticky;
   top:0;
+  z-index:30;
   cursor:pointer;
-  z-index:10;
+  background:rgba(14,14,15,0.92);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
 }
-
-.header-content{
+.header-inner{
+  padding:13px 18px;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:10px;
+  gap:12px;
+  position:relative;
 }
+.logo{ height:42px; filter:brightness(1.1); }
+.header-title{
+  font-family:var(--font-display);
+  font-size:22px;
+  font-weight:600;
+  letter-spacing:0.5px;
+  color:var(--text);
+}
+.header-title span{ color:var(--gold); }
 
-.logo{height:45px}
-
+/* ── ADMIN BANNER ── */
 #adminBanner{
   display:none;
-  background:#e65c00;
+  background:linear-gradient(90deg,#b84800,var(--amber));
   color:#fff;
   text-align:center;
-  padding:8px;
-  font-size:13px;
-  font-weight:bold;
-  letter-spacing:0.5px;
+  padding:9px;
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.6px;
+  position:relative;
+  z-index:2;
 }
 
+/* ── ADMIN ACTION BAR ── */
+#adminActionBar{
+  display:none;
+  padding:10px 14px;
+  background:rgba(22,18,9,0.9);
+  border-bottom:1px solid rgba(201,169,110,0.15);
+  gap:8px;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:2;
+}
+#adminActionBar button{
+  flex:1;
+  min-width:110px;
+  padding:10px 8px;
+  border:none;
+  border-radius:var(--radius-sm);
+  font-family:var(--font-body);
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  letter-spacing:0.3px;
+  transition:filter 0.15s, transform 0.1s;
+}
+#adminActionBar button:active{ transform:scale(0.97); }
+.btn-add-product{ background:var(--amber); color:#fff; }
+.btn-manage-cat{ background:var(--surface2); color:var(--text); border:1px solid var(--border2); }
+.btn-order{ background:var(--surface2); color:var(--text); border:1px solid var(--border2); }
+
+/* ── FB BANNER ── */
+#fbBanner{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin:14px 14px 0;
+  padding:14px 16px;
+  background:linear-gradient(135deg,#1565c0 0%,#1877F2 60%,#2196f3 100%);
+  border-radius:var(--radius);
+  text-decoration:none;
+  box-shadow:0 4px 20px rgba(24,119,242,0.22);
+  transition:transform 0.18s, box-shadow 0.18s;
+  position:relative;
+  z-index:2;
+  overflow:hidden;
+}
+#fbBanner::after{
+  content:'';
+  position:absolute;
+  right:-20px; top:-20px;
+  width:80px; height:80px;
+  background:rgba(255,255,255,0.06);
+  border-radius:50%;
+}
+#fbBanner:active{ transform:scale(0.98); box-shadow:0 2px 10px rgba(24,119,242,0.18); }
+.fb-icon{
+  width:36px; height:36px;
+  background:rgba(255,255,255,0.18);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.fb-text .fb-title{ color:#fff; font-weight:600; font-size:13.5px; }
+.fb-text .fb-sub{ color:rgba(255,255,255,0.75); font-size:11.5px; margin-top:2px; }
+.fb-arrow{ color:rgba(255,255,255,0.6); font-size:20px; margin-left:auto; }
+
+/* ── SECTION TITLE ── */
 .section-title{
-  padding:15px;
-  font-weight:bold;
-  font-size:18px;
+  padding:20px 16px 6px;
+  font-family:var(--font-display);
+  font-size:26px;
+  font-weight:600;
+  color:var(--text);
+  letter-spacing:0.3px;
+  position:relative;
+  z-index:2;
 }
+.section-title span{ color:var(--gold); }
 
+/* ── SEARCH ROW ── */
 .search-row{
   display:flex;
   align-items:flex-end;
   gap:10px;
-  padding:0 15px 10px;
+  padding:10px 14px 0;
+  position:relative;
+  z-index:2;
 }
-
-.sort-bar{
-  flex:1;
-  min-width:0;
-}
-
+.sort-bar{ flex:1; min-width:0; }
 .sort-bar label{
   display:block;
-  font-size:11px;
-  font-weight:bold;
-  color:#888;
-  margin-bottom:4px;
+  font-size:10px;
+  font-weight:600;
+  color:var(--text3);
+  margin-bottom:5px;
   text-transform:uppercase;
-  letter-spacing:0.4px;
+  letter-spacing:0.8px;
 }
-
 .sort-bar select{
   width:100%;
-  padding:8px;
-  border-radius:8px;
+  padding:10px 12px;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:13px;
+  cursor:pointer;
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a09890' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 12px center;
 }
+.sort-bar select:focus{ outline:none; border-color:var(--gold); }
 
+/* ── MAPS INLINE BTN ── */
 #mapsBannerInline{
   flex-shrink:0;
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:4px;
+  gap:5px;
   text-decoration:none;
 }
-
 #mapsBannerInline .maps-label{
-  font-size:11px;
-  font-weight:bold;
-  color:#555;
+  font-size:10px;
+  font-weight:600;
+  color:var(--text3);
   text-transform:uppercase;
-  letter-spacing:0.4px;
+  letter-spacing:0.8px;
 }
-
 #mapsBannerInline .maps-btn{
-  background:linear-gradient(135deg,#3a3a3a 0%,#2c2c2c 100%);
-  border-radius:10px;
-  padding:8px 14px;
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  padding:9px 13px;
   display:flex;
   align-items:center;
   gap:8px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.25);
-  transition:transform 0.15s, box-shadow 0.15s;
+  box-shadow:0 2px 10px rgba(0,0,0,0.3);
+  transition:transform 0.15s, border-color 0.15s;
   white-space:nowrap;
 }
-
-#mapsBannerInline .maps-btn:active{transform:scale(0.96);}
-
-#mapsBannerInline .maps-btn .maps-icon{
-  width:28px;height:28px;background:#fff;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+#mapsBannerInline .maps-btn:active{ transform:scale(0.96); }
+#mapsBannerInline:hover .maps-btn{ border-color:var(--gold); }
+.maps-icon{
+  width:26px; height:26px;
+  background:var(--gold);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
 }
+.maps-text{ color:var(--text); font-size:11.5px; font-weight:600; line-height:1.2; }
+.maps-text span{ display:block; color:var(--text2); font-size:10px; font-weight:400; margin-top:1px; }
 
-#mapsBannerInline .maps-btn .maps-text{
-  color:#fff;
-  font-size:12px;
-  font-weight:bold;
-  line-height:1.2;
-}
-
-#mapsBannerInline .maps-btn .maps-text span{
-  display:block;
-  color:rgba(255,255,255,0.7);
-  font-size:10px;
-  font-weight:normal;
-  margin-top:1px;
-}
-
+/* ── CAT BAR ── */
 .cat-bar{
-  padding:0 15px 12px;
+  padding:12px 14px 10px;
   display:flex;
-  gap:8px;
+  gap:7px;
   overflow-x:auto;
   scrollbar-width:none;
+  position:relative;
+  z-index:2;
 }
-
-.cat-bar::-webkit-scrollbar{display:none;}
-
+.cat-bar::-webkit-scrollbar{ display:none; }
 .cat-btn{
   white-space:nowrap;
-  padding:7px 14px;
-  border-radius:20px;
-  border:2px solid #2c2c2c;
-  background:#fff;
-  font-size:13px;
-  font-weight:bold;
+  padding:7px 16px;
+  border-radius:40px;
+  border:1px solid var(--border2);
+  background:transparent;
+  color:var(--text2);
+  font-family:var(--font-body);
+  font-size:12px;
+  font-weight:500;
   cursor:pointer;
-  transition:all 0.15s;
+  transition:all 0.2s;
+  letter-spacing:0.2px;
 }
-
+.cat-btn:hover{ border-color:var(--gold); color:var(--gold); }
 .cat-btn.active{
-  background:#2c2c2c;
-  color:#fff;
+  background:var(--gold);
+  border-color:var(--gold);
+  color:#0e0e0f;
+  font-weight:600;
 }
 
+/* ── CARD GRID ── */
 .list{
-  padding:15px;
-  padding-bottom:90px;
+  padding:10px 14px 100px;
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:15px;
-}
-
-.card{
-  background:#fff;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  gap:12px;
   position:relative;
+  z-index:2;
 }
 
-.card.admin-mode{cursor:pointer;}
-
+/* ── CARD ── */
+.card{
+  background:var(--surface);
+  border-radius:var(--radius);
+  overflow:hidden;
+  border:1px solid var(--border);
+  position:relative;
+  transition:transform 0.25s cubic-bezier(.25,.46,.45,.94), box-shadow 0.25s, border-color 0.25s;
+  animation:cardIn 0.4s both;
+}
+@keyframes cardIn{
+  from{ opacity:0; transform:translateY(18px) scale(0.97); }
+  to{ opacity:1; transform:translateY(0) scale(1); }
+}
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 12px 32px rgba(0,0,0,0.5);
+  border-color:rgba(201,169,110,0.2);
+}
+.card.admin-mode{ cursor:pointer; }
 .card.admin-mode::after{
   content:"✏️ Düzenle";
   position:absolute;
-  top:8px;
-  left:8px;
-  background:rgba(230,92,0,0.9);
+  top:8px; left:8px;
+  background:rgba(230,92,0,0.92);
   color:#fff;
-  font-size:11px;
-  font-weight:bold;
-  padding:3px 8px;
-  border-radius:20px;
+  font-size:10px;
+  font-weight:700;
+  padding:3px 9px;
+  border-radius:30px;
   pointer-events:none;
+  letter-spacing:0.3px;
 }
 
-.card img{
+/* ── CARD IMG ── */
+.card-img-wrap{
+  position:relative;
   width:100%;
   aspect-ratio:9/16;
+  overflow:hidden;
+}
+.card-img-wrap img{
+  width:100%;
+  height:100%;
   object-fit:cover;
+  display:block;
+  transition:transform 0.4s cubic-bezier(.25,.46,.45,.94);
 }
+.card:hover .card-img-wrap img{ transform:scale(1.04); }
 
-.card-info{padding:10px}
-
-.name-price{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:8px;
-  font-size:13px;
+/* ── CARD INFO ── */
+.card-info{
+  padding:10px 10px 11px;
+  background:var(--surface);
 }
-
 .card-cat{
-  font-size:11px;
-  color:#888;
-  margin-bottom:6px;
+  font-size:10px;
+  color:var(--gold);
+  text-transform:uppercase;
+  letter-spacing:0.7px;
+  font-weight:600;
+  margin-bottom:4px;
 }
-
+.card-name{
+  font-size:12.5px;
+  font-weight:600;
+  color:var(--text);
+  margin-bottom:2px;
+  line-height:1.3;
+}
+.card-price{
+  font-family:var(--font-display);
+  font-size:16px;
+  font-weight:700;
+  color:var(--gold2);
+  margin-bottom:9px;
+}
 .wp-item{
-  background:#25D366;
+  background:var(--green);
   color:#fff;
   border:none;
   width:100%;
-  padding:8px;
-  border-radius:8px;
+  padding:8px 6px;
+  border-radius:var(--radius-sm);
   cursor:pointer;
-  font-size:13px;
+  font-family:var(--font-body);
+  font-size:11.5px;
+  font-weight:600;
+  letter-spacing:0.2px;
+  transition:filter 0.15s, transform 0.1s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
 }
+.wp-item:active{ transform:scale(0.97); filter:brightness(0.9); }
 
+/* ── BADGES ── */
 .badge-wrap{
   position:absolute;
-  top:8px;
-  right:8px;
+  top:8px; right:8px;
   display:flex;
   flex-direction:column;
   gap:4px;
   align-items:flex-end;
 }
-
 .badge{
-  font-size:10px;
-  font-weight:bold;
+  font-size:9.5px;
+  font-weight:700;
   padding:3px 8px;
-  border-radius:20px;
+  border-radius:30px;
   white-space:nowrap;
+  letter-spacing:0.3px;
+  backdrop-filter:blur(6px);
 }
+.badge-bestseller{ background:rgba(230,92,0,0.9); color:#fff; }
+.badge-campaign{ background:rgba(192,57,43,0.9); color:#fff; }
 
-.badge-bestseller{background:#e65c00;color:#fff;}
-.badge-campaign{background:#c0392b;color:#fff;}
-
-.label-toggle{
-  display:flex;
-  gap:8px;
-  margin-top:8px;
-}
-
-.label-btn{
-  flex:1;
-  padding:8px 6px;
-  border:2px solid #ddd;
-  border-radius:8px;
-  background:#fff;
-  font-size:11px;
-  font-weight:bold;
-  cursor:pointer;
-  text-align:center;
-  transition:all 0.15s;
-}
-
-.label-btn.active-bestseller{
-  border-color:#e65c00;
-  background:#fff3ec;
-  color:#e65c00;
-}
-
-.label-btn.active-campaign{
-  border-color:#c0392b;
-  background:#fdecea;
-  color:#c0392b;
-}
-
+/* ── CALL BTN ── */
 #callBtn{
   position:fixed;
-  bottom:20px;
-  right:20px;
-  width:65px;
-  height:65px;
+  bottom:22px; right:18px;
+  width:62px; height:62px;
   border:none;
   border-radius:50%;
   cursor:pointer;
-  background:#ff3b3b;
+  background:linear-gradient(135deg,#ff4f4f,#e02020);
   display:flex;
   align-items:center;
   justify-content:center;
-  box-shadow:0 0 0 rgba(255,59,59,0.6);
-  animation:pulse 1.8s infinite;
+  box-shadow:0 0 0 rgba(255,59,59,0.5);
+  animation:pulse 2s infinite;
   z-index:50;
+  transition:transform 0.15s;
 }
-
-#callBtn img{width:28px}
-
+#callBtn:active{ transform:scale(0.93); }
+#callBtn img{ width:26px; filter:brightness(10); }
 @keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(255,59,59,0.6);}
-  70%{box-shadow:0 0 0 15px rgba(255,59,59,0);}
-  100%{box-shadow:0 0 0 0 rgba(255,59,59,0);}
+  0%  { box-shadow:0 0 0 0   rgba(255,59,59,0.55); }
+  70% { box-shadow:0 0 0 16px rgba(255,59,59,0);   }
+  100%{ box-shadow:0 0 0 0   rgba(255,59,59,0);    }
 }
 
+/* ── IMAGE VIEWER ── */
 #viewer{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.9);
+  background:rgba(0,0,0,0.95);
   justify-content:center;
   align-items:center;
   z-index:100;
+  animation:fadeIn 0.2s;
 }
+#viewer img{
+  max-width:92%;
+  max-height:92%;
+  border-radius:10px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.8);
+}
+@keyframes fadeIn{ from{opacity:0} to{opacity:1} }
 
-#viewer img{max-width:95%;max-height:95%;}
-
+/* ── MODALS ── */
 .modal{
   display:none;
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.6);
+  background:rgba(0,0,0,0.75);
   justify-content:center;
   align-items:center;
   z-index:200;
+  padding:16px;
+  animation:fadeIn 0.2s;
 }
-
 .modal-box{
-  background:#fff;
-  padding:20px;
-  border-radius:12px;
-  width:320px;
-  max-height:90vh;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  padding:22px 18px;
+  border-radius:18px;
+  width:100%;
+  max-width:340px;
+  max-height:88vh;
   overflow-y:auto;
+  box-shadow:0 24px 60px rgba(0,0,0,0.6);
 }
-
 .modal-box h3{
-  margin-bottom:12px;
-  font-size:16px;
-  color:#2c2c2c;
+  margin-bottom:14px;
+  font-family:var(--font-display);
+  font-size:20px;
+  font-weight:600;
+  color:var(--text);
+  letter-spacing:0.3px;
 }
-
 .modal-box input,
 .modal-box select{
   width:100%;
   margin:5px 0;
-  padding:9px;
-  border:1px solid #ddd;
-  border-radius:8px;
+  padding:10px 12px;
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  color:var(--text);
+  font-family:var(--font-body);
   font-size:14px;
 }
-
-.modal-box .btn-group{
-  display:flex;
-  gap:10px;
-  margin-top:10px;
+.modal-box input:focus,
+.modal-box select:focus{
+  outline:none;
+  border-color:var(--gold);
 }
+.modal-box input::placeholder{ color:var(--text3); }
+.modal-box select option{ background:var(--surface2); }
 
+.btn-group{
+  display:flex;
+  gap:9px;
+  margin-top:12px;
+}
 .modal-box button{
   flex:1;
-  padding:9px;
+  padding:10px;
   border:none;
-  border-radius:8px;
+  border-radius:var(--radius-sm);
   cursor:pointer;
-  font-size:14px;
-  font-weight:bold;
+  font-family:var(--font-body);
+  font-size:13px;
+  font-weight:600;
+  transition:filter 0.15s, transform 0.1s;
+  letter-spacing:0.2px;
 }
+.modal-box button:active{ transform:scale(0.97); filter:brightness(0.9); }
 
-.btn-green{background:#25D366;color:#fff;}
-.btn-orange{background:#e65c00;color:#fff;}
-.btn-red{background:#ff3b3b;color:#fff;}
-.btn-gray{background:#ccc;color:#000;}
-.btn-dark{background:#2c2c2c;color:#fff;}
+.btn-green{ background:var(--green); color:#fff; }
+.btn-orange{ background:var(--amber); color:#fff; }
+.btn-red{ background:var(--red); color:#fff; }
+.btn-gray{ background:var(--surface2); color:var(--text2); border:1px solid var(--border2); }
+.btn-dark{ background:var(--text); color:var(--bg); }
 
 .modal-label{
-  font-size:13px;
-  color:#555;
-  margin:10px 0 4px;
-  font-weight:bold;
+  font-size:11px;
+  color:var(--text2);
+  margin:12px 0 5px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
 }
 
+/* ── LABEL TOGGLE ── */
+.label-toggle{ display:flex; gap:8px; margin-top:6px; }
+.label-btn{
+  flex:1;
+  padding:8px 6px;
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  background:var(--surface2);
+  color:var(--text2);
+  font-family:var(--font-body);
+  font-size:11px;
+  font-weight:600;
+  cursor:pointer;
+  text-align:center;
+  transition:all 0.15s;
+}
+.label-btn.active-bestseller{ border-color:var(--amber); background:rgba(230,92,0,0.12); color:var(--amber); }
+.label-btn.active-campaign  { border-color:var(--red);   background:rgba(192,57,43,0.12); color:#e05a4a; }
+
+/* ── CAT LIST ── */
 .cat-list-item{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:8px 10px;
-  background:#f9f9f9;
-  border-radius:8px;
+  padding:9px 12px;
+  background:var(--surface2);
+  border-radius:var(--radius-sm);
   margin-bottom:6px;
-  font-size:14px;
+  font-size:13.5px;
+  color:var(--text);
+  border:1px solid var(--border);
 }
-
 .cat-list-item button{
   flex:none;
-  padding:4px 10px;
-  font-size:12px;
-  background:#ff3b3b;
+  padding:4px 12px;
+  font-size:11px;
+  background:var(--red);
   color:#fff;
   border:none;
   border-radius:6px;
   cursor:pointer;
+  font-weight:600;
+  transition:filter 0.15s;
 }
+.cat-list-item button:hover{ filter:brightness(1.15); }
 
+/* ── ORDER LIST ── */
 .order-list{
   display:flex;
   flex-direction:column;
-  gap:8px;
-  max-height:300px;
+  gap:7px;
+  max-height:290px;
   overflow-y:auto;
 }
-
 .order-item{
   display:flex;
   align-items:center;
-  gap:8px;
-  background:#f9f9f9;
-  border-radius:8px;
+  gap:9px;
+  background:var(--surface2);
+  border-radius:var(--radius-sm);
   padding:8px 10px;
   font-size:13px;
+  color:var(--text);
+  border:1px solid var(--border);
 }
-
 .order-item img{
-  width:36px;
-  height:36px;
+  width:34px; height:34px;
   object-fit:cover;
   border-radius:6px;
 }
-
-.order-item span{flex:1;}
-
-.order-arrows{
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-}
-
+.order-item span{ flex:1; }
+.order-arrows{ display:flex; flex-direction:column; gap:3px; }
 .order-arrows button{
   flex:none;
-  width:28px;
-  height:24px;
+  width:28px; height:24px;
   border:none;
-  border-radius:4px;
-  background:#2c2c2c;
-  color:#fff;
-  font-size:12px;
+  border-radius:5px;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  color:var(--text2);
+  font-size:11px;
   cursor:pointer;
   padding:0;
+  transition:background 0.15s;
 }
+.order-arrows button:hover{ background:var(--gold); color:#000; border-color:var(--gold); }
 
-#fbBanner{
-  margin:12px 15px;
-  background:linear-gradient(135deg,#1877F2 0%,#0a5abf 100%);
-  border-radius:14px;
-  padding:14px 16px;
-  display:flex;
-  align-items:center;
-  gap:13px;
-  cursor:pointer;
-  text-decoration:none;
-  box-shadow:0 3px 12px rgba(24,119,242,0.35);
-  transition:transform 0.15s, box-shadow 0.15s;
+/* ── STAGGER ANIMATION DELAY ── */
+.card:nth-child(1){animation-delay:0ms}
+.card:nth-child(2){animation-delay:50ms}
+.card:nth-child(3){animation-delay:100ms}
+.card:nth-child(4){animation-delay:150ms}
+.card:nth-child(5){animation-delay:200ms}
+.card:nth-child(6){animation-delay:250ms}
+.card:nth-child(7){animation-delay:300ms}
+.card:nth-child(8){animation-delay:350ms}
+.card:nth-child(n+9){animation-delay:400ms}
+
+/* ── DIVIDER ── */
+.gold-divider{
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,169,110,0.3),transparent);
+  margin:14px 14px 0;
+  position:relative;
+  z-index:2;
 }
-
-#fbBanner:active{transform:scale(0.97);}
-
-
-
-.fb-icon{
-  width:38px;height:38px;background:#fff;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-
-.fb-text{flex:1;}
-.fb-text .fb-title{color:#fff;font-weight:bold;font-size:14px;line-height:1.3;}
-.fb-text .fb-sub{color:rgba(255,255,255,0.82);font-size:12px;margin-top:2px;}
-.fb-arrow{color:rgba(255,255,255,0.7);font-size:18px;}
-
-#adminActionBar{
-  display:none;
-  padding:10px 15px;
-  background:#fff8f4;
-  border-bottom:1px solid #ffd5b8;
-  gap:8px;
-  flex-wrap:wrap;
-}
-
-#adminActionBar button{
-  flex:1;
-  min-width:120px;
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  font-size:13px;
-  font-weight:bold;
-  cursor:pointer;
-}
-
-.btn-add-product{background:#e65c00;color:#fff;}
-.btn-manage-cat{background:#2c2c2c;color:#fff;}
-.btn-order{background:#555;color:#fff;}
 </style>
 </head>
 
 <body>
 
+<!-- INFO BANNER -->
 <div id="infoBanner">
   Sizlere en kaliteli hizmeti en uygun fiyatlarla ulaştırmaya çalışıyoruz.<br>
   Web sitemizdeki fiyat listesi <strong>Karabük Merkez</strong> konumu esas alınarak hazırlanmıştır.<br>
@@ -515,24 +671,28 @@ header{
   Detaylı bilgi için <strong>bizimle iletişime geçebilirsiniz.</strong>
 </div>
 
+<!-- HEADER -->
 <header onclick="secretClick()">
-  <div class="header-content">
+  <div class="header-inner">
     <img src="logo.png" class="logo">
-    <h2>Ramazan Mermer</h2>
+    <div class="header-title">Ramazan <span>Mermer</span></div>
   </div>
 </header>
 
+<!-- ADMIN BANNER -->
 <div id="adminBanner">🔧 ADMİN MODU AKTİF — Çıkmak için başlığa 5 kez tıkla</div>
 
+<!-- ADMIN ACTION BAR -->
 <div id="adminActionBar">
   <button class="btn-add-product" onclick="openAddModal()">+ Yeni Ürün Ekle</button>
   <button class="btn-manage-cat" onclick="openCatModal()">🗂️ Kategoriler</button>
   <button class="btn-order" onclick="openOrderModal()">↕️ Sıralama</button>
 </div>
 
+<!-- FB BANNER -->
 <a id="fbBanner" href="https://www.facebook.com/groups/912273898899478" target="_blank">
   <div class="fb-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#1877F2">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff">
       <path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.884v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
     </svg>
   </div>
@@ -543,41 +703,49 @@ header{
   <div class="fb-arrow">›</div>
 </a>
 
-<div class="section-title">Mezar Modellerimiz:</div>
+<div class="gold-divider"></div>
 
+<!-- SECTION TITLE -->
+<div class="section-title">Mezar <span>Modellerimiz</span></div>
+
+<!-- SEARCH ROW -->
 <div class="search-row">
   <div class="sort-bar">
     <label>Sıralama</label>
     <select id="sortSelect">
       <option value="default">Varsayılan</option>
-      <option value="asc">Artan - Azalan</option>
-      <option value="desc">Azalan - Artan</option>
+      <option value="asc">Artan Fiyat</option>
+      <option value="desc">Azalan Fiyat</option>
     </select>
   </div>
   <a id="mapsBannerInline" href="https://www.google.com/maps?q=41.21827697753906,32.710208892822266&z=17&hl=tr" target="_blank">
     <span class="maps-label">Yol Tarifi</span>
     <div class="maps-btn">
       <div class="maps-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#2c2c2c">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#0e0e0f">
           <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
         </svg>
       </div>
       <div class="maps-text">
         Google Maps
-        <span>İşyerimizi gör ›</span>
+        <span>Konumumuzu gör ›</span>
       </div>
     </div>
   </a>
 </div>
 
+<!-- CAT BAR -->
 <div class="cat-bar" id="catBar"></div>
 
+<!-- PRODUCT LIST -->
 <div class="list" id="list"></div>
 
+<!-- CALL BUTTON -->
 <button id="callBtn" onclick="callPhone()">
   <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png">
 </button>
 
+<!-- IMAGE VIEWER -->
 <div id="viewer" onclick="closeViewer()">
   <img id="viewerImg">
 </div>
@@ -601,16 +769,16 @@ header{
     <input id="add_name" placeholder="Model adı">
     <input id="add_price" placeholder="Fiyat (₺)" type="number">
     <input id="add_img" placeholder="Resim URL">
-    <div class="modal-label">Kategori:</div>
+    <div class="modal-label">Kategori</div>
     <select id="add_cat"></select>
-    <div class="modal-label">Etiket:</div>
+    <div class="modal-label">Etiket</div>
     <div class="label-toggle">
       <div class="label-btn" id="add_btn_bestseller" onclick="toggleAddLabel('bestseller')">🔥 En Çok Satılan</div>
-      <div class="label-btn" id="add_btn_campaign" onclick="toggleAddLabel('campaign')">🏷️ Kampanyalı Ürün</div>
+      <div class="label-btn" id="add_btn_campaign"   onclick="toggleAddLabel('campaign')"   >🏷️ Kampanyalı</div>
     </div>
     <div class="btn-group">
       <button class="btn-orange" onclick="addProduct()">Ekle</button>
-      <button class="btn-gray" onclick="closeModal('addModal')">İptal</button>
+      <button class="btn-gray"   onclick="closeModal('addModal')">İptal</button>
     </div>
   </div>
 </div>
@@ -619,19 +787,19 @@ header{
 <div class="modal" id="editModal">
   <div class="modal-box">
     <h3>✏️ Ürünü Düzenle</h3>
-    <input id="edit_name" placeholder="Model adı">
+    <input id="edit_name"  placeholder="Model adı">
     <input id="edit_price" placeholder="Fiyat (₺)" type="number">
-    <input id="edit_img" placeholder="Resim URL">
-    <div class="modal-label">Kategori:</div>
+    <input id="edit_img"   placeholder="Resim URL">
+    <div class="modal-label">Kategori</div>
     <select id="edit_cat"></select>
-    <div class="modal-label">Etiket:</div>
+    <div class="modal-label">Etiket</div>
     <div class="label-toggle">
       <div class="label-btn" id="edit_btn_bestseller" onclick="toggleEditLabel('bestseller')">🔥 En Çok Satılan</div>
-      <div class="label-btn" id="edit_btn_campaign" onclick="toggleEditLabel('campaign')">🏷️ Kampanyalı Ürün</div>
+      <div class="label-btn" id="edit_btn_campaign"   onclick="toggleEditLabel('campaign')"  >🏷️ Kampanyalı</div>
     </div>
     <div class="btn-group">
       <button class="btn-orange" onclick="saveEdit()">Kaydet</button>
-      <button class="btn-gray" onclick="closeModal('editModal')">İptal</button>
+      <button class="btn-gray"   onclick="closeModal('editModal')">İptal</button>
     </div>
     <div class="btn-group" style="margin-top:8px;">
       <button class="btn-red" onclick="deleteProduct()">🗑️ Sil</button>
@@ -648,7 +816,7 @@ header{
       <button class="btn-dark" onclick="addCategory()">+ Ekle</button>
       <button class="btn-gray" onclick="closeModal('catModal')">Kapat</button>
     </div>
-    <div style="margin-top:12px;" id="catListContainer"></div>
+    <div style="margin-top:14px;" id="catListContainer"></div>
   </div>
 </div>
 
@@ -656,7 +824,7 @@ header{
 <div class="modal" id="orderModal">
   <div class="modal-box">
     <h3>↕️ Ürün Sıralaması</h3>
-    <p style="font-size:12px;color:#888;margin-bottom:10px;">Oklarla sırayı değiştir, kaydet butonuyla uygula.</p>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:12px;">Oklarla sırayı değiştir, kaydet ile uygula.</p>
     <div class="order-list" id="orderList"></div>
     <div class="btn-group">
       <button class="btn-dark" onclick="saveOrder()">💾 Kaydet</button>
@@ -665,9 +833,11 @@ header{
   </div>
 </div>
 
+<!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getDatabase, ref, onValue, push, set, update, remove, get } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getDatabase, ref, onValue, push, set, update, remove, get }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const app = initializeApp({
   apiKey:"AIzaSyD6TKF0EJbmJtl9jVNKS-Lz24weFjYKGeE",
@@ -677,29 +847,29 @@ const app = initializeApp({
 });
 
 const db = getDatabase(app);
-const listEl = document.getElementById("list");
-const sortSelect = document.getElementById("sortSelect");
-const catBar = document.getElementById("catBar");
+const listEl      = document.getElementById("list");
+const sortSelect  = document.getElementById("sortSelect");
+const catBar      = document.getElementById("catBar");
 
-let modelsData = [];
+let modelsData     = [];
 let categoriesData = [];
-let isAdmin = false;
-let editingId = null;
-let addLabel = "";
-let editLabel = "";
-let activeCat = "Tümü";
-let orderTemp = [];
+let isAdmin        = false;
+let editingId      = null;
+let addLabel       = "";
+let editLabel      = "";
+let activeCat      = "Tümü";
+let orderTemp      = [];
 
 onValue(ref(db,"models"), snap => {
   const data = snap.val();
-  if(!data){modelsData=[];render();return;}
+  if(!data){ modelsData=[]; render(); return; }
   modelsData = Object.entries(data).map(([id,item]) => ({ id, ...item }));
   render();
 });
 
 onValue(ref(db,"categories"), snap => {
   const data = snap.val();
-  if(!data){categoriesData=[];}
+  if(!data){ categoriesData=[]; }
   else { categoriesData = Object.entries(data).map(([id,item]) => ({ id, name: item.name })); }
   renderCatBar();
   renderCatSelects();
@@ -709,41 +879,31 @@ onValue(ref(db,"categories"), snap => {
 function render(){
   listEl.innerHTML = "";
 
-  // 1. ADIM: Önce kategori filtresi uygula
   let filtered = activeCat === "Tümü"
     ? [...modelsData]
     : modelsData.filter(i => i.category === activeCat);
 
-  // 2. ADIM: Filtrelenmiş listeyi sırala
   const sortVal = sortSelect.value;
-
   if(sortVal === "asc"){
-    // Fiyata göre artan, etiketliler her zaman üstte
-    filtered.sort((a, b) => {
-      const aLabel = a.label ? 1 : 0;
-      const bLabel = b.label ? 1 : 0;
-      if(bLabel !== aLabel) return bLabel - aLabel;
-      return a.price - b.price;
+    filtered.sort((a,b) => {
+      const al=a.label?1:0, bl=b.label?1:0;
+      if(bl!==al) return bl-al;
+      return a.price-b.price;
     });
   } else if(sortVal === "desc"){
-    // Fiyata göre azalan, etiketliler her zaman üstte
-    filtered.sort((a, b) => {
-      const aLabel = a.label ? 1 : 0;
-      const bLabel = b.label ? 1 : 0;
-      if(bLabel !== aLabel) return bLabel - aLabel;
-      return b.price - a.price;
+    filtered.sort((a,b) => {
+      const al=a.label?1:0, bl=b.label?1:0;
+      if(bl!==al) return bl-al;
+      return b.price-a.price;
     });
   } else {
-    // Varsayılan sıralama: etiketliler üste, sonra order değerine göre
-    filtered.sort((a, b) => {
-      const aLabel = a.label ? 1 : 0;
-      const bLabel = b.label ? 1 : 0;
-      if(bLabel !== aLabel) return bLabel - aLabel;
-      return (a.order ?? 9999) - (b.order ?? 9999);
+    filtered.sort((a,b) => {
+      const al=a.label?1:0, bl=b.label?1:0;
+      if(bl!==al) return bl-al;
+      return (a.order??9999)-(b.order??9999);
     });
   }
 
-  // 3. ADIM: Kartları oluştur
   filtered.forEach(item => {
     const div = document.createElement("div");
     div.className = "card" + (isAdmin ? " admin-mode" : "");
@@ -755,18 +915,20 @@ function render(){
       badgeHTML = `<div class="badge-wrap"><span class="badge badge-campaign">🏷️ Kampanyalı Ürün</span></div>`;
     }
 
-    const catLabel = item.category ? `<div class="card-cat">${item.category}</div>` : "";
+    const catLabel = item.category
+      ? `<div class="card-cat">${item.category}</div>` : "";
 
     div.innerHTML = `
-      <img src="${item.img}" onclick="handleImgClick(event,'${item.img}')">
-      ${badgeHTML}
+      <div class="card-img-wrap">
+        <img src="${item.img}" onclick="handleImgClick(event,'${item.img}')">
+        ${badgeHTML}
+      </div>
       <div class="card-info">
         ${catLabel}
-        <div class="name-price">
-          <div>${item.name}</div>
-          <div>${item.price}₺</div>
-        </div>
+        <div class="card-name">${item.name}</div>
+        <div class="card-price">${item.price.toLocaleString('tr-TR')}₺</div>
         <button class="wp-item" onclick="sendWhatsApp(event,'${item.name}','${item.img}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           WhatsApp'tan sor
         </button>
       </div>
@@ -792,7 +954,6 @@ function renderCatBar(){
   all.textContent = "Tümü";
   all.onclick = () => { activeCat = "Tümü"; renderCatBar(); render(); };
   catBar.appendChild(all);
-
   categoriesData.forEach(cat => {
     const btn = document.createElement("button");
     btn.className = "cat-btn" + (activeCat === cat.name ? " active" : "");
@@ -809,8 +970,7 @@ function renderCatSelects(){
     sel.innerHTML = `<option value="">— Kategori Seç —</option>`;
     categoriesData.forEach(cat => {
       const opt = document.createElement("option");
-      opt.value = cat.name;
-      opt.textContent = cat.name;
+      opt.value = cat.name; opt.textContent = cat.name;
       sel.appendChild(opt);
     });
     sel.value = prev;
@@ -822,7 +982,7 @@ function renderCatList(){
   if(!container) return;
   container.innerHTML = "";
   if(categoriesData.length === 0){
-    container.innerHTML = `<p style="font-size:13px;color:#aaa;text-align:center;">Henüz kategori yok</p>`;
+    container.innerHTML = `<p style="font-size:13px;color:var(--text3);text-align:center;">Henüz kategori yok</p>`;
     return;
   }
   categoriesData.forEach(cat => {
@@ -852,18 +1012,14 @@ window.openCatModal = () => {
 };
 
 window.openOrderModal = () => {
-  // Aktif kategoriye göre filtrele, sonra order değerine göre sırala
   const source = activeCat === "Tümü"
     ? [...modelsData]
     : modelsData.filter(i => i.category === activeCat);
   orderTemp = source.sort((a,b) => (a.order??9999)-(b.order??9999));
-
-  // Modal başlığını güncelle
   const modalTitle = document.querySelector("#orderModal .modal-box h3");
   modalTitle.textContent = activeCat === "Tümü"
     ? "↕️ Ürün Sıralaması — Tümü"
     : `↕️ Ürün Sıralaması — ${activeCat}`;
-
   renderOrderList();
   document.getElementById("orderModal").style.display = "flex";
 };
@@ -889,9 +1045,7 @@ function renderOrderList(){
 window.moveOrder = (idx, dir) => {
   const newIdx = idx + dir;
   if(newIdx < 0 || newIdx >= orderTemp.length) return;
-  const tmp = orderTemp[idx];
-  orderTemp[idx] = orderTemp[newIdx];
-  orderTemp[newIdx] = tmp;
+  const tmp = orderTemp[idx]; orderTemp[idx] = orderTemp[newIdx]; orderTemp[newIdx] = tmp;
   renderOrderList();
 };
 
@@ -903,24 +1057,16 @@ window.saveOrder = async () => {
   alert("Sıralama kaydedildi ✅");
 };
 
-window.toggleAddLabel = (type) => {
-  addLabel = addLabel === type ? "" : type;
-  updateAddLabelUI();
-};
-
+window.toggleAddLabel = (type) => { addLabel = addLabel===type?"":type; updateAddLabelUI(); };
 function updateAddLabelUI(){
-  document.getElementById("add_btn_bestseller").className = "label-btn" + (addLabel==="bestseller"?" active-bestseller":"");
-  document.getElementById("add_btn_campaign").className = "label-btn" + (addLabel==="campaign"?" active-campaign":"");
+  document.getElementById("add_btn_bestseller").className = "label-btn"+(addLabel==="bestseller"?" active-bestseller":"");
+  document.getElementById("add_btn_campaign").className   = "label-btn"+(addLabel==="campaign"?" active-campaign":"");
 }
 
-window.toggleEditLabel = (type) => {
-  editLabel = editLabel === type ? "" : type;
-  updateEditLabelUI();
-};
-
+window.toggleEditLabel = (type) => { editLabel = editLabel===type?"":type; updateEditLabelUI(); };
 function updateEditLabelUI(){
-  document.getElementById("edit_btn_bestseller").className = "label-btn" + (editLabel==="bestseller"?" active-bestseller":"");
-  document.getElementById("edit_btn_campaign").className = "label-btn" + (editLabel==="campaign"?" active-campaign":"");
+  document.getElementById("edit_btn_bestseller").className = "label-btn"+(editLabel==="bestseller"?" active-bestseller":"");
+  document.getElementById("edit_btn_campaign").className   = "label-btn"+(editLabel==="campaign"?" active-campaign":"");
 }
 
 window.handleImgClick = (e, src) => {
@@ -930,62 +1076,44 @@ window.handleImgClick = (e, src) => {
   document.getElementById("viewerImg").src = src;
 };
 
-window.closeViewer = () => {
-  document.getElementById("viewer").style.display = "none";
-};
+window.closeViewer = () => { document.getElementById("viewer").style.display = "none"; };
 
 window.sendWhatsApp = (e, name, img) => {
   e.stopPropagation();
   if(isAdmin) return;
-
   const msg = `Merhaba, ${name} modeli hakkında bilgi almak istiyorum.\n\n📷 Ürün görseli:\n${img}`;
-
-  window.open(
-    "https://wa.me/905423189711?text=" + encodeURIComponent(msg),
-    "_blank"
-  );
+  window.open("https://wa.me/905423189711?text=" + encodeURIComponent(msg), "_blank");
 };
 
-window.callPhone = () => {
-  window.location.href = "tel:+905423189711";
-};
+window.callPhone = () => { window.location.href = "tel:+905423189711"; };
 
-let clickCount = 0;
-let timer;
-
+let clickCount = 0, timer;
 window.secretClick = () => {
   if(isAdmin){
-    clickCount++;
-    clearTimeout(timer);
-    timer = setTimeout(() => clickCount = 0, 1500);
-    if(clickCount === 5){ logoutAdmin(); clickCount = 0; }
+    clickCount++; clearTimeout(timer);
+    timer = setTimeout(()=>clickCount=0, 1500);
+    if(clickCount===5){ logoutAdmin(); clickCount=0; }
     return;
   }
-  clickCount++;
-  clearTimeout(timer);
-  timer = setTimeout(() => clickCount = 0, 1500);
-  if(clickCount === 5){
+  clickCount++; clearTimeout(timer);
+  timer = setTimeout(()=>clickCount=0, 1500);
+  if(clickCount===5){
     document.getElementById("adminPanel").style.display = "flex";
-    clickCount = 0;
+    clickCount=0;
   }
 };
 
 window.login = () => {
   const pass = document.getElementById("pass").value;
-
-  get(ref(db, "adminPass")).then(snapshot => {
-    const adminPassword = snapshot.val();
-
-    if(pass === adminPassword){
+  get(ref(db,"adminPass")).then(snapshot => {
+    if(pass === snapshot.val()){
       isAdmin = true;
       document.getElementById("adminPanel").style.display = "none";
       document.getElementById("adminBanner").style.display = "block";
       document.getElementById("adminActionBar").style.display = "flex";
       document.getElementById("pass").value = "";
       render();
-    } else {
-      alert("Hatalı şifre");
-    }
+    } else { alert("Hatalı şifre"); }
   });
 };
 
@@ -1001,15 +1129,11 @@ window.closeAdmin = () => {
   document.getElementById("pass").value = "";
 };
 
-window.closeModal = (id) => {
-  document.getElementById(id).style.display = "none";
-};
+window.closeModal = (id) => { document.getElementById(id).style.display = "none"; };
 
 window.openAddModal = () => {
   addLabel = "";
-  document.getElementById("add_name").value = "";
-  document.getElementById("add_price").value = "";
-  document.getElementById("add_img").value = "";
+  ["add_name","add_price","add_img"].forEach(id => document.getElementById(id).value = "");
   document.getElementById("add_cat").value = "";
   updateAddLabelUI();
   document.getElementById("addModal").style.display = "flex";
@@ -1020,20 +1144,18 @@ window.addProduct = () => {
   const price    = parseInt(document.getElementById("add_price").value);
   const img      = document.getElementById("add_img").value.trim();
   const category = document.getElementById("add_cat").value;
-  if(!name || !price || !img){ alert("Tüm alanları doldur"); return; }
-  const newOrder = modelsData.length;
-  set(push(ref(db,"models")), { name, price, img, label: addLabel, category, order: newOrder });
+  if(!name||!price||!img){ alert("Tüm alanları doldur"); return; }
+  set(push(ref(db,"models")), { name, price, img, label:addLabel, category, order:modelsData.length });
   document.getElementById("addModal").style.display = "none";
   alert("Ürün eklendi ✅");
 };
 
 window.openEditModal = (item) => {
-  editingId = item.id;
-  editLabel = item.label || "";
+  editingId = item.id; editLabel = item.label||"";
   document.getElementById("edit_name").value  = item.name;
   document.getElementById("edit_price").value = item.price;
   document.getElementById("edit_img").value   = item.img;
-  document.getElementById("edit_cat").value   = item.category || "";
+  document.getElementById("edit_cat").value   = item.category||"";
   updateEditLabelUI();
   document.getElementById("editModal").style.display = "flex";
 };
@@ -1044,8 +1166,8 @@ window.saveEdit = () => {
   const price    = parseInt(document.getElementById("edit_price").value);
   const img      = document.getElementById("edit_img").value.trim();
   const category = document.getElementById("edit_cat").value;
-  if(!name || !price || !img){ alert("Tüm alanları doldur"); return; }
-  update(ref(db,"models/" + editingId), { name, price, img, label: editLabel, category });
+  if(!name||!price||!img){ alert("Tüm alanları doldur"); return; }
+  update(ref(db,"models/"+editingId), { name, price, img, label:editLabel, category });
   document.getElementById("editModal").style.display = "none";
   editingId = null;
   alert("Kaydedildi ✅");
@@ -1054,7 +1176,7 @@ window.saveEdit = () => {
 window.deleteProduct = () => {
   if(!editingId) return;
   if(!confirm("Bu ürünü silmek istediğinden emin misin?")) return;
-  remove(ref(db,"models/" + editingId));
+  remove(ref(db,"models/"+editingId));
   document.getElementById("editModal").style.display = "none";
   editingId = null;
 };
