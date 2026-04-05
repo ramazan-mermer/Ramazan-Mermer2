@@ -1099,6 +1099,112 @@ header:active{ opacity:0.75; }
 .card:nth-child(8){animation-delay:350ms}
 .card:nth-child(n+9){animation-delay:400ms}
 
+.btn-banner-edit{ background:linear-gradient(135deg,#1a4a7a,#2563eb); color:#fff; }
+
+/* ── BANNER EDIT MODAL ── */
+.banner-preview-box{
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+  margin-bottom:14px;
+  text-align:center;
+  transition:all 0.2s;
+}
+.banner-preview-box .prev-icon{
+  font-size:22px;
+  display:block;
+  margin-bottom:6px;
+}
+.banner-preview-box .prev-text{
+  font-size:13px;
+  font-weight:600;
+  line-height:1.75;
+}
+.banner-preview-box .prev-text strong{
+  font-weight:800;
+  padding:0 4px;
+  border-radius:3px;
+}
+.banner-section-label{
+  font-size:10px;
+  font-weight:700;
+  color:var(--text3);
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+  margin:12px 0 6px;
+}
+.color-row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.color-chip-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  flex:1;
+}
+.color-chip-label{
+  font-size:10px;
+  color:var(--text3);
+  font-weight:600;
+  white-space:nowrap;
+}
+.color-chip-input{
+  width:100%;
+  height:36px;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--border2);
+  cursor:pointer;
+  background:none;
+  padding:2px;
+}
+.icon-row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:4px;
+}
+.icon-chip{
+  font-size:20px;
+  padding:5px 8px;
+  border-radius:8px;
+  cursor:pointer;
+  border:2px solid transparent;
+  background:var(--surface2);
+  transition:border-color 0.15s, transform 0.1s;
+}
+.icon-chip:active{ transform:scale(0.9); }
+.icon-chip.selected{ border-color:var(--gold); }
+.banner-textarea{
+  width:100%;
+  min-height:90px;
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:13px;
+  padding:10px;
+  resize:vertical;
+  line-height:1.6;
+}
+.banner-textarea:focus{ outline:none; border-color:var(--gold); }
+.banner-hint{
+  font-size:11px;
+  color:var(--text3);
+  margin-top:5px;
+  line-height:1.5;
+}
+.banner-hint code{
+  background:var(--surface2);
+  padding:1px 5px;
+  border-radius:4px;
+  font-family:monospace;
+  color:var(--gold);
+}
+
 /* ── DIVIDER ── */
 .gold-divider{
   height:1px;
@@ -1141,6 +1247,7 @@ header:active{ opacity:0.75; }
   <button class="btn-order" onclick="openOrderModal()">↕️ Sıralama</button>
   <button class="btn-price-editor" onclick="openPriceEditor()">💰 Fiyat Düzenleyici</button>
   <button class="btn-theme" onclick="openThemeModal()">🎨 Tema</button>
+  <button class="btn-banner-edit" onclick="openBannerModal()">📢 Uyarı Banneri</button>
 </div>
 
 <!-- FB BANNER -->
@@ -1378,6 +1485,68 @@ header:active{ opacity:0.75; }
   </div>
 </div>
 
+<!-- BANNER DÜZENLEYİCİ -->
+<div class="modal" id="bannerModal">
+  <div class="modal-box" style="max-width:380px;">
+    <h3>📢 Uyarı Banneri Düzenle</h3>
+
+    <!-- Canlı Önizleme -->
+    <div class="banner-section-label">Önizleme</div>
+    <div class="banner-preview-box" id="bannerPreviewBox">
+      <span class="prev-icon" id="bannerPreviewIcon">⚠️</span>
+      <div class="prev-text" id="bannerPreviewText"></div>
+    </div>
+
+    <!-- İkon Seçimi -->
+    <div class="banner-section-label">İkon</div>
+    <div class="icon-row" id="bannerIconRow">
+      <span class="icon-chip selected" data-icon="⚠️" onclick="selectBannerIcon(this)">⚠️</span>
+      <span class="icon-chip" data-icon="📢" onclick="selectBannerIcon(this)">📢</span>
+      <span class="icon-chip" data-icon="🔔" onclick="selectBannerIcon(this)">🔔</span>
+      <span class="icon-chip" data-icon="ℹ️" onclick="selectBannerIcon(this)">ℹ️</span>
+      <span class="icon-chip" data-icon="🚨" onclick="selectBannerIcon(this)">🚨</span>
+      <span class="icon-chip" data-icon="✅" onclick="selectBannerIcon(this)">✅</span>
+      <span class="icon-chip" data-icon="🎉" onclick="selectBannerIcon(this)">🎉</span>
+      <span class="icon-chip" data-icon="💬" onclick="selectBannerIcon(this)">💬</span>
+    </div>
+
+    <!-- Metin -->
+    <div class="banner-section-label">Banner Metni</div>
+    <textarea class="banner-textarea" id="bannerTextInput" oninput="updateBannerPreview()" placeholder="Banner metnini buraya yazın...&#10;&#10;Sarı vurgulamak için: [vurgu]metin[/vurgu]&#10;Satır sonu için: Enter tuşu"></textarea>
+    <div class="banner-hint">
+      Sarı arka planla vurgulamak için: <code>[vurgu]metin[/vurgu]</code><br>
+      Satır atlamak için Enter'a basın.
+    </div>
+
+    <!-- Renkler -->
+    <div class="banner-section-label">Renkler</div>
+    <div class="color-row">
+      <div class="color-chip-wrap">
+        <span class="color-chip-label">Arka Plan</span>
+        <input type="color" class="color-chip-input" id="bannerBgColor" value="#ffffff" oninput="updateBannerPreview()">
+      </div>
+      <div class="color-chip-wrap">
+        <span class="color-chip-label">Yazı Rengi</span>
+        <input type="color" class="color-chip-input" id="bannerTextColor" value="#000000" oninput="updateBannerPreview()">
+      </div>
+      <div class="color-chip-wrap">
+        <span class="color-chip-label">Üst/Alt Çizgi</span>
+        <input type="color" class="color-chip-input" id="bannerBorderColor" value="#000000" oninput="updateBannerPreview()">
+      </div>
+      <div class="color-chip-wrap">
+        <span class="color-chip-label">Vurgu Rengi</span>
+        <input type="color" class="color-chip-input" id="bannerHighlightColor" value="#FFD600" oninput="updateBannerPreview()">
+      </div>
+    </div>
+
+    <!-- Butonlar -->
+    <div class="btn-group" style="margin-top:16px;">
+      <button class="btn-dark" onclick="saveBannerSettings()" style="background:#2563eb;color:#fff;">💾 Kaydet</button>
+      <button class="btn-gray" onclick="closeModal('bannerModal')">İptal</button>
+    </div>
+  </div>
+</div>
+
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -1395,6 +1564,29 @@ const db = getDatabase(app);
 const listEl      = document.getElementById("list");
 const sortSelect  = document.getElementById("sortSelect");
 const catBar      = document.getElementById("catBar");
+
+// ── BANNER AYARLARINI FIREBASE'DEN OKU ──
+onValue(ref(db,"bannerSettings"), snapshot => {
+  const s = snapshot.val();
+  if(s) applyBannerSettings(s);
+});
+
+function applyBannerSettings(s){
+  const banner = document.getElementById("infoBanner");
+  if(s.bgColor)     banner.style.background    = s.bgColor;
+  if(s.borderColor){ banner.style.borderTopColor = s.borderColor; banner.style.borderBottomColor = s.borderColor; }
+  if(s.textColor)   banner.querySelector("p").style.color = s.textColor;
+  if(s.icon)        banner.querySelector(".banner-icon").textContent = s.icon;
+  if(s.text){
+    banner.querySelector("p").innerHTML = parseBannerText(s.text, s.textColor||"#000000", s.highlightColor||"#FFD600");
+  }
+}
+
+function parseBannerText(raw, textColor, highlightColor){
+  return raw
+    .replace(/\[vurgu\](.*?)\[\/vurgu\]/g, `<strong style="color:${textColor};background:${highlightColor};">$1</strong>`)
+    .replace(/\n/g, "<br>");
+}
 
 let modelsData     = [];
 let categoriesData = [];
@@ -2085,6 +2277,91 @@ window.closeAdmin = () => {
   document.getElementById("adminPanel").style.display = "none";
   document.getElementById("pass").value = "";
 };
+
+// ── BANNER MODAL FONKSİYONLARI ──
+let currentBannerIcon = "⚠️";
+
+window.openBannerModal = () => {
+  // Mevcut banner değerlerini forma doldur
+  const banner = document.getElementById("infoBanner");
+  const p      = banner.querySelector("p");
+
+  // Arka plan ve çizgi renklerini al
+  document.getElementById("bannerBgColor").value     = rgbToHex(banner.style.background) || "#ffffff";
+  document.getElementById("bannerBorderColor").value = rgbToHex(banner.style.borderTopColor) || "#000000";
+  document.getElementById("bannerTextColor").value   = rgbToHex(p.style.color) || "#000000";
+
+  // Mevcut metni ham hale çevir
+  let rawText = p.innerHTML
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<strong[^>]*>(.*?)<\/strong>/gi, "[vurgu]$1[/vurgu]")
+    .replace(/<[^>]+>/g, "");
+  document.getElementById("bannerTextInput").value = rawText;
+
+  // İkonu al
+  currentBannerIcon = banner.querySelector(".banner-icon").textContent.trim() || "⚠️";
+  document.querySelectorAll(".icon-chip").forEach(c => {
+    c.classList.toggle("selected", c.dataset.icon === currentBannerIcon);
+  });
+
+  updateBannerPreview();
+  document.getElementById("bannerModal").style.display = "flex";
+};
+
+window.selectBannerIcon = (el) => {
+  document.querySelectorAll(".icon-chip").forEach(c => c.classList.remove("selected"));
+  el.classList.add("selected");
+  currentBannerIcon = el.dataset.icon;
+  updateBannerPreview();
+};
+
+window.updateBannerPreview = () => {
+  const text      = document.getElementById("bannerTextInput").value;
+  const bgColor   = document.getElementById("bannerBgColor").value;
+  const textColor = document.getElementById("bannerTextColor").value;
+  const borderColor = document.getElementById("bannerBorderColor").value;
+  const hlColor   = document.getElementById("bannerHighlightColor").value;
+
+  const box = document.getElementById("bannerPreviewBox");
+  box.style.background    = bgColor;
+  box.style.borderTop     = `4px solid ${borderColor}`;
+  box.style.borderBottom  = `4px solid ${borderColor}`;
+
+  document.getElementById("bannerPreviewIcon").textContent = currentBannerIcon;
+
+  const previewText = document.getElementById("bannerPreviewText");
+  previewText.style.color = textColor;
+  previewText.innerHTML   = parseBannerText(text, textColor, hlColor);
+
+  // strong etiketleri için highlight rengini de ayarla
+  previewText.querySelectorAll("strong").forEach(s => {
+    s.style.background = hlColor;
+    s.style.color      = textColor;
+  });
+};
+
+window.saveBannerSettings = async () => {
+  const settings = {
+    icon:           currentBannerIcon,
+    text:           document.getElementById("bannerTextInput").value,
+    bgColor:        document.getElementById("bannerBgColor").value,
+    textColor:      document.getElementById("bannerTextColor").value,
+    borderColor:    document.getElementById("bannerBorderColor").value,
+    highlightColor: document.getElementById("bannerHighlightColor").value,
+  };
+  await set(ref(db,"bannerSettings"), settings);
+  applyBannerSettings(settings);
+  document.getElementById("bannerModal").style.display = "none";
+  alert("✅ Banner güncellendi!");
+};
+
+function rgbToHex(color){
+  if(!color) return null;
+  if(color.startsWith("#")) return color;
+  const m = color.match(/\d+/g);
+  if(!m || m.length < 3) return null;
+  return "#" + m.slice(0,3).map(n => parseInt(n).toString(16).padStart(2,"0")).join("");
+}
 
 window.openThemeModal = () => {
   renderThemeGrid();
