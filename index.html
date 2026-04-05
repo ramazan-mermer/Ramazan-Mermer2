@@ -575,18 +575,19 @@ header:active{ opacity:0.75; }
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
-  padding:9px 10px;
+  padding:12px 14px;
   border-radius:40px;
   border:1px solid var(--border2);
   background:transparent;
   color:var(--text2);
   font-family:var(--font-body);
-  font-size:12px;
+  font-size:15px;
   font-weight:500;
   cursor:pointer;
   transition:all 0.2s;
   letter-spacing:0.2px;
   text-align:center;
+  min-height:48px;
 }
 .cat-btn:hover{ border-color:var(--gold); color:var(--gold); }
 .cat-btn.active{
@@ -662,7 +663,7 @@ header:active{ opacity:0.75; }
   background:var(--surface);
 }
 .card-cat{
-  font-size:10px;
+  font-size:12px;
   color:var(--gold);
   text-transform:uppercase;
   letter-spacing:0.7px;
@@ -670,7 +671,7 @@ header:active{ opacity:0.75; }
   margin-bottom:4px;
 }
 .card-name{
-  font-size:12.5px;
+  font-size:15px;
   font-weight:600;
   color:var(--text);
   margin-bottom:2px;
@@ -678,7 +679,7 @@ header:active{ opacity:0.75; }
 }
 .card-price{
   font-family:var(--font-body);
-  font-size:16px;
+  font-size:19px;
   font-weight:700;
   color:var(--gold2);
   margin-bottom:9px;
@@ -688,11 +689,11 @@ header:active{ opacity:0.75; }
   color:#fff;
   border:none;
   width:100%;
-  padding:8px 6px;
+  padding:12px 6px;
   border-radius:var(--radius-sm);
   cursor:pointer;
   font-family:var(--font-body);
-  font-size:11.5px;
+  font-size:14px;
   font-weight:600;
   letter-spacing:0.2px;
   transition:filter 0.15s, transform 0.1s;
@@ -700,6 +701,7 @@ header:active{ opacity:0.75; }
   align-items:center;
   justify-content:center;
   gap:5px;
+  min-height:48px;
 }
 .wp-item:active{ transform:scale(0.97); filter:brightness(0.9); }
 
@@ -728,21 +730,32 @@ header:active{ opacity:0.75; }
 #callBtn{
   position:fixed;
   bottom:22px; right:18px;
-  width:62px; height:62px;
+  width:auto;
+  height:auto;
+  padding:14px 20px;
   border:none;
-  border-radius:50%;
+  border-radius:50px;
   cursor:pointer;
   background:linear-gradient(135deg,#ff4f4f,#e02020);
   display:flex;
   align-items:center;
   justify-content:center;
+  gap:9px;
   box-shadow:0 0 0 rgba(255,59,59,0.5);
   animation:pulse 2s infinite;
   z-index:50;
   transition:transform 0.15s;
 }
 #callBtn:active{ transform:scale(0.93); }
-#callBtn img{ width:26px; filter:brightness(10); }
+#callBtn img{ width:22px; filter:brightness(10); flex-shrink:0; }
+#callBtn span{
+  color:#fff;
+  font-family:var(--font-body);
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:0.3px;
+  white-space:nowrap;
+}
 @keyframes pulse{
   0%  { box-shadow:0 0 0 0   rgba(255,59,59,0.55); }
   70% { box-shadow:0 0 0 16px rgba(255,59,59,0);   }
@@ -1296,7 +1309,7 @@ header:active{ opacity:0.75; }
   .section-title{ padding:24px 0 8px; font-size:30px; }
   #fbBanner{ margin:14px 0 0; }
   .modal-box{ max-width:440px; }
-  #callBtn{ bottom:32px; right:32px; width:68px; height:68px; }
+  #callBtn{ bottom:32px; right:32px; padding:16px 24px; }
 }
 
 @media(min-width:1200px){
@@ -1454,6 +1467,7 @@ header:active{ opacity:0.75; }
 <!-- CALL BUTTON -->
 <button id="callBtn" onclick="callPhone()">
   <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png">
+  <span>Bizi Ara</span>
 </button>
 
 <!-- IMAGE VIEWER -->
