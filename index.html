@@ -223,7 +223,239 @@ header{
 }
 .sort-bar select:focus{ outline:none; border-color:var(--gold); }
 
-/* ── MAPS INLINE BTN ── */
+/* ── PRICE FILTER BUTTON ── */
+.filter-btn-wrap{
+  flex-shrink:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+}
+.filter-btn-label{
+  font-size:10px;
+  font-weight:600;
+  color:var(--text3);
+  text-transform:uppercase;
+  letter-spacing:0.8px;
+}
+#priceFilterBtn{
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  padding:9px 13px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  cursor:pointer;
+  transition:transform 0.15s, border-color 0.15s;
+  white-space:nowrap;
+  font-family:var(--font-body);
+  font-size:12px;
+  font-weight:600;
+  color:var(--text);
+}
+#priceFilterBtn:active{ transform:scale(0.96); }
+#priceFilterBtn.active{ border-color:var(--gold); color:var(--gold); background:rgba(201,169,110,0.08); }
+#priceFilterBtn .filter-icon{
+  width:26px; height:26px;
+  background:var(--surface);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+  font-size:13px;
+  transition:background 0.15s;
+}
+#priceFilterBtn.active .filter-icon{ background:rgba(201,169,110,0.18); }
+.filter-badge{
+  display:none;
+  background:var(--gold);
+  color:#0e0e0f;
+  border-radius:30px;
+  font-size:9px;
+  font-weight:700;
+  padding:1px 6px;
+  letter-spacing:0.2px;
+}
+.filter-badge.show{ display:inline-block; }
+
+/* ── PRICE FILTER PANEL ── */
+#priceFilterPanel{
+  display:none;
+  margin:8px 14px 0;
+  background:var(--surface);
+  border:1px solid var(--border2);
+  border-radius:var(--radius);
+  padding:16px;
+  position:relative;
+  z-index:3;
+  animation:slideDown 0.2s ease;
+}
+@keyframes slideDown{
+  from{ opacity:0; transform:translateY(-8px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+#priceFilterPanel.open{ display:block; }
+.pf-title{
+  font-size:11px;
+  font-weight:700;
+  color:var(--text2);
+  text-transform:uppercase;
+  letter-spacing:0.7px;
+  margin-bottom:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.pf-title button{
+  background:none;
+  border:none;
+  color:var(--text3);
+  font-size:11px;
+  cursor:pointer;
+  font-family:var(--font-body);
+  font-weight:600;
+  padding:0;
+  transition:color 0.15s;
+}
+.pf-title button:hover{ color:var(--gold); }
+.pf-inputs{
+  display:flex;
+  gap:10px;
+  margin-bottom:14px;
+}
+.pf-input-group{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:5px;
+}
+.pf-input-group label{
+  font-size:10px;
+  font-weight:600;
+  color:var(--text3);
+  text-transform:uppercase;
+  letter-spacing:0.7px;
+}
+.pf-input-group input{
+  width:100%;
+  padding:9px 10px;
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:13px;
+  font-weight:600;
+}
+.pf-input-group input:focus{ outline:none; border-color:var(--gold); }
+.pf-input-group input::placeholder{ color:var(--text3); font-weight:400; }
+/* Range slider */
+.pf-range-wrap{
+  position:relative;
+  height:28px;
+  margin-bottom:4px;
+}
+.pf-range-track{
+  position:absolute;
+  top:50%; left:0; right:0;
+  height:3px;
+  background:var(--border2);
+  border-radius:3px;
+  transform:translateY(-50%);
+  pointer-events:none;
+}
+.pf-range-fill{
+  position:absolute;
+  top:0; height:100%;
+  background:var(--gold);
+  border-radius:3px;
+  pointer-events:none;
+}
+.pf-range-wrap input[type=range]{
+  position:absolute;
+  width:100%;
+  top:50%;
+  transform:translateY(-50%);
+  -webkit-appearance:none;
+  appearance:none;
+  background:transparent;
+  pointer-events:none;
+  margin:0;
+}
+.pf-range-wrap input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  appearance:none;
+  width:20px; height:20px;
+  border-radius:50%;
+  background:var(--gold);
+  border:3px solid var(--bg);
+  cursor:pointer;
+  pointer-events:all;
+  box-shadow:0 0 0 1px var(--gold);
+  transition:transform 0.1s;
+}
+.pf-range-wrap input[type=range]::-webkit-slider-thumb:active{ transform:scale(1.2); }
+.pf-range-wrap input[type=range]::-moz-range-thumb{
+  width:20px; height:20px;
+  border-radius:50%;
+  background:var(--gold);
+  border:3px solid var(--bg);
+  cursor:pointer;
+  pointer-events:all;
+  box-shadow:0 0 0 1px var(--gold);
+}
+.pf-actions{
+  display:flex;
+  gap:8px;
+  margin-top:14px;
+}
+.pf-apply{
+  flex:2;
+  padding:10px;
+  background:var(--gold);
+  color:#0e0e0f;
+  border:none;
+  border-radius:var(--radius-sm);
+  font-family:var(--font-body);
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  transition:filter 0.15s;
+  letter-spacing:0.3px;
+}
+.pf-apply:hover{ filter:brightness(1.1); }
+.pf-reset{
+  flex:1;
+  padding:10px;
+  background:var(--surface2);
+  color:var(--text2);
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  font-family:var(--font-body);
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+  transition:filter 0.15s;
+}
+.pf-reset:hover{ filter:brightness(1.15); }
+/* result count */
+.pf-result-count{
+  font-size:11.5px;
+  color:var(--text3);
+  margin-top:10px;
+  text-align:center;
+  display:none;
+}
+.pf-result-count.show{ display:block; }
+.pf-result-count strong{ color:var(--gold); }
+
+/* PC için geniş ekran düzeni */
+@media(min-width:600px){
+  .pf-inputs{ gap:16px; }
+  .pf-input-group input{ font-size:14px; padding:10px 12px; }
+  #priceFilterPanel{ padding:20px; border-radius:16px; }
+  #priceFilterBtn{ font-size:13px; padding:9px 16px; }
+}
 #mapsBannerInline{
   flex-shrink:0;
   display:flex;
@@ -801,6 +1033,14 @@ header{
       <option value="desc">Azalan Fiyat</option>
     </select>
   </div>
+  <div class="filter-btn-wrap">
+    <span class="filter-btn-label">Fiyat</span>
+    <button id="priceFilterBtn" onclick="togglePriceFilter()">
+      <div class="filter-icon">₺</div>
+      Filtrele
+      <span class="filter-badge" id="filterBadge">AKTİF</span>
+    </button>
+  </div>
   <a id="mapsBannerInline" href="https://www.google.com/maps?q=41.21827697753906,32.710208892822266&z=17&hl=tr" target="_blank">
     <span class="maps-label">Yol Tarifi</span>
     <div class="maps-btn">
@@ -815,6 +1055,34 @@ header{
       </div>
     </div>
   </a>
+</div>
+
+<!-- FİYAT FİLTRE PANELİ -->
+<div id="priceFilterPanel">
+  <div class="pf-title">
+    <span>💰 Fiyat Aralığı</span>
+    <button onclick="resetPriceFilter()">Sıfırla ✕</button>
+  </div>
+  <div class="pf-range-wrap">
+    <div class="pf-range-track"><div class="pf-range-fill" id="pfRangeFill"></div></div>
+    <input type="range" id="pfMin" min="0" max="1000000" value="0" step="1000" oninput="onRangeInput()">
+    <input type="range" id="pfMax" min="0" max="1000000" value="1000000" step="1000" oninput="onRangeInput()">
+  </div>
+  <div class="pf-inputs">
+    <div class="pf-input-group">
+      <label>Min Fiyat (₺)</label>
+      <input type="number" id="pfMinInput" placeholder="0" oninput="onPfInputChange()">
+    </div>
+    <div class="pf-input-group">
+      <label>Max Fiyat (₺)</label>
+      <input type="number" id="pfMaxInput" placeholder="Sınırsız" oninput="onPfInputChange()">
+    </div>
+  </div>
+  <div class="pf-actions">
+    <button class="pf-apply" onclick="applyPriceFilter()">Uygula</button>
+    <button class="pf-reset" onclick="resetPriceFilter()">Temizle</button>
+  </div>
+  <div class="pf-result-count" id="pfResultCount"></div>
 </div>
 
 <!-- CAT BAR -->
@@ -979,11 +1247,15 @@ let addLabel       = "";
 let editLabel      = "";
 let activeCat      = "Tümü";
 let orderTemp      = [];
+let priceFilterMin = null;
+let priceFilterMax = null;
+let priceFilterActive = false;
 
 onValue(ref(db,"models"), snap => {
   const data = snap.val();
   if(!data){ modelsData=[]; render(); return; }
   modelsData = Object.entries(data).map(([id,item]) => ({ id, ...item }));
+  initPriceFilter();
   render();
 });
 
@@ -1005,6 +1277,12 @@ function render(){
   let filtered = activeCat === "Tümü"
     ? [...modelsData]
     : modelsData.filter(i => i.category === activeCat);
+
+  // Fiyat filtresi uygula
+  if(priceFilterActive){
+    if(priceFilterMin !== null) filtered = filtered.filter(i => i.price >= priceFilterMin);
+    if(priceFilterMax !== null) filtered = filtered.filter(i => i.price <= priceFilterMax);
+  }
 
   const sortVal = sortSelect.value;
   if(sortVal === "asc"){
@@ -1130,6 +1408,94 @@ window.addCategory = () => {
   if(categoriesData.find(c => c.name === name)){ alert("Bu kategori zaten var"); return; }
   set(push(ref(db,"categories")), { name });
   document.getElementById("new_cat_name").value = "";
+};
+
+/* ── FİYAT FİLTRESİ ── */
+function initPriceFilter(){
+  if(modelsData.length === 0) return;
+  const prices = modelsData.map(m => m.price).filter(Boolean);
+  const minP = Math.floor(Math.min(...prices) / 1000) * 1000;
+  const maxP = Math.ceil(Math.max(...prices) / 1000) * 1000;
+  const pfMin = document.getElementById("pfMin");
+  const pfMax = document.getElementById("pfMax");
+  pfMin.min = minP; pfMin.max = maxP; pfMin.step = Math.max(1000, Math.floor((maxP-minP)/100)*1000/10);
+  pfMax.min = minP; pfMax.max = maxP; pfMax.step = pfMin.step;
+  if(!priceFilterActive){
+    pfMin.value = minP;
+    pfMax.value = maxP;
+    document.getElementById("pfMinInput").placeholder = minP.toLocaleString("tr-TR");
+    document.getElementById("pfMaxInput").placeholder = maxP.toLocaleString("tr-TR");
+  }
+  updateRangeFill();
+}
+
+window.togglePriceFilter = () => {
+  const panel = document.getElementById("priceFilterPanel");
+  panel.classList.toggle("open");
+  initPriceFilter();
+};
+
+window.onRangeInput = () => {
+  const pfMin = document.getElementById("pfMin");
+  const pfMax = document.getElementById("pfMax");
+  let minV = parseInt(pfMin.value);
+  let maxV = parseInt(pfMax.value);
+  if(minV > maxV){ const t=minV; minV=maxV; maxV=t; pfMin.value=minV; pfMax.value=maxV; }
+  document.getElementById("pfMinInput").value = minV;
+  document.getElementById("pfMaxInput").value = maxV;
+  updateRangeFill();
+  updatePfResultCount(minV, maxV);
+};
+
+window.onPfInputChange = () => {
+  const minV = parseInt(document.getElementById("pfMinInput").value) || parseInt(document.getElementById("pfMin").min) || 0;
+  const maxV = parseInt(document.getElementById("pfMaxInput").value) || parseInt(document.getElementById("pfMax").max) || 9999999;
+  document.getElementById("pfMin").value = Math.min(minV, parseInt(document.getElementById("pfMax").max));
+  document.getElementById("pfMax").value = Math.min(maxV, parseInt(document.getElementById("pfMax").max));
+  updateRangeFill();
+  updatePfResultCount(minV, maxV);
+};
+
+function updateRangeFill(){
+  const pfMin = document.getElementById("pfMin");
+  const pfMax = document.getElementById("pfMax");
+  const min = parseInt(pfMin.min)||0, max = parseInt(pfMin.max)||1000000;
+  const left  = ((parseInt(pfMin.value)-min)/(max-min))*100;
+  const right = ((parseInt(pfMax.value)-min)/(max-min))*100;
+  const fill = document.getElementById("pfRangeFill");
+  if(fill){ fill.style.left=left+"%"; fill.style.width=(right-left)+"%"; }
+}
+
+function updatePfResultCount(minV, maxV){
+  const count = modelsData.filter(m => m.price >= minV && m.price <= maxV).length;
+  const el = document.getElementById("pfResultCount");
+  el.innerHTML = `<strong>${count}</strong> ürün bu aralıkta`;
+  el.classList.add("show");
+}
+
+window.applyPriceFilter = () => {
+  const minV = parseInt(document.getElementById("pfMinInput").value) || parseInt(document.getElementById("pfMin").value);
+  const maxV = parseInt(document.getElementById("pfMaxInput").value) || parseInt(document.getElementById("pfMax").value);
+  priceFilterMin = minV;
+  priceFilterMax = maxV;
+  priceFilterActive = true;
+  document.getElementById("priceFilterBtn").classList.add("active");
+  document.getElementById("filterBadge").classList.add("show");
+  document.getElementById("priceFilterPanel").classList.remove("open");
+  render();
+};
+
+window.resetPriceFilter = () => {
+  priceFilterMin = null;
+  priceFilterMax = null;
+  priceFilterActive = false;
+  document.getElementById("priceFilterBtn").classList.remove("active");
+  document.getElementById("filterBadge").classList.remove("show");
+  document.getElementById("pfMinInput").value = "";
+  document.getElementById("pfMaxInput").value = "";
+  document.getElementById("pfResultCount").classList.remove("show");
+  initPriceFilter();
+  render();
 };
 
 window.deleteCategory = (id, name) => {
