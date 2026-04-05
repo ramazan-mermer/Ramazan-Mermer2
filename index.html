@@ -50,6 +50,27 @@ body::before{
   opacity:0.5;
 }
 
+/* ── AÇIK MOD OVERRİDES ── */
+body.light-mode header{
+  background:rgba(244,240,235,0.94);
+  border-bottom-color:rgba(0,0,0,0.1);
+}
+body.light-mode .sort-bar select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+body.light-mode #priceFilterBtn .filter-icon{
+  background:rgba(0,0,0,0.06);
+}
+body.light-mode .modal-box{
+  box-shadow:0 24px 60px rgba(0,0,0,0.18);
+}
+body.light-mode .card:hover{
+  box-shadow:0 12px 32px rgba(0,0,0,0.12);
+}
+body.light-mode #viewer{
+  background:rgba(0,0,0,0.88);
+}
+
 /* ── INFO BANNER ── */
 #infoBanner{
   position:relative;
@@ -1320,8 +1341,9 @@ let activeThemeId  = "dark-gold";
 
 /* ── TEMA TANIMLARI ── */
 const THEMES = [
+  /* ── 5 KOYU TEMA ── */
   {
-    id:"dark-gold", name:"Karanlık Altın", nameColor:"#c9a96e",
+    id:"dark-gold", name:"Karanlık Altın", nameColor:"#c9a96e", mode:"dark",
     bg:"#0e0e0f", surface:"#161618", surface2:"#1e1e21",
     border:"rgba(255,255,255,0.07)", border2:"rgba(255,255,255,0.13)",
     gold:"#c9a96e", gold2:"#e8c98a", amber:"#e65c00",
@@ -1329,76 +1351,77 @@ const THEMES = [
     preview:{ bg:"#0e0e0f", bar:"#c9a96e", surface:"#1e1e21" }
   },
   {
-    id:"midnight-blue", name:"Gece Mavisi", nameColor:"#5b9bd5",
-    bg:"#0a0d14", surface:"#111827", surface2:"#1a2235",
-    border:"rgba(91,155,213,0.1)", border2:"rgba(91,155,213,0.2)",
-    gold:"#5b9bd5", gold2:"#82b8f0", amber:"#e65c00",
-    text:"#e8eef8", text2:"#8fa8c8", text3:"#445570",
-    preview:{ bg:"#0a0d14", bar:"#5b9bd5", surface:"#1a2235" }
+    id:"midnight-blue", name:"Gece Mavisi", nameColor:"#5b9bd5", mode:"dark",
+    bg:"#07090f", surface:"#0f1520", surface2:"#172030",
+    border:"rgba(91,155,213,0.09)", border2:"rgba(91,155,213,0.18)",
+    gold:"#5b9bd5", gold2:"#89bce8", amber:"#e65c00",
+    text:"#dce8f5", text2:"#7899bc", text3:"#3a5575",
+    preview:{ bg:"#07090f", bar:"#5b9bd5", surface:"#172030" }
   },
   {
-    id:"emerald", name:"Zümrüt", nameColor:"#2ecc71",
-    bg:"#060f0a", surface:"#0d1f15", surface2:"#12291c",
-    border:"rgba(46,204,113,0.09)", border2:"rgba(46,204,113,0.18)",
-    gold:"#2ecc71", gold2:"#58d98f", amber:"#e67e22",
-    text:"#e8f5ec", text2:"#7bb895", text3:"#3a6b50",
-    preview:{ bg:"#060f0a", bar:"#2ecc71", surface:"#12291c" }
+    id:"emerald-night", name:"Zümrüt Gece", nameColor:"#27ae60", mode:"dark",
+    bg:"#050e09", surface:"#0a1c11", surface2:"#0f2618",
+    border:"rgba(39,174,96,0.09)", border2:"rgba(39,174,96,0.18)",
+    gold:"#27ae60", gold2:"#52c97d", amber:"#e67e22",
+    text:"#dff2e8", text2:"#5faa80", text3:"#2e6b4a",
+    preview:{ bg:"#050e09", bar:"#27ae60", surface:"#0f2618" }
   },
   {
-    id:"crimson", name:"Kızıl Kadife", nameColor:"#e74c3c",
-    bg:"#0f0808", surface:"#1c0f0f", surface2:"#261515",
-    border:"rgba(231,76,60,0.1)", border2:"rgba(231,76,60,0.2)",
-    gold:"#e74c3c", gold2:"#f1948a", amber:"#e67e22",
-    text:"#f5e8e8", text2:"#c08080", text3:"#6b3535",
-    preview:{ bg:"#0f0808", bar:"#e74c3c", surface:"#261515" }
-  },
-  {
-    id:"violet", name:"Mor Gece", nameColor:"#9b59b6",
-    bg:"#0b080f", surface:"#160e20", surface2:"#1f1430",
-    border:"rgba(155,89,182,0.1)", border2:"rgba(155,89,182,0.2)",
+    id:"violet-night", name:"Mor Gece", nameColor:"#8e44ad", mode:"dark",
+    bg:"#080610", surface:"#120d1e", surface2:"#1a122c",
+    border:"rgba(142,68,173,0.1)", border2:"rgba(142,68,173,0.2)",
     gold:"#9b59b6", gold2:"#c39bd3", amber:"#e67e22",
-    text:"#f0e8f5", text2:"#a880c0", text3:"#5a3870",
-    preview:{ bg:"#0b080f", bar:"#9b59b6", surface:"#1f1430" }
+    text:"#ede8f8", text2:"#9b70c0", text3:"#553878",
+    preview:{ bg:"#080610", bar:"#9b59b6", surface:"#1a122c" }
   },
   {
-    id:"slate-silver", name:"Gümüş Gece", nameColor:"#95a5a6",
-    bg:"#0d0e0f", surface:"#181a1c", surface2:"#222427",
-    border:"rgba(180,190,200,0.08)", border2:"rgba(180,190,200,0.16)",
-    gold:"#b0bec5", gold2:"#cfd8dc", amber:"#ff7043",
-    text:"#eceff1", text2:"#90a4ae", text3:"#546e7a",
-    preview:{ bg:"#0d0e0f", bar:"#b0bec5", surface:"#222427" }
+    id:"crimson-dark", name:"Kızıl Kadife", nameColor:"#c0392b", mode:"dark",
+    bg:"#0d0606", surface:"#1a0c0c", surface2:"#231111",
+    border:"rgba(192,57,43,0.1)", border2:"rgba(192,57,43,0.2)",
+    gold:"#e74c3c", gold2:"#f1948a", amber:"#e67e22",
+    text:"#f5e5e5", text2:"#b87070", text3:"#6b3030",
+    preview:{ bg:"#0d0606", bar:"#e74c3c", surface:"#231111" }
   },
+  /* ── 5 AÇIK TEMA ── */
   {
-    id:"amber-fire", name:"Turuncu Kor", nameColor:"#f39c12",
-    bg:"#0f0b06", surface:"#1c1508", surface2:"#261e0c",
-    border:"rgba(243,156,18,0.1)", border2:"rgba(243,156,18,0.2)",
-    gold:"#f39c12", gold2:"#f8c471", amber:"#e74c3c",
-    text:"#fdf3e3", text2:"#c8924a", text3:"#7a5520",
-    preview:{ bg:"#0f0b06", bar:"#f39c12", surface:"#261e0c" }
-  },
-  {
-    id:"ocean-teal", name:"Okyanus", nameColor:"#1abc9c",
-    bg:"#060e0d", surface:"#0c1c1a", surface2:"#112624",
-    border:"rgba(26,188,156,0.09)", border2:"rgba(26,188,156,0.18)",
-    gold:"#1abc9c", gold2:"#48c9b0", amber:"#e67e22",
-    text:"#e0f5f2", text2:"#6bbdb0", text3:"#2e7a70",
-    preview:{ bg:"#060e0d", bar:"#1abc9c", surface:"#112624" }
-  },
-  {
-    id:"rose-quartz", name:"Gül Kuvars", nameColor:"#e91e8c",
-    bg:"#0f060b", surface:"#1c0d16", surface2:"#27111f",
-    border:"rgba(233,30,140,0.1)", border2:"rgba(233,30,140,0.2)",
-    gold:"#e91e8c", gold2:"#f06ab5", amber:"#ff5722",
-    text:"#fce8f5", text2:"#c070a0", text3:"#7a3060",
-    preview:{ bg:"#0f060b", bar:"#e91e8c", surface:"#27111f" }
-  },
-  {
-    id:"light-marble", name:"Beyaz Mermer", nameColor:"#8d6e3e",
-    bg:"#f5f0eb", surface:"#ffffff", surface2:"#ede8e2",
+    id:"light-marble", name:"Beyaz Mermer", nameColor:"#7d5a35", mode:"light",
+    bg:"#f4f0eb", surface:"#ffffff", surface2:"#ece7e0",
     border:"rgba(0,0,0,0.08)", border2:"rgba(0,0,0,0.14)",
     gold:"#8d6e3e", gold2:"#b08d57", amber:"#c0392b",
-    text:"#1a1614", text2:"#6b5a4a", text3:"#a09888",
-    preview:{ bg:"#f5f0eb", bar:"#8d6e3e", surface:"#ede8e2" }
+    text:"#1a1614", text2:"#6b5a4a", text3:"#a09080",
+    preview:{ bg:"#f4f0eb", bar:"#8d6e3e", surface:"#ece7e0" }
+  },
+  {
+    id:"light-blue", name:"Açık Mavi", nameColor:"#1a6fa8", mode:"light",
+    bg:"#f0f4fa", surface:"#ffffff", surface2:"#e4edf7",
+    border:"rgba(0,60,120,0.08)", border2:"rgba(0,60,120,0.15)",
+    gold:"#1a6fa8", gold2:"#3a90cc", amber:"#d35400",
+    text:"#0d1f35", text2:"#4a7099", text3:"#8aaccc",
+    preview:{ bg:"#f0f4fa", bar:"#1a6fa8", surface:"#e4edf7" }
+  },
+  {
+    id:"light-sage", name:"Adaçayı", nameColor:"#2e7d52", mode:"light",
+    bg:"#f0f5f1", surface:"#ffffff", surface2:"#e2ede6",
+    border:"rgba(0,80,40,0.08)", border2:"rgba(0,80,40,0.15)",
+    gold:"#2e7d52", gold2:"#48a873", amber:"#d35400",
+    text:"#0d2016", text2:"#4a7a60", text3:"#8ab8a0",
+    preview:{ bg:"#f0f5f1", bar:"#2e7d52", surface:"#e2ede6" }
+  },
+  {
+    id:"light-rose", name:"Gül Beyazı", nameColor:"#a0334a", mode:"light",
+    bg:"#fdf0f3", surface:"#ffffff", surface2:"#f5e0e6",
+    border:"rgba(160,51,74,0.08)", border2:"rgba(160,51,74,0.16)",
+    gold:"#a0334a", gold2:"#c45570", amber:"#c0392b",
+    text:"#200d12", text2:"#885566", text3:"#c095a5",
+    preview:{ bg:"#fdf0f3", bar:"#a0334a", surface:"#f5e0e6" }
+  },
+  {
+    id:"light-warm", name:"Sıcak Krem", nameColor:"#8a5c1a", mode:"light",
+    bg:"#faf5ec", surface:"#ffffff", surface2:"#f2e9d8",
+    border:"rgba(100,60,0,0.08)", border2:"rgba(100,60,0,0.15)",
+    gold:"#a06820", gold2:"#c88c40", amber:"#c0392b",
+    text:"#1e1508", text2:"#7a5a30", text3:"#b89a70",
+    preview:{ bg:"#faf5ec", bar:"#a06820", surface:"#f2e9d8" }
   }
 ];
 
@@ -1416,6 +1439,7 @@ function applyTheme(id){
   r.setProperty("--text", t.text);
   r.setProperty("--text2", t.text2);
   r.setProperty("--text3", t.text3);
+  document.body.classList.toggle("light-mode", t.mode === "light");
   activeThemeId = id;
 }
 
@@ -1988,20 +2012,28 @@ window.openThemeModal = () => {
 function renderThemeGrid(){
   const grid = document.getElementById("themeGrid");
   grid.innerHTML = "";
-  THEMES.forEach(t => {
-    const card = document.createElement("div");
-    card.className = "theme-card" + (activeThemeId === t.id ? " selected" : "");
-    card.onclick = () => selectTheme(t.id);
-    card.innerHTML = `
-      <div class="theme-preview" style="background:${t.preview.bg};">
-        <div class="tp-bar" style="background:${t.preview.bar};"></div>
-        <div class="tp-bar2" style="background:${t.preview.bar};"></div>
-        <div class="tp-card" style="background:${t.preview.surface};border:1px solid ${t.preview.bar}33;"></div>
-      </div>
-      <div class="theme-check">✓</div>
-      <div class="theme-name" style="background:${t.preview.surface};color:${t.nameColor};">${t.name}</div>
-    `;
-    grid.appendChild(card);
+
+  ["dark","light"].forEach(mode => {
+    const label = document.createElement("div");
+    label.style.cssText = "grid-column:1/-1;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.9px;color:var(--text3);padding:6px 2px 2px;border-top:1px solid var(--border2);margin-top:4px;";
+    label.textContent = mode === "dark" ? "🌙 Koyu Temalar" : "☀️ Açık Temalar";
+    grid.appendChild(label);
+
+    THEMES.filter(t => t.mode === mode).forEach(t => {
+      const card = document.createElement("div");
+      card.className = "theme-card" + (activeThemeId === t.id ? " selected" : "");
+      card.onclick = () => selectTheme(t.id);
+      card.innerHTML = `
+        <div class="theme-preview" style="background:${t.preview.bg};">
+          <div class="tp-bar"  style="background:${t.preview.bar};"></div>
+          <div class="tp-bar2" style="background:${t.preview.bar};"></div>
+          <div class="tp-card" style="background:${t.preview.surface};border:1px solid ${t.preview.bar}44;"></div>
+        </div>
+        <div class="theme-check">✓</div>
+        <div class="theme-name" style="background:${t.preview.surface};color:${t.nameColor};">${t.name}</div>
+      `;
+      grid.appendChild(card);
+    });
   });
 }
 
