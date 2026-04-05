@@ -95,37 +95,16 @@ body.light-mode #viewer{
 #infoBanner{
   position:relative;
   z-index:2;
-  background:#ffffff;
-  border-top:5px solid #000000;
-  border-bottom:5px solid #000000;
-  padding:18px 20px;
+  background:linear-gradient(90deg, #1a1209 0%, #1e1610 50%, #1a1209 100%);
+  border-bottom:1px solid rgba(201,169,110,0.25);
+  padding:11px 16px;
   text-align:center;
-  box-shadow:0 4px 18px rgba(0,0,0,0.45);
+  font-size:11.5px;
+  line-height:1.75;
+  color:var(--text2);
+  letter-spacing:0.2px;
 }
-#infoBanner .banner-icon{
-  font-size:26px;
-  display:block;
-  margin-bottom:8px;
-  animation:blink 1.1s ease-in-out infinite;
-}
-@keyframes blink{
-  0%,100%{ opacity:1; }
-  50%{ opacity:0.15; }
-}
-#infoBanner p{
-  font-size:15px;
-  font-weight:600;
-  color:#000000;
-  line-height:1.9;
-  letter-spacing:0.1px;
-}
-#infoBanner strong{
-  color:#000000;
-  font-weight:800;
-  background:#FFD600;
-  padding:0 4px;
-  border-radius:3px;
-}
+#infoBanner strong{ color:var(--gold); font-weight:500; }
 
 /* ── HEADER ── */
 header{
@@ -204,7 +183,6 @@ header:active{ opacity:0.75; }
 .btn-order{ background:var(--surface2); color:var(--text); border:1px solid var(--border2); }
 .btn-price-editor{ background:linear-gradient(135deg,#1a6b2a,#25a83a); color:#fff; }
 .btn-theme{ background:linear-gradient(135deg,#6b2d8b,#9b4fd4); color:#fff; }
-.btn-banner-edit{ background:linear-gradient(135deg,#0a5c8a,#1a8fc4); color:#fff; }
 
 /* ── FB BANNER ── */
 #fbBanner{
@@ -255,21 +233,14 @@ header:active{ opacity:0.75; }
 }
 .section-title span{ color:var(--gold); }
 
-/* ── SORT ROW (üst satır - sıralama) ── */
-.sort-row{
+/* ── SEARCH ROW ── */
+.search-row{
   display:flex;
-  align-items:center;
+  align-items:flex-end;
   gap:10px;
-  padding:14px 14px 0;
+  padding:10px 14px 0;
   position:relative;
   z-index:2;
-}
-.sort-row-label{
-  font-size:13px;
-  font-weight:700;
-  color:var(--text2);
-  white-space:nowrap;
-  letter-spacing:0.2px;
 }
 .sort-bar{ flex:1; min-width:0; }
 .sort-bar label{
@@ -283,14 +254,13 @@ header:active{ opacity:0.75; }
 }
 .sort-bar select{
   width:100%;
-  padding:11px 14px;
+  padding:10px 12px;
   background:var(--surface);
   border:1px solid var(--border2);
   border-radius:var(--radius-sm);
   color:var(--text);
   font-family:var(--font-body);
-  font-size:14px;
-  font-weight:500;
+  font-size:13px;
   cursor:pointer;
   appearance:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a09890' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -298,16 +268,6 @@ header:active{ opacity:0.75; }
   background-position:right 12px center;
 }
 .sort-bar select:focus{ outline:none; border-color:var(--gold); }
-
-/* ── SEARCH ROW (alt satır - filtre + harita) ── */
-.search-row{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px 14px 0;
-  position:relative;
-  z-index:2;
-}
 
 /* ── PRICE FILTER BUTTON ── */
 .filter-btn-wrap{
@@ -1108,16 +1068,6 @@ header:active{ opacity:0.75; }
   position:relative;
   z-index:2;
 }
-.banner-color-btn{
-  width:36px;height:36px;
-  border-radius:8px;
-  cursor:pointer;
-  border:2px solid transparent;
-  transition:transform 0.15s,border-color 0.15s;
-  flex-shrink:0;
-}
-.banner-color-btn:hover{ transform:scale(1.15); }
-.banner-color-btn.selected{ border-color:var(--gold); box-shadow:0 0 0 2px rgba(201,169,110,0.4); }
 </style>
 </head>
 
@@ -1125,13 +1075,10 @@ header:active{ opacity:0.75; }
 
 <!-- INFO BANNER -->
 <div id="infoBanner">
-  <span class="banner-icon">⚠️</span>
-  <p>
-    Sizlere en kaliteli hizmeti en uygun fiyatlarla ulaştırmaya çalışıyoruz.<br>
-    Web sitemizdeki fiyat listesi <strong>Karabük Merkez</strong> konumu esas alınarak hazırlanmıştır.<br>
-    İlçelerimizden gelen taleplerde <strong>yol mesafesi fiyatlandırmaya dahil</strong> edilmektedir.<br>
-    Detaylı bilgi için <strong>bizimle iletişime geçebilirsiniz.</strong>
-  </p>
+  Sizlere en kaliteli hizmeti en uygun fiyatlarla ulaştırmaya çalışıyoruz.<br>
+  Web sitemizdeki fiyat listesi <strong>Karabük Merkez</strong> konumu esas alınarak hazırlanmıştır.<br>
+  İlçelerimizden gelen taleplerde <strong>yol mesafesi fiyatlandırmaya dahil</strong> edilmektedir.<br>
+  Detaylı bilgi için <strong>bizimle iletişime geçebilirsiniz.</strong>
 </div>
 
 <!-- HEADER -->
@@ -1152,7 +1099,6 @@ header:active{ opacity:0.75; }
   <button class="btn-order" onclick="openOrderModal()">↕️ Sıralama</button>
   <button class="btn-price-editor" onclick="openPriceEditor()">💰 Fiyat Düzenleyici</button>
   <button class="btn-theme" onclick="openThemeModal()">🎨 Tema</button>
-  <button class="btn-banner-edit" onclick="openBannerModal()">📢 Uyarı Yazısı</button>
 </div>
 
 <!-- FB BANNER -->
@@ -1174,25 +1120,21 @@ header:active{ opacity:0.75; }
 <!-- SECTION TITLE -->
 <div class="section-title">Mezar <span>Modellerimiz</span></div>
 
-<!-- SORT ROW (üst satır) -->
-<div class="sort-row">
-  <span class="sort-row-label">📋 Sıralama:</span>
+<!-- SEARCH ROW -->
+<div class="search-row">
   <div class="sort-bar">
+    <label>Sıralama</label>
     <select id="sortSelect">
-      <option value="default">Varsayılan Sıra</option>
-      <option value="asc">Artan Fiyat ↑</option>
-      <option value="desc">Azalan Fiyat ↓</option>
+      <option value="default">Varsayılan</option>
+      <option value="asc">Artan Fiyat</option>
+      <option value="desc">Azalan Fiyat</option>
     </select>
   </div>
-</div>
-
-<!-- SEARCH ROW (alt satır - filtre + harita) -->
-<div class="search-row">
-  <div class="filter-btn-wrap" style="flex:1;">
-    <span class="filter-btn-label">Fiyat Filtresi</span>
-    <button id="priceFilterBtn" onclick="togglePriceFilter()" style="width:100%;justify-content:center;">
+  <div class="filter-btn-wrap">
+    <span class="filter-btn-label">Fiyat</span>
+    <button id="priceFilterBtn" onclick="togglePriceFilter()">
       <div class="filter-icon">₺</div>
-      Fiyata Göre Filtrele
+      Filtrele
       <span class="filter-badge" id="filterBadge">AKTİF</span>
     </button>
   </div>
@@ -1390,65 +1332,6 @@ header:active{ opacity:0.75; }
   </div>
 </div>
 
-<!-- UYARI YAZISI DÜZENLEYİCİ -->
-<div class="modal" id="bannerModal">
-  <div class="modal-box" style="max-width:420px;">
-    <h3>📢 Uyarı Yazısı Düzenleyici</h3>
-
-    <div class="modal-label">Yazı İçeriği</div>
-    <textarea id="banner_text" rows="5" style="width:100%;padding:10px 12px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);color:var(--text);font-family:var(--font-body);font-size:13px;resize:vertical;line-height:1.7;" placeholder="Uyarı metnini buraya yazın..."></textarea>
-
-    <div class="modal-label" style="margin-top:12px;">Yazı Boyutu</div>
-    <div style="display:flex;align-items:center;gap:10px;">
-      <input type="range" id="banner_fontsize" min="11" max="22" value="15" style="flex:1;" oninput="previewBanner()">
-      <span id="banner_fontsize_val" style="font-size:13px;font-weight:600;min-width:32px;">15px</span>
-    </div>
-
-    <div class="modal-label" style="margin-top:12px;">Yazı Rengi</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;" id="banner_text_colors">
-      <div class="banner-color-btn" data-target="text" data-color="#000000" style="background:#000000;" onclick="selectBannerColor(this)" title="Siyah"></div>
-      <div class="banner-color-btn" data-target="text" data-color="#ffffff" style="background:#ffffff;border:1px solid #ccc;" onclick="selectBannerColor(this)" title="Beyaz"></div>
-      <div class="banner-color-btn" data-target="text" data-color="#c0392b" style="background:#c0392b;" onclick="selectBannerColor(this)" title="Kırmızı"></div>
-      <div class="banner-color-btn" data-target="text" data-color="#1a5276" style="background:#1a5276;" onclick="selectBannerColor(this)" title="Lacivert"></div>
-      <div class="banner-color-btn" data-target="text" data-color="#7a3800" style="background:#7a3800;" onclick="selectBannerColor(this)" title="Koyu Turuncu"></div>
-      <div class="banner-color-btn" data-target="text" data-color="#145a32" style="background:#145a32;" onclick="selectBannerColor(this)" title="Koyu Yeşil"></div>
-      <input type="color" id="banner_text_color_picker" value="#000000" oninput="customBannerColor(this,'text')" style="width:36px;height:36px;border-radius:8px;border:1px solid var(--border2);cursor:pointer;padding:2px;background:none;" title="Özel Renk">
-    </div>
-
-    <div class="modal-label" style="margin-top:12px;">Arka Plan Rengi</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;" id="banner_bg_colors">
-      <div class="banner-color-btn" data-target="bg" data-color="#ffffff" style="background:#ffffff;border:1px solid #ccc;" onclick="selectBannerColor(this)" title="Beyaz"></div>
-      <div class="banner-color-btn" data-target="bg" data-color="#000000" style="background:#000000;" onclick="selectBannerColor(this)" title="Siyah"></div>
-      <div class="banner-color-btn" data-target="bg" data-color="#c9a96e" style="background:#c9a96e;" onclick="selectBannerColor(this)" title="Altın"></div>
-      <div class="banner-color-btn" data-target="bg" data-color="#FFD600" style="background:#FFD600;" onclick="selectBannerColor(this)" title="Sarı"></div>
-      <div class="banner-color-btn" data-target="bg" data-color="#f8d7da" style="background:#f8d7da;" onclick="selectBannerColor(this)" title="Açık Kırmızı"></div>
-      <div class="banner-color-btn" data-target="bg" data-color="#d5f5e3" style="background:#d5f5e3;" onclick="selectBannerColor(this)" title="Açık Yeşil"></div>
-      <input type="color" id="banner_bg_color_picker" value="#ffffff" oninput="customBannerColor(this,'bg')" style="width:36px;height:36px;border-radius:8px;border:1px solid var(--border2);cursor:pointer;padding:2px;background:none;" title="Özel Renk">
-    </div>
-
-    <div class="modal-label" style="margin-top:12px;">Kenarlık Rengi</div>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;" id="banner_border_colors">
-      <div class="banner-color-btn" data-target="border" data-color="#000000" style="background:#000000;" onclick="selectBannerColor(this)" title="Siyah"></div>
-      <div class="banner-color-btn" data-target="border" data-color="#c0392b" style="background:#c0392b;" onclick="selectBannerColor(this)" title="Kırmızı"></div>
-      <div class="banner-color-btn" data-target="border" data-color="#c9a96e" style="background:#c9a96e;" onclick="selectBannerColor(this)" title="Altın"></div>
-      <div class="banner-color-btn" data-target="border" data-color="#1a5276" style="background:#1a5276;" onclick="selectBannerColor(this)" title="Lacivert"></div>
-      <div class="banner-color-btn" data-target="border" data-color="#145a32" style="background:#145a32;" onclick="selectBannerColor(this)" title="Koyu Yeşil"></div>
-      <div class="banner-color-btn" data-target="border" data-color="transparent" style="background:repeating-linear-gradient(45deg,#ccc 0,#ccc 2px,#fff 0,#fff 6px);border:1px solid #ccc;" onclick="selectBannerColor(this)" title="Kenarlık Yok"></div>
-      <input type="color" id="banner_border_color_picker" value="#000000" oninput="customBannerColor(this,'border')" style="width:36px;height:36px;border-radius:8px;border:1px solid var(--border2);cursor:pointer;padding:2px;background:none;" title="Özel Renk">
-    </div>
-
-    <div class="modal-label" style="margin-top:14px;">Önizleme</div>
-    <div id="bannerPreview" style="border-radius:8px;padding:14px 16px;text-align:center;transition:all 0.2s;font-weight:600;border-top:4px solid #000;border-bottom:4px solid #000;background:#fff;color:#000;font-size:15px;line-height:1.7;">
-      Önizleme burada görünür
-    </div>
-
-    <div class="btn-group" style="margin-top:16px;">
-      <button class="btn-dark" onclick="saveBannerSettings()" style="background:#1a8fc4;color:#fff;">💾 Kaydet</button>
-      <button class="btn-gray" onclick="closeModal('bannerModal')">İptal</button>
-    </div>
-  </div>
-</div>
-
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -1589,93 +1472,6 @@ onValue(ref(db,"siteTheme"), snap => {
   const tid = snap.val();
   if(tid) applyTheme(tid);
 });
-
-// Banner ayarlarını Firebase'den oku ve uygula
-let bannerSettings = { text: "", fontSize: 15, textColor: "#000000", bgColor: "#ffffff", borderColor: "#000000" };
-
-onValue(ref(db,"bannerSettings"), snap => {
-  const val = snap.val();
-  if(val){
-    bannerSettings = { ...bannerSettings, ...val };
-    applyBannerSettings(bannerSettings);
-  }
-});
-
-function applyBannerSettings(s){
-  const banner = document.getElementById("infoBanner");
-  const p = banner.querySelector("p");
-  if(s.text) p.innerHTML = s.text;
-  banner.style.background = s.bgColor;
-  banner.style.borderTopColor = s.borderColor;
-  banner.style.borderBottomColor = s.borderColor;
-  p.style.color = s.textColor;
-  p.style.fontSize = s.fontSize + "px";
-}
-
-window.openBannerModal = () => {
-  const s = bannerSettings;
-  // Metni düz metin olarak göster
-  const p = document.getElementById("infoBanner").querySelector("p");
-  document.getElementById("banner_text").value = p.innerText.trim();
-  document.getElementById("banner_fontsize").value = s.fontSize;
-  document.getElementById("banner_fontsize_val").textContent = s.fontSize + "px";
-  document.getElementById("banner_text_color_picker").value = s.textColor;
-  document.getElementById("banner_bg_color_picker").value = s.bgColor;
-  document.getElementById("banner_border_color_picker").value = s.borderColor;
-  // Seçili renk butonlarını işaretle
-  document.querySelectorAll(".banner-color-btn").forEach(btn => btn.classList.remove("selected"));
-  document.querySelectorAll(`.banner-color-btn[data-target="text"][data-color="${s.textColor}"]`).forEach(b=>b.classList.add("selected"));
-  document.querySelectorAll(`.banner-color-btn[data-target="bg"][data-color="${s.bgColor}"]`).forEach(b=>b.classList.add("selected"));
-  document.querySelectorAll(`.banner-color-btn[data-target="border"][data-color="${s.borderColor}"]`).forEach(b=>b.classList.add("selected"));
-  previewBanner();
-  document.getElementById("bannerModal").style.display = "flex";
-};
-
-window.selectBannerColor = (el) => {
-  const target = el.dataset.target;
-  const color = el.dataset.color;
-  document.querySelectorAll(`.banner-color-btn[data-target="${target}"]`).forEach(b=>b.classList.remove("selected"));
-  el.classList.add("selected");
-  if(target === "text")   { bannerSettings.textColor = color;   document.getElementById("banner_text_color_picker").value = color === "transparent" ? "#ffffff" : color; }
-  if(target === "bg")     { bannerSettings.bgColor = color;     document.getElementById("banner_bg_color_picker").value = color === "transparent" ? "#ffffff" : color; }
-  if(target === "border") { bannerSettings.borderColor = color; document.getElementById("banner_border_color_picker").value = color === "transparent" ? "#000000" : color; }
-  previewBanner();
-};
-
-window.customBannerColor = (el, target) => {
-  document.querySelectorAll(`.banner-color-btn[data-target="${target}"]`).forEach(b=>b.classList.remove("selected"));
-  if(target === "text")   bannerSettings.textColor = el.value;
-  if(target === "bg")     bannerSettings.bgColor = el.value;
-  if(target === "border") bannerSettings.borderColor = el.value;
-  previewBanner();
-};
-
-window.previewBanner = () => {
-  const text = document.getElementById("banner_text").value || "Önizleme burada görünür";
-  const fontSize = document.getElementById("banner_fontsize").value;
-  document.getElementById("banner_fontsize_val").textContent = fontSize + "px";
-  bannerSettings.fontSize = parseInt(fontSize);
-  const preview = document.getElementById("bannerPreview");
-  preview.style.background = bannerSettings.bgColor;
-  preview.style.color = bannerSettings.textColor;
-  preview.style.borderTopColor = bannerSettings.borderColor;
-  preview.style.borderBottomColor = bannerSettings.borderColor;
-  preview.style.fontSize = fontSize + "px";
-  // Satır sonlarını <br> yap
-  preview.innerHTML = text.replace(/
-/g, "<br>");
-};
-
-window.saveBannerSettings = () => {
-  const rawText = document.getElementById("banner_text").value.trim();
-  bannerSettings.text = rawText.replace(/
-/g, "<br>");
-  bannerSettings.fontSize = parseInt(document.getElementById("banner_fontsize").value);
-  set(ref(db,"bannerSettings"), bannerSettings);
-  applyBannerSettings(bannerSettings);
-  document.getElementById("bannerModal").style.display = "none";
-  alert("✅ Uyarı yazısı güncellendi!");
-};
 
 onValue(ref(db,"models"), snap => {
   const data = snap.val();
