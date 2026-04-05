@@ -136,6 +136,7 @@ header{
 .btn-add-product{ background:var(--amber); color:#fff; }
 .btn-manage-cat{ background:var(--surface2); color:var(--text); border:1px solid var(--border2); }
 .btn-order{ background:var(--surface2); color:var(--text); border:1px solid var(--border2); }
+.btn-price-editor{ background:linear-gradient(135deg,#1a6b2a,#25a83a); color:#fff; }
 
 /* ── FB BANNER ── */
 #fbBanner{
@@ -598,6 +599,87 @@ header{
 }
 .cat-list-item button:hover{ filter:brightness(1.15); }
 
+/* ── CAT ITEM ACTIONS ── */
+.cat-item-actions{ display:flex; gap:6px; align-items:center; flex-shrink:0; }
+.cat-item-actions button{
+  flex:none;
+  padding:4px 10px;
+  font-size:11px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:600;
+  transition:filter 0.15s;
+}
+.btn-cat-rename{ background:var(--gold); color:#0e0e0f !important; }
+.btn-cat-del{ background:var(--red); color:#fff !important; }
+.btn-cat-up,.btn-cat-down{
+  background:var(--surface) !important;
+  border:1px solid var(--border2) !important;
+  color:var(--text2) !important;
+  width:26px; height:26px;
+  padding:0 !important;
+  display:flex; align-items:center; justify-content:center;
+  font-size:12px;
+}
+.btn-cat-up:hover,.btn-cat-down:hover{ background:var(--gold) !important; color:#000 !important; border-color:var(--gold) !important; }
+
+/* ── PRICE EDITOR ── */
+.price-editor-type{
+  display:flex;
+  gap:8px;
+  margin:8px 0;
+}
+.price-type-btn{
+  flex:1;
+  padding:9px 6px;
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  background:var(--surface2);
+  color:var(--text2);
+  font-family:var(--font-body);
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  text-align:center;
+  transition:all 0.15s;
+}
+.price-type-btn.active{ border-color:#25a83a; background:rgba(37,168,58,0.12); color:#25a83a; }
+.price-direction{
+  display:flex;
+  gap:8px;
+  margin:8px 0;
+}
+.price-dir-btn{
+  flex:1;
+  padding:9px 6px;
+  border:1px solid var(--border2);
+  border-radius:var(--radius-sm);
+  background:var(--surface2);
+  color:var(--text2);
+  font-family:var(--font-body);
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  text-align:center;
+  transition:all 0.15s;
+}
+.price-dir-btn.active-up{ border-color:#25a83a; background:rgba(37,168,58,0.12); color:#25a83a; }
+.price-dir-btn.active-down{ border-color:var(--red); background:rgba(192,57,43,0.12); color:#e05a4a; }
+.price-preview{
+  font-size:12px;
+  color:var(--text2);
+  background:var(--surface2);
+  border-radius:var(--radius-sm);
+  padding:10px 12px;
+  margin-top:10px;
+  line-height:1.7;
+  max-height:160px;
+  overflow-y:auto;
+}
+.price-preview span.up{ color:#25a83a; }
+.price-preview span.down{ color:#e05a4a; }
+
 /* ── ORDER LIST ── */
 .order-list{
   display:flex;
@@ -687,6 +769,7 @@ header{
   <button class="btn-add-product" onclick="openAddModal()">+ Yeni Ürün Ekle</button>
   <button class="btn-manage-cat" onclick="openCatModal()">🗂️ Kategoriler</button>
   <button class="btn-order" onclick="openOrderModal()">↕️ Sıralama</button>
+  <button class="btn-price-editor" onclick="openPriceEditor()">💰 Fiyat Düzenleyici</button>
 </div>
 
 <!-- FB BANNER -->
@@ -820,6 +903,18 @@ header{
   </div>
 </div>
 
+<!-- KATEGORİ YENİDEN ADLANDIR -->
+<div class="modal" id="renameModal">
+  <div class="modal-box">
+    <h3>✏️ Kategori Adını Değiştir</h3>
+    <input id="rename_cat_input" placeholder="Yeni ad">
+    <div class="btn-group">
+      <button class="btn-orange" onclick="saveCatRename()">Kaydet</button>
+      <button class="btn-gray" onclick="closeModal('renameModal')">İptal</button>
+    </div>
+  </div>
+</div>
+
 <!-- SIRALAMA -->
 <div class="modal" id="orderModal">
   <div class="modal-box">
@@ -829,6 +924,31 @@ header{
     <div class="btn-group">
       <button class="btn-dark" onclick="saveOrder()">💾 Kaydet</button>
       <button class="btn-gray" onclick="closeModal('orderModal')">İptal</button>
+    </div>
+  </div>
+</div>
+
+<!-- FİYAT DÜZENLEYİCİ -->
+<div class="modal" id="priceEditorModal">
+  <div class="modal-box">
+    <h3>💰 Fiyat Düzenleyici</h3>
+    <div class="modal-label">İşlem Türü</div>
+    <div class="price-editor-type">
+      <div class="price-type-btn active" id="ptype_pct" onclick="setPriceType('pct')">% Yüzde</div>
+      <div class="price-type-btn" id="ptype_fixed" onclick="setPriceType('fixed')">₺ Sabit Tutar</div>
+    </div>
+    <div class="modal-label">Yön</div>
+    <div class="price-direction">
+      <div class="price-dir-btn active-up" id="pdir_up" onclick="setPriceDir('up')">▲ Artır</div>
+      <div class="price-dir-btn" id="pdir_down" onclick="setPriceDir('down')">▼ Azalt</div>
+    </div>
+    <div class="modal-label" id="price_input_label">Yüzde Miktarı (%)</div>
+    <input id="price_amount_input" type="number" placeholder="Örn: 10" min="0" oninput="updatePricePreview()">
+    <div class="modal-label">Önizleme</div>
+    <div class="price-preview" id="pricePreview"><span style="color:var(--text3)">Miktar gir...</span></div>
+    <div class="btn-group">
+      <button class="btn-dark" onclick="applyPriceEditor()" style="background:#25a83a;color:#fff;">✅ Uygula</button>
+      <button class="btn-gray" onclick="closeModal('priceEditorModal')">İptal</button>
     </div>
   </div>
 </div>
@@ -870,7 +990,10 @@ onValue(ref(db,"models"), snap => {
 onValue(ref(db,"categories"), snap => {
   const data = snap.val();
   if(!data){ categoriesData=[]; }
-  else { categoriesData = Object.entries(data).map(([id,item]) => ({ id, name: item.name })); }
+  else {
+    categoriesData = Object.entries(data).map(([id,item]) => ({ id, name: item.name, order: item.order??9999 }));
+    categoriesData.sort((a,b) => a.order - b.order);
+  }
   renderCatBar();
   renderCatSelects();
   renderCatList();
@@ -985,10 +1108,18 @@ function renderCatList(){
     container.innerHTML = `<p style="font-size:13px;color:var(--text3);text-align:center;">Henüz kategori yok</p>`;
     return;
   }
-  categoriesData.forEach(cat => {
+  categoriesData.forEach((cat, idx) => {
     const row = document.createElement("div");
     row.className = "cat-list-item";
-    row.innerHTML = `<span>${cat.name}</span><button onclick="deleteCategory('${cat.id}','${cat.name}')">Sil</button>`;
+    row.innerHTML = `
+      <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;">${cat.name}</span>
+      <div class="cat-item-actions">
+        <button class="btn-cat-up" onclick="moveCat(${idx},-1)" title="Yukarı">▲</button>
+        <button class="btn-cat-down" onclick="moveCat(${idx},1)" title="Aşağı">▼</button>
+        <button class="btn-cat-rename" onclick="openCatRename('${cat.id}','${cat.name.replace(/'/g,"\\'")}')">✏️</button>
+        <button class="btn-cat-del" onclick="deleteCategory('${cat.id}','${cat.name.replace(/'/g,"\\'")}')">Sil</button>
+      </div>
+    `;
     container.appendChild(row);
   });
 }
@@ -1004,6 +1135,123 @@ window.addCategory = () => {
 window.deleteCategory = (id, name) => {
   if(!confirm(`"${name}" kategorisini silmek istediğinden emin misin?`)) return;
   remove(ref(db,"categories/" + id));
+};
+
+/* ── KATEGORİ SIRALAMA ── */
+window.moveCat = (idx, dir) => {
+  const newIdx = idx + dir;
+  if(newIdx < 0 || newIdx >= categoriesData.length) return;
+  const tmp = categoriesData[idx]; categoriesData[idx] = categoriesData[newIdx]; categoriesData[newIdx] = tmp;
+  // Sırayı Firebase'e yaz
+  categoriesData.forEach((cat, i) => {
+    update(ref(db,"categories/" + cat.id), { order: i });
+  });
+  renderCatList();
+  renderCatBar();
+  renderCatSelects();
+};
+
+/* ── KATEGORİ YENİDEN ADLANDIRMA ── */
+let renamingCatId = null;
+window.openCatRename = (id, name) => {
+  renamingCatId = id;
+  document.getElementById("rename_cat_input").value = name;
+  document.getElementById("renameModal").style.display = "flex";
+};
+window.saveCatRename = () => {
+  if(!renamingCatId) return;
+  const newName = document.getElementById("rename_cat_input").value.trim();
+  if(!newName){ alert("Ad boş olamaz"); return; }
+  if(categoriesData.find(c => c.name === newName && c.id !== renamingCatId)){ alert("Bu isim zaten kullanılıyor"); return; }
+  const oldName = categoriesData.find(c => c.id === renamingCatId)?.name;
+  update(ref(db,"categories/" + renamingCatId), { name: newName });
+  // Bu kategorideki ürünlerin category alanını güncelle
+  if(oldName){
+    modelsData.filter(m => m.category === oldName).forEach(m => {
+      update(ref(db,"models/" + m.id), { category: newName });
+    });
+  }
+  document.getElementById("renameModal").style.display = "none";
+  renamingCatId = null;
+};
+
+/* ── FİYAT DÜZENLEYİCİ ── */
+let priceType = "pct";   // "pct" | "fixed"
+let priceDir  = "up";    // "up"  | "down"
+
+window.openPriceEditor = () => {
+  priceType = "pct"; priceDir = "up";
+  document.getElementById("price_amount_input").value = "";
+  updatePriceEditorUI();
+  updatePricePreview();
+  document.getElementById("priceEditorModal").style.display = "flex";
+};
+
+window.setPriceType = (t) => {
+  priceType = t;
+  updatePriceEditorUI();
+  updatePricePreview();
+};
+
+window.setPriceDir = (d) => {
+  priceDir = d;
+  updatePriceEditorUI();
+  updatePricePreview();
+};
+
+function updatePriceEditorUI(){
+  document.getElementById("ptype_pct").className   = "price-type-btn" + (priceType==="pct"?" active":"");
+  document.getElementById("ptype_fixed").className = "price-type-btn" + (priceType==="fixed"?" active":"");
+  document.getElementById("pdir_up").className   = "price-dir-btn" + (priceDir==="up"?" active-up":"");
+  document.getElementById("pdir_down").className = "price-dir-btn" + (priceDir==="down"?" active-down":"");
+  document.getElementById("price_input_label").textContent = priceType==="pct" ? "Yüzde Miktarı (%)" : "Sabit Tutar (₺)";
+}
+
+window.updatePricePreview = () => {
+  const amount = parseFloat(document.getElementById("price_amount_input").value);
+  const preview = document.getElementById("pricePreview");
+  if(!amount || amount <= 0){
+    preview.innerHTML = `<span style="color:var(--text3)">Miktar gir...</span>`;
+    return;
+  }
+  let html = "";
+  modelsData.slice(0,6).forEach(item => {
+    let newPrice;
+    if(priceType === "pct"){
+      newPrice = priceDir === "up"
+        ? Math.round(item.price * (1 + amount/100))
+        : Math.round(item.price * (1 - amount/100));
+    } else {
+      newPrice = priceDir === "up" ? item.price + amount : item.price - amount;
+    }
+    if(newPrice < 0) newPrice = 0;
+    const diff = newPrice - item.price;
+    const sign = diff >= 0 ? "+" : "";
+    html += `<div>${item.name}: <b>${item.price.toLocaleString('tr-TR')}₺</b> → <b>${newPrice.toLocaleString('tr-TR')}₺</b> <span class="${diff>=0?'up':'down'}">(${sign}${Math.round(diff).toLocaleString('tr-TR')}₺)</span></div>`;
+  });
+  if(modelsData.length > 6) html += `<div style="color:var(--text3);margin-top:4px;">...ve ${modelsData.length-6} ürün daha</div>`;
+  preview.innerHTML = html;
+};
+
+window.applyPriceEditor = async () => {
+  const amount = parseFloat(document.getElementById("price_amount_input").value);
+  if(!amount || amount <= 0){ alert("Geçerli bir miktar gir"); return; }
+  const count = modelsData.length;
+  if(!confirm(`Tüm ${count} ürünün fiyatı ${priceDir==="up"?"artırılacak":"azaltılacak"} (${priceType==="pct"?amount+"%":amount+"₺"}). Emin misin?`)) return;
+  for(const item of modelsData){
+    let newPrice;
+    if(priceType === "pct"){
+      newPrice = priceDir === "up"
+        ? Math.round(item.price * (1 + amount/100))
+        : Math.round(item.price * (1 - amount/100));
+    } else {
+      newPrice = priceDir === "up" ? item.price + amount : item.price - amount;
+    }
+    if(newPrice < 0) newPrice = 0;
+    await update(ref(db,"models/" + item.id), { price: newPrice });
+  }
+  document.getElementById("priceEditorModal").style.display = "none";
+  alert(`✅ ${count} ürünün fiyatı güncellendi!`);
 };
 
 window.openCatModal = () => {
