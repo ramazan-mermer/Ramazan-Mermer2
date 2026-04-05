@@ -1,31 +1,34 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramazan Mermer — Mezar Modelleri</title>
 
+<!-- ── SEO & WHATSAPP ÖNİZLEME ── -->
+<meta name="description" content="Karabük Safranbolu'da en kaliteli mermer mezar modelleri. Uygun fiyat, güvenilir işçilik. Detaylı bilgi ve fiyat listesi için ziyaret edin.">
 
+<!-- Open Graph (WhatsApp, Facebook, Telegram) -->
+<meta property="og:type"        content="website">
+<meta property="og:site_name"   content="Ramazan Mermer">
+<meta property="og:title"       content="Ramazan Mermer — Mezar Modelleri & Fiyat Listesi">
+<meta property="og:description" content="Karabük Safranbolu'da en kaliteli mermer mezar modelleri. Uygun fiyat, güvenilir işçilik. Detaylı fiyat listesi için tıklayın.">
+<meta property="og:image"       content="https://ramazan-mermer.web.app/logo.png">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url"         content="https://ramazan-mermer.web.app">
+<meta property="og:locale"      content="tr_TR">
 
+<!-- Twitter Card (isteğe bağlı, bazı platformlar okur) -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:title"       content="Ramazan Mermer — Mezar Modelleri & Fiyat Listesi">
+<meta name="twitter:description" content="Karabük Safranbolu'da en kaliteli mermer mezar modelleri. Uygun fiyat, güvenilir işçilik.">
+<meta name="twitter:image"       content="https://ramazan-mermer.web.app/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-
-Ramazan Mermer — Mezar Modelleri
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<style>
+/* ── TOKENS ── */
 :root{
   --bg:#0e0e0f;
   --surface:#161618;
@@ -56,6 +59,7 @@ body{
   overflow-x:hidden;
 }
 
+/* ── GRAIN OVERLAY ── */
 body::before{
   content:'';
   position:fixed;
@@ -66,6 +70,7 @@ body::before{
   opacity:0.5;
 }
 
+/* ── AÇIK MOD OVERRİDES ── */
 body.light-mode header{
   background:rgba(244,240,235,0.94);
   border-bottom-color:rgba(0,0,0,0.1);
@@ -90,37 +95,16 @@ body.light-mode #viewer{
 #infoBanner{
   position:relative;
   z-index:2;
-  background:linear-gradient(135deg,#1c1408 0%,#231a0a 50%,#1c1408 100%);
-  border-bottom:1px solid rgba(201,169,110,0.3);
-  border-top:3px solid var(--gold);
-  padding:18px 20px;
+  background:linear-gradient(90deg, #1a1209 0%, #1e1610 50%, #1a1209 100%);
+  border-bottom:1px solid rgba(201,169,110,0.25);
+  padding:11px 16px;
   text-align:center;
+  font-size:11.5px;
+  line-height:1.75;
+  color:var(--text2);
+  letter-spacing:0.2px;
 }
-
-#infoBanner p{
-  font-size:13.5px;
-  line-height:1.9;
-  color:#d4c9b8;
-  max-width:480px;
-  margin:0 auto;
-  font-weight:400;
-  letter-spacing:0.1px;
-}
-
-#infoBanner p + p{
-  margin-top:8px;
-}
-
-#infoBanner strong{
-  color:#f0c060;
-  font-weight:600;
-}
-
-#infoBanner .info-icon{
-  display:block;
-  font-size:20px;
-  margin-bottom:10px;
-}
+#infoBanner strong{ color:var(--gold); font-weight:500; }
 
 /* ── HEADER ── */
 header{
@@ -411,6 +395,7 @@ header:active{ opacity:0.75; }
 }
 .pf-input-group input:focus{ outline:none; border-color:var(--gold); }
 .pf-input-group input::placeholder{ color:var(--text3); font-weight:400; }
+/* Range slider */
 .pf-slider-wrap{
   position:relative;
   height:36px;
@@ -481,6 +466,7 @@ header:active{ opacity:0.75; }
   transition:filter 0.15s;
 }
 .pf-reset:hover{ filter:brightness(1.15); }
+/* result count */
 .pf-result-count{
   font-size:11.5px;
   color:var(--text3);
@@ -491,13 +477,13 @@ header:active{ opacity:0.75; }
 .pf-result-count.show{ display:block; }
 .pf-result-count strong{ color:var(--gold); }
 
+/* PC için geniş ekran düzeni */
 @media(min-width:600px){
   .pf-inputs{ gap:16px; }
   .pf-input-group input{ font-size:14px; padding:10px 12px; }
   #priceFilterPanel{ padding:20px; border-radius:16px; }
   #priceFilterBtn{ font-size:13px; padding:9px 16px; }
 }
-
 #mapsBannerInline{
   flex-shrink:0;
   display:flex;
@@ -614,6 +600,7 @@ header:active{ opacity:0.75; }
   letter-spacing:0.3px;
 }
 
+/* ── CARD IMG ── */
 .card-img-wrap{
   position:relative;
   width:100%;
@@ -629,6 +616,7 @@ header:active{ opacity:0.75; }
 }
 .card:hover .card-img-wrap img{ transform:scale(1.04); }
 
+/* ── CARD INFO ── */
 .card-info{
   padding:10px 10px 11px;
   background:var(--surface);
@@ -675,6 +663,7 @@ header:active{ opacity:0.75; }
 }
 .wp-item:active{ transform:scale(0.97); filter:brightness(0.9); }
 
+/* ── BADGES ── */
 .badge-wrap{
   position:absolute;
   top:8px; right:8px;
@@ -695,6 +684,7 @@ header:active{ opacity:0.75; }
 .badge-bestseller{ background:rgba(230,92,0,0.9); color:#fff; }
 .badge-campaign{ background:rgba(192,57,43,0.9); color:#fff; }
 
+/* ── CALL BTN ── */
 #callBtn{
   position:fixed;
   bottom:22px; right:18px;
@@ -719,6 +709,7 @@ header:active{ opacity:0.75; }
   100%{ box-shadow:0 0 0 0   rgba(255,59,59,0);    }
 }
 
+/* ── IMAGE VIEWER ── */
 #viewer{
   display:none;
   position:fixed;
@@ -737,6 +728,7 @@ header:active{ opacity:0.75; }
 }
 @keyframes fadeIn{ from{opacity:0} to{opacity:1} }
 
+/* ── MODALS ── */
 .modal{
   display:none;
   position:fixed;
@@ -821,6 +813,7 @@ header:active{ opacity:0.75; }
   letter-spacing:0.5px;
 }
 
+/* ── LABEL TOGGLE ── */
 .label-toggle{ display:flex; gap:8px; margin-top:6px; }
 .label-btn{
   flex:1;
@@ -839,6 +832,7 @@ header:active{ opacity:0.75; }
 .label-btn.active-bestseller{ border-color:var(--amber); background:rgba(230,92,0,0.12); color:var(--amber); }
 .label-btn.active-campaign  { border-color:var(--red);   background:rgba(192,57,43,0.12); color:#e05a4a; }
 
+/* ── CAT LIST ── */
 .cat-list-item{
   display:flex;
   align-items:center;
@@ -865,6 +859,7 @@ header:active{ opacity:0.75; }
 }
 .cat-list-item button:hover{ filter:brightness(1.15); }
 
+/* ── CAT ITEM ACTIONS ── */
 .cat-item-actions{ display:flex; gap:6px; align-items:center; flex-shrink:0; }
 .cat-item-actions button{
   flex:none;
@@ -889,6 +884,7 @@ header:active{ opacity:0.75; }
 }
 .btn-cat-up:hover,.btn-cat-down:hover{ background:var(--gold) !important; color:#000 !important; border-color:var(--gold) !important; }
 
+/* ── PRICE EDITOR ── */
 .price-editor-type{
   display:flex;
   gap:8px;
@@ -944,6 +940,7 @@ header:active{ opacity:0.75; }
 .price-preview span.up{ color:#25a83a; }
 .price-preview span.down{ color:#e05a4a; }
 
+/* ── THEME MODAL ── */
 .theme-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -1011,6 +1008,7 @@ header:active{ opacity:0.75; }
   letter-spacing:0.2px;
 }
 
+/* ── ORDER LIST ── */
 .order-list{
   display:flex;
   flex-direction:column;
@@ -1051,6 +1049,7 @@ header:active{ opacity:0.75; }
 }
 .order-arrows button:hover{ background:var(--gold); color:#000; border-color:var(--gold); }
 
+/* ── STAGGER ANIMATION DELAY ── */
 .card:nth-child(1){animation-delay:0ms}
 .card:nth-child(2){animation-delay:50ms}
 .card:nth-child(3){animation-delay:100ms}
@@ -1061,6 +1060,7 @@ header:active{ opacity:0.75; }
 .card:nth-child(8){animation-delay:350ms}
 .card:nth-child(n+9){animation-delay:400ms}
 
+/* ── DIVIDER ── */
 .gold-divider{
   height:1px;
   background:linear-gradient(90deg,transparent,rgba(201,169,110,0.3),transparent);
@@ -1068,145 +1068,272 @@ header:active{ opacity:0.75; }
   position:relative;
   z-index:2;
 }
+</style>
+</head>
 
+<body>
 
+<!-- INFO BANNER -->
+<div id="infoBanner">
+  Sizlere en kaliteli hizmeti en uygun fiyatlarla ulaştırmaya çalışıyoruz.<br>
+  Web sitemizdeki fiyat listesi <strong>Karabük Merkez</strong> konumu esas alınarak hazırlanmıştır.<br>
+  İlçelerimizden gelen taleplerde <strong>yol mesafesi fiyatlandırmaya dahil</strong> edilmektedir.<br>
+  Detaylı bilgi için <strong>bizimle iletişime geçebilirsiniz.</strong>
+</div>
 
+<!-- HEADER -->
+<header onclick="secretClick()">
+  <div class="header-inner">
+    <img src="logo.png" class="logo">
+    <div class="header-title">Ramazan <span>Mermer</span></div>
+  </div>
+</header>
 
+<!-- ADMIN BANNER -->
+<div id="adminBanner">🔧 ADMİN MODU AKTİF — Çıkmak için başlığa 5 kez tıkla</div>
 
+<!-- ADMIN ACTION BAR -->
+<div id="adminActionBar">
+  <button class="btn-add-product" onclick="openAddModal()">+ Yeni Ürün Ekle</button>
+  <button class="btn-manage-cat" onclick="openCatModal()">🗂️ Kategoriler</button>
+  <button class="btn-order" onclick="openOrderModal()">↕️ Sıralama</button>
+  <button class="btn-price-editor" onclick="openPriceEditor()">💰 Fiyat Düzenleyici</button>
+  <button class="btn-theme" onclick="openThemeModal()">🎨 Tema</button>
+</div>
 
+<!-- FB BANNER -->
+<a id="fbBanner" href="https://www.facebook.com/groups/912273898899478" target="_blank">
+  <div class="fb-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#fff">
+      <path d="M24 12.073C24 5.404 18.627 0 12 0S0 5.404 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.884v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+    </svg>
+  </div>
+  <div class="fb-text">
+    <div class="fb-title">Gerçekleştirilen Çalışmalarımız</div>
+    <div class="fb-sub">Facebook sayfamızdan güncel mezar fotoğraflarını inceleyebilirsiniz</div>
+  </div>
+  <div class="fb-arrow">›</div>
+</a>
 
-  ℹ️
+<div class="gold-divider"></div>
 
-    Sizlere en kaliteli hizmeti en uygun fiyatlarla ulaştırmaya çalışıyoruz.
+<!-- SECTION TITLE -->
+<div class="section-title">Mezar <span>Modellerimiz</span></div>
 
-    Web sitemizdeki fiyat listesi Karabük Merkez konumu esas alınarak hazırlanmıştır.
-    İlçelerimizden gelen taleplerde yol mesafesi fiyatlandırmaya dahil edilmektedir.
-
-    Detaylı bilgi için bizimle iletişime geçebilirsiniz.
-
-    Ramazan Mermer
-
-
-🔧 ADMİN MODU AKTİF — Çıkmak için başlığa 5 kez tıkla
-
-
-
-  + Yeni Ürün Ekle
-  🗂️ Kategoriler
-  ↕️ Sıralama
-  💰 Fiyat Düzenleyici
-  🎨 Tema
-
-    Gerçekleştirilen Çalışmalarımız
-    Facebook sayfamızdan güncel mezar fotoğraflarını inceleyebilirsiniz
-
-  ›
-
-
-
-
-
-Mezar Modellerimiz
-
-    Sıralama
-
-      Varsayılan
-      Artan Fiyat
-      Azalan Fiyat
-
-    Fiyat
-
-      ₺
+<!-- SEARCH ROW -->
+<div class="search-row">
+  <div class="sort-bar">
+    <label>Sıralama</label>
+    <select id="sortSelect">
+      <option value="default">Varsayılan</option>
+      <option value="asc">Artan Fiyat</option>
+      <option value="desc">Azalan Fiyat</option>
+    </select>
+  </div>
+  <div class="filter-btn-wrap">
+    <span class="filter-btn-label">Fiyat</span>
+    <button id="priceFilterBtn" onclick="togglePriceFilter()">
+      <div class="filter-icon">₺</div>
       Filtrele
-      AKTİF
-
-    Yol Tarifi
-
+      <span class="filter-badge" id="filterBadge">AKTİF</span>
+    </button>
+  </div>
+  <a id="mapsBannerInline" href="https://www.google.com/maps?q=41.21827697753906,32.710208892822266&z=17&hl=tr" target="_blank">
+    <span class="maps-label">Yol Tarifi</span>
+    <div class="maps-btn">
+      <div class="maps-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#0e0e0f">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+        </svg>
+      </div>
+      <div class="maps-text">
         Google Maps
-        Konumumuzu gör ›
+        <span>Konumumuzu gör ›</span>
+      </div>
+    </div>
+  </a>
+</div>
 
-    💰 Fiyat Aralığı
-    Sıfırla ✕
+<!-- FİYAT FİLTRE PANELİ -->
+<div id="priceFilterPanel">
+  <div class="pf-title">
+    <span>💰 Fiyat Aralığı</span>
+    <button onclick="resetPriceFilter()">Sıfırla ✕</button>
+  </div>
+  <div class="pf-slider-wrap" id="pfSliderWrap">
+    <div class="pf-track">
+      <div class="pf-track-fill" id="pfTrackFill"></div>
+    </div>
+    <div class="pf-handle" id="pfHandleMin"></div>
+    <div class="pf-handle" id="pfHandleMax"></div>
+  </div>
+  <div class="pf-inputs">
+    <div class="pf-input-group">
+      <label>Min Fiyat (₺)</label>
+      <input type="number" id="pfMinInput" placeholder="0" oninput="onPfInputChange()">
+    </div>
+    <div class="pf-input-group">
+      <label>Max Fiyat (₺)</label>
+      <input type="number" id="pfMaxInput" placeholder="Sınırsız" oninput="onPfInputChange()">
+    </div>
+  </div>
+  <div class="pf-actions">
+    <button class="pf-apply" onclick="applyPriceFilter()">Uygula</button>
+    <button class="pf-reset" onclick="resetPriceFilter()">Temizle</button>
+  </div>
+  <div class="pf-result-count" id="pfResultCount"></div>
+</div>
 
-      Min Fiyat (₺)
+<!-- CAT BAR -->
+<div class="cat-bar" id="catBar"></div>
 
-      Max Fiyat (₺)
+<!-- PRODUCT LIST -->
+<div class="list" id="list"></div>
 
-    Uygula
-    Temizle
+<!-- CALL BUTTON -->
+<button id="callBtn" onclick="callPhone()">
+  <img src="https://cdn-icons-png.flaticon.com/512/597/597177.png">
+</button>
 
-    🔐 Admin Girişi
+<!-- IMAGE VIEWER -->
+<div id="viewer" onclick="closeViewer()">
+  <img id="viewerImg">
+</div>
 
-      Giriş
-      İptal
+<!-- ADMIN GİRİŞ -->
+<div class="modal" id="adminPanel">
+  <div class="modal-box">
+    <h3>🔐 Admin Girişi</h3>
+    <input type="password" id="pass" placeholder="Şifre">
+    <div class="btn-group">
+      <button class="btn-green" onclick="login()">Giriş</button>
+      <button class="btn-gray" onclick="closeAdmin()">İptal</button>
+    </div>
+  </div>
+</div>
 
-    ➕ Yeni Ürün Ekle
+<!-- YENİ ÜRÜN EKLE -->
+<div class="modal" id="addModal">
+  <div class="modal-box">
+    <h3>➕ Yeni Ürün Ekle</h3>
+    <input id="add_name" placeholder="Model adı">
+    <input id="add_price" placeholder="Fiyat (₺)" type="number">
+    <input id="add_img" placeholder="Resim URL">
+    <div class="modal-label">Kategori</div>
+    <select id="add_cat"></select>
+    <div class="modal-label">Etiket</div>
+    <div class="label-toggle">
+      <div class="label-btn" id="add_btn_bestseller" onclick="toggleAddLabel('bestseller')">🔥 En Çok Satılan</div>
+      <div class="label-btn" id="add_btn_campaign"   onclick="toggleAddLabel('campaign')"   >🏷️ Kampanyalı</div>
+    </div>
+    <div class="btn-group">
+      <button class="btn-orange" onclick="addProduct()">Ekle</button>
+      <button class="btn-gray"   onclick="closeModal('addModal')">İptal</button>
+    </div>
+  </div>
+</div>
 
-    Kategori
+<!-- ÜRÜN DÜZENLE -->
+<div class="modal" id="editModal">
+  <div class="modal-box">
+    <h3>✏️ Ürünü Düzenle</h3>
+    <input id="edit_name"  placeholder="Model adı">
+    <input id="edit_price" placeholder="Fiyat (₺)" type="number">
+    <input id="edit_img"   placeholder="Resim URL">
+    <div class="modal-label">Kategori</div>
+    <select id="edit_cat"></select>
+    <div class="modal-label">Etiket</div>
+    <div class="label-toggle">
+      <div class="label-btn" id="edit_btn_bestseller" onclick="toggleEditLabel('bestseller')">🔥 En Çok Satılan</div>
+      <div class="label-btn" id="edit_btn_campaign"   onclick="toggleEditLabel('campaign')"  >🏷️ Kampanyalı</div>
+    </div>
+    <div class="btn-group">
+      <button class="btn-orange" onclick="saveEdit()">Kaydet</button>
+      <button class="btn-gray"   onclick="closeModal('editModal')">İptal</button>
+    </div>
+    <div class="btn-group" style="margin-top:8px;">
+      <button class="btn-red" onclick="deleteProduct()">🗑️ Sil</button>
+    </div>
+  </div>
+</div>
 
-    Etiket
+<!-- KATEGORİ YÖNETİMİ -->
+<div class="modal" id="catModal">
+  <div class="modal-box">
+    <h3>🗂️ Kategori Yönetimi</h3>
+    <input id="new_cat_name" placeholder="Yeni kategori adı">
+    <div class="btn-group">
+      <button class="btn-dark" onclick="addCategory()">+ Ekle</button>
+      <button class="btn-gray" onclick="closeModal('catModal')">Kapat</button>
+    </div>
+    <div style="margin-top:14px;" id="catListContainer"></div>
+  </div>
+</div>
 
-      🔥 En Çok Satılan
-      🏷️ Kampanyalı
+<!-- KATEGORİ YENİDEN ADLANDIR -->
+<div class="modal" id="renameModal">
+  <div class="modal-box">
+    <h3>✏️ Kategori Adını Değiştir</h3>
+    <input id="rename_cat_input" placeholder="Yeni ad">
+    <div class="btn-group">
+      <button class="btn-orange" onclick="saveCatRename()">Kaydet</button>
+      <button class="btn-gray" onclick="closeModal('renameModal')">İptal</button>
+    </div>
+  </div>
+</div>
 
-      Ekle
-      İptal
+<!-- SIRALAMA -->
+<div class="modal" id="orderModal">
+  <div class="modal-box">
+    <h3>↕️ Ürün Sıralaması</h3>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:12px;">Oklarla sırayı değiştir, kaydet ile uygula.</p>
+    <div class="order-list" id="orderList"></div>
+    <div class="btn-group">
+      <button class="btn-dark" onclick="saveOrder()">💾 Kaydet</button>
+      <button class="btn-gray" onclick="closeModal('orderModal')">İptal</button>
+    </div>
+  </div>
+</div>
 
-    ✏️ Ürünü Düzenle
+<!-- TEMA SEÇİCİ -->
+<div class="modal" id="themeModal">
+  <div class="modal-box" style="max-width:380px;">
+    <h3>🎨 Site Teması</h3>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:14px;">Seçtiğin tema tüm ziyaretçilere uygulanır.</p>
+    <div class="theme-grid" id="themeGrid"></div>
+    <div class="btn-group" style="margin-top:16px;">
+      <button class="btn-gray" onclick="closeModal('themeModal')">Kapat</button>
+    </div>
+  </div>
+</div>
 
-    Kategori
+<!-- FİYAT DÜZENLEYİCİ -->
+<div class="modal" id="priceEditorModal">
+  <div class="modal-box">
+    <h3>💰 Fiyat Düzenleyici</h3>
+    <div class="modal-label">İşlem Türü</div>
+    <div class="price-editor-type">
+      <div class="price-type-btn active" id="ptype_pct" onclick="setPriceType('pct')">% Yüzde</div>
+      <div class="price-type-btn" id="ptype_fixed" onclick="setPriceType('fixed')">₺ Sabit Tutar</div>
+    </div>
+    <div class="modal-label">Yön</div>
+    <div class="price-direction">
+      <div class="price-dir-btn active-up" id="pdir_up" onclick="setPriceDir('up')">▲ Artır</div>
+      <div class="price-dir-btn" id="pdir_down" onclick="setPriceDir('down')">▼ Azalt</div>
+    </div>
+    <div class="modal-label" id="price_input_label">Yüzde Miktarı (%)</div>
+    <input id="price_amount_input" type="number" placeholder="Örn: 10" min="0" oninput="updatePricePreview()">
+    <div class="modal-label">Önizleme</div>
+    <div class="price-preview" id="pricePreview"><span style="color:var(--text3)">Miktar gir...</span></div>
+    <div class="btn-group">
+      <button class="btn-dark" onclick="applyPriceEditor()" style="background:#25a83a;color:#fff;">✅ Uygula</button>
+      <button class="btn-gray" onclick="closeModal('priceEditorModal')">İptal</button>
+    </div>
+  </div>
+</div>
 
-    Etiket
-
-      🔥 En Çok Satılan
-      🏷️ Kampanyalı
-
-      Kaydet
-      İptal
-
-      🗑️ Sil
-
-    🗂️ Kategori Yönetimi
-
-      + Ekle
-      Kapat
-
-    ✏️ Kategori Adını Değiştir
-
-      Kaydet
-      İptal
-
-    ↕️ Ürün Sıralaması
-    Oklarla sırayı değiştir, kaydet ile uygula.
-
-      💾 Kaydet
-      İptal
-
-    🎨 Site Teması
-    Seçtiğin tema tüm ziyaretçilere uygulanır.
-
-      Kapat
-
-    💰 Fiyat Düzenleyici
-    İşlem Türü
-
-      % Yüzde
-      ₺ Sabit Tutar
-
-    Yön
-
-      ▲ Artır
-      ▼ Azalt
-
-    Yüzde Miktarı (%)
-
-    Önizleme
-    Miktar gir...
-
-      ✅ Uygula
-      İptal
-
-
+<!-- FIREBASE -->
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, onValue, push, set, update, remove, get }
   from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
@@ -1236,7 +1363,9 @@ let priceFilterMax = null;
 let priceFilterActive = false;
 let activeThemeId  = "dark-gold";
 
+/* ── TEMA TANIMLARI ── */
 const THEMES = [
+  /* ── 5 KOYU TEMA ── */
   {
     id:"dark-gold", name:"Karanlık Altın", nameColor:"#c9a96e", mode:"dark",
     bg:"#0e0e0f", surface:"#161618", surface2:"#1e1e21",
@@ -1277,6 +1406,7 @@ const THEMES = [
     text:"#f5e5e5", text2:"#b87070", text3:"#6b3030",
     preview:{ bg:"#0d0606", bar:"#e74c3c", surface:"#231111" }
   },
+  /* ── 5 AÇIK TEMA ── */
   {
     id:"light-marble", name:"Beyaz Mermer", nameColor:"#7d5a35", mode:"light",
     bg:"#f4f0eb", surface:"#ffffff", surface2:"#ece7e0",
@@ -1337,6 +1467,7 @@ function applyTheme(id){
   activeThemeId = id;
 }
 
+// Sayfa açılışında temayı Firebase'den oku
 onValue(ref(db,"siteTheme"), snap => {
   const tid = snap.val();
   if(tid) applyTheme(tid);
@@ -1369,9 +1500,15 @@ function render(){
     ? [...modelsData]
     : modelsData.filter(i => i.category === activeCat);
 
+  // Fiyat filtresi uygula
   if(priceFilterActive){
     if(priceFilterMin !== null) filtered = filtered.filter(i => i.price >= priceFilterMin);
-    if(priceFilterMax !== null) filtered = filtered.filter(i => i.price  {
+    if(priceFilterMax !== null) filtered = filtered.filter(i => i.price <= priceFilterMax);
+  }
+
+  const sortVal = sortSelect.value;
+  if(sortVal === "asc"){
+    filtered.sort((a,b) => {
       const al=a.label?1:0, bl=b.label?1:0;
       if(bl!==al) return bl-al;
       return a.price-b.price;
@@ -1396,24 +1533,28 @@ function render(){
 
     let badgeHTML = "";
     if(item.label === "bestseller"){
-      badgeHTML = 🔥 En Çok Satılan;
+      badgeHTML = `<div class="badge-wrap"><span class="badge badge-bestseller">🔥 En Çok Satılan</span></div>`;
     } else if(item.label === "campaign"){
-      badgeHTML = 🏷️ Kampanyalı Ürün;
+      badgeHTML = `<div class="badge-wrap"><span class="badge badge-campaign">🏷️ Kampanyalı Ürün</span></div>`;
     }
 
     const catLabel = item.category
-      ? ${item.category} : "";
+      ? `<div class="card-cat">${item.category}</div>` : "";
 
     div.innerHTML = `
-
+      <div class="card-img-wrap">
+        <img src="${item.img}" onclick="handleImgClick(event,'${item.img}')">
         ${badgeHTML}
-
+      </div>
+      <div class="card-info">
         ${catLabel}
-        ${item.name}
-        ${item.price.toLocaleString('tr-TR')}₺
-
+        <div class="card-name">${item.name}</div>
+        <div class="card-price">${item.price.toLocaleString('tr-TR')}₺</div>
+        <button class="wp-item" onclick="sendWhatsApp(event,'${item.name}','${item.img}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           WhatsApp'tan sor
-
+        </button>
+      </div>
     `;
 
     if(isAdmin){
@@ -1449,7 +1590,7 @@ function renderCatSelects(){
   ["add_cat","edit_cat"].forEach(id => {
     const sel = document.getElementById(id);
     const prev = sel.value;
-    sel.innerHTML = — Kategori Seç —;
+    sel.innerHTML = `<option value="">— Kategori Seç —</option>`;
     categoriesData.forEach(cat => {
       const opt = document.createElement("option");
       opt.value = cat.name; opt.textContent = cat.name;
@@ -1464,20 +1605,20 @@ function renderCatList(){
   if(!container) return;
   container.innerHTML = "";
   if(categoriesData.length === 0){
-    container.innerHTML = Henüz kategori yok;
+    container.innerHTML = `<p style="font-size:13px;color:var(--text3);text-align:center;">Henüz kategori yok</p>`;
     return;
   }
   categoriesData.forEach((cat, idx) => {
     const row = document.createElement("div");
     row.className = "cat-list-item";
     row.innerHTML = `
-      ${cat.name}
-
-        ▲
-        ▼
-        ✏️
-        Sil
-
+      <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;">${cat.name}</span>
+      <div class="cat-item-actions">
+        <button class="btn-cat-up" onclick="moveCat(${idx},-1)" title="Yukarı">▲</button>
+        <button class="btn-cat-down" onclick="moveCat(${idx},1)" title="Aşağı">▼</button>
+        <button class="btn-cat-rename" onclick="openCatRename('${cat.id}','${cat.name.replace(/'/g,"\\'")}')">✏️</button>
+        <button class="btn-cat-del" onclick="deleteCategory('${cat.id}','${cat.name.replace(/'/g,"\\'")}')">Sil</button>
+      </div>
     `;
     container.appendChild(row);
   });
@@ -1491,6 +1632,7 @@ window.addCategory = () => {
   document.getElementById("new_cat_name").value = "";
 };
 
+/* ── FİYAT FİLTRESİ ── */
 let pfRangeMin = 0, pfRangeMax = 1000000;
 let pfCurMin = 0, pfCurMax = 1000000;
 
@@ -1596,6 +1738,7 @@ window.togglePriceFilter = () => {
   const isOpen = panel.classList.toggle("open");
   if(isOpen){
     initPriceFilter();
+    // Slider drag'i ilk açılışta kur (DOM görünür olunca)
     setTimeout(()=>{ setupSliderDrag(); updateSliderUI(); }, 10);
   }
 };
@@ -1610,7 +1753,9 @@ window.onPfInputChange = () => {
 };
 
 function updatePfResultCount(minV, maxV){
-  const count = modelsData.filter(m => m.price >= minV && m.price ${count} ürün bu aralıkta`;
+  const count = modelsData.filter(m => m.price >= minV && m.price <= maxV).length;
+  const el = document.getElementById("pfResultCount");
+  el.innerHTML = `<strong>${count}</strong> ürün bu aralıkta`;
   el.classList.add("show");
 }
 
@@ -1639,14 +1784,16 @@ window.resetPriceFilter = () => {
 };
 
 window.deleteCategory = (id, name) => {
-  if(!confirm("${name}" kategorisini silmek istediğinden emin misin?)) return;
+  if(!confirm(`"${name}" kategorisini silmek istediğinden emin misin?`)) return;
   remove(ref(db,"categories/" + id));
 };
 
+/* ── KATEGORİ SIRALAMA ── */
 window.moveCat = (idx, dir) => {
   const newIdx = idx + dir;
-  if(newIdx = categoriesData.length) return;
+  if(newIdx < 0 || newIdx >= categoriesData.length) return;
   const tmp = categoriesData[idx]; categoriesData[idx] = categoriesData[newIdx]; categoriesData[newIdx] = tmp;
+  // Sırayı Firebase'e yaz
   categoriesData.forEach((cat, i) => {
     update(ref(db,"categories/" + cat.id), { order: i });
   });
@@ -1655,6 +1802,7 @@ window.moveCat = (idx, dir) => {
   renderCatSelects();
 };
 
+/* ── KATEGORİ YENİDEN ADLANDIRMA ── */
 let renamingCatId = null;
 window.openCatRename = (id, name) => {
   renamingCatId = id;
@@ -1668,6 +1816,7 @@ window.saveCatRename = () => {
   if(categoriesData.find(c => c.name === newName && c.id !== renamingCatId)){ alert("Bu isim zaten kullanılıyor"); return; }
   const oldName = categoriesData.find(c => c.id === renamingCatId)?.name;
   update(ref(db,"categories/" + renamingCatId), { name: newName });
+  // Bu kategorideki ürünlerin category alanını güncelle
   if(oldName){
     modelsData.filter(m => m.category === oldName).forEach(m => {
       update(ref(db,"models/" + m.id), { category: newName });
@@ -1677,8 +1826,9 @@ window.saveCatRename = () => {
   renamingCatId = null;
 };
 
-let priceType = "pct";
-let priceDir  = "up";
+/* ── FİYAT DÜZENLEYİCİ ── */
+let priceType = "pct";   // "pct" | "fixed"
+let priceDir  = "up";    // "up"  | "down"
 
 window.openPriceEditor = () => {
   priceType = "pct"; priceDir = "up";
@@ -1711,7 +1861,8 @@ function updatePriceEditorUI(){
 window.updatePricePreview = () => {
   const amount = parseFloat(document.getElementById("price_amount_input").value);
   const preview = document.getElementById("pricePreview");
-  if(!amount || amount Miktar gir...`;
+  if(!amount || amount <= 0){
+    preview.innerHTML = `<span style="color:var(--text3)">Miktar gir...</span>`;
     return;
   }
   let html = "";
@@ -1724,16 +1875,37 @@ window.updatePricePreview = () => {
     } else {
       newPrice = priceDir === "up" ? item.price + amount : item.price - amount;
     }
-    if(newPrice = 0 ? "+" : "";
-    html += ${item.name}: ${item.price.toLocaleString('tr-TR')}₺ → ${newPrice.toLocaleString('tr-TR')}₺ =0?'up':'down'}">(${sign}${Math.round(diff).toLocaleString('tr-TR')}₺);
+    if(newPrice < 0) newPrice = 0;
+    const diff = newPrice - item.price;
+    const sign = diff >= 0 ? "+" : "";
+    html += `<div>${item.name}: <b>${item.price.toLocaleString('tr-TR')}₺</b> → <b>${newPrice.toLocaleString('tr-TR')}₺</b> <span class="${diff>=0?'up':'down'}">(${sign}${Math.round(diff).toLocaleString('tr-TR')}₺)</span></div>`;
   });
-  if(modelsData.length > 6) html += ...ve ${modelsData.length-6} ürün daha;
+  if(modelsData.length > 6) html += `<div style="color:var(--text3);margin-top:4px;">...ve ${modelsData.length-6} ürün daha</div>`;
   preview.innerHTML = html;
 };
 
 window.applyPriceEditor = async () => {
   const amount = parseFloat(document.getElementById("price_amount_input").value);
-  if(!amount || amount  {
+  if(!amount || amount <= 0){ alert("Geçerli bir miktar gir"); return; }
+  const count = modelsData.length;
+  if(!confirm(`Tüm ${count} ürünün fiyatı ${priceDir==="up"?"artırılacak":"azaltılacak"} (${priceType==="pct"?amount+"%":amount+"₺"}). Emin misin?`)) return;
+  for(const item of modelsData){
+    let newPrice;
+    if(priceType === "pct"){
+      newPrice = priceDir === "up"
+        ? Math.round(item.price * (1 + amount/100))
+        : Math.round(item.price * (1 - amount/100));
+    } else {
+      newPrice = priceDir === "up" ? item.price + amount : item.price - amount;
+    }
+    if(newPrice < 0) newPrice = 0;
+    await update(ref(db,"models/" + item.id), { price: newPrice });
+  }
+  document.getElementById("priceEditorModal").style.display = "none";
+  alert(`✅ ${count} ürünün fiyatı güncellendi!`);
+};
+
+window.openCatModal = () => {
   renderCatList();
   document.getElementById("catModal").style.display = "flex";
 };
@@ -1746,7 +1918,7 @@ window.openOrderModal = () => {
   const modalTitle = document.querySelector("#orderModal .modal-box h3");
   modalTitle.textContent = activeCat === "Tümü"
     ? "↕️ Ürün Sıralaması — Tümü"
-    : ↕️ Ürün Sıralaması — ${activeCat};
+    : `↕️ Ürün Sıralaması — ${activeCat}`;
   renderOrderList();
   document.getElementById("orderModal").style.display = "flex";
 };
@@ -1758,12 +1930,12 @@ function renderOrderList(){
     const row = document.createElement("div");
     row.className = "order-item";
     row.innerHTML = `
-
-      ${item.name}
-
-        ▲
-        ▼
-
+      <img src="${item.img}" onerror="this.style.display='none'">
+      <span>${item.name}</span>
+      <div class="order-arrows">
+        <button onclick="moveOrder(${idx},-1)">▲</button>
+        <button onclick="moveOrder(${idx},1)">▼</button>
+      </div>
     `;
     container.appendChild(row);
   });
@@ -1771,13 +1943,20 @@ function renderOrderList(){
 
 window.moveOrder = (idx, dir) => {
   const newIdx = idx + dir;
-  if(newIdx = orderTemp.length) return;
+  if(newIdx < 0 || newIdx >= orderTemp.length) return;
   const tmp = orderTemp[idx]; orderTemp[idx] = orderTemp[newIdx]; orderTemp[newIdx] = tmp;
   renderOrderList();
 };
 
 window.saveOrder = async () => {
-  for(let i = 0; i  { addLabel = addLabel===type?"":type; updateAddLabelUI(); };
+  for(let i = 0; i < orderTemp.length; i++){
+    await update(ref(db,"models/" + orderTemp[i].id), { order: i });
+  }
+  document.getElementById("orderModal").style.display = "none";
+  alert("Sıralama kaydedildi ✅");
+};
+
+window.toggleAddLabel = (type) => { addLabel = addLabel===type?"":type; updateAddLabelUI(); };
 function updateAddLabelUI(){
   document.getElementById("add_btn_bestseller").className = "label-btn"+(addLabel==="bestseller"?" active-bestseller":"");
   document.getElementById("add_btn_campaign").className   = "label-btn"+(addLabel==="campaign"?" active-campaign":"");
@@ -1801,7 +1980,7 @@ window.closeViewer = () => { document.getElementById("viewer").style.display = "
 window.sendWhatsApp = (e, name, img) => {
   e.stopPropagation();
   if(isAdmin) return;
-  const msg = Merhaba, ${name} modeli hakkında bilgi almak istiyorum.\n\n📷 Ürün görseli:\n${img};
+  const msg = `Merhaba, ${name} modeli hakkında bilgi almak istiyorum.\n\n📷 Ürün görseli:\n${img}`;
   window.open("https://wa.me/905423189711?text=" + encodeURIComponent(msg), "_blank");
 };
 
@@ -1827,9 +2006,11 @@ window.secretClick = () => {
 };
 
 function goHome(){
+  // Kategoriyi sıfırla
   activeCat = "Tümü";
   renderCatBar();
   render();
+  // Sayfanın en üstüne git
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -1879,9 +2060,13 @@ function renderThemeGrid(){
       card.className = "theme-card" + (activeThemeId === t.id ? " selected" : "");
       card.onclick = () => selectTheme(t.id);
       card.innerHTML = `
-
-        ✓
-        ${t.name}
+        <div class="theme-preview" style="background:${t.preview.bg};">
+          <div class="tp-bar"  style="background:${t.preview.bar};"></div>
+          <div class="tp-bar2" style="background:${t.preview.bar};"></div>
+          <div class="tp-card" style="background:${t.preview.surface};border:1px solid ${t.preview.bar}44;"></div>
+        </div>
+        <div class="theme-check">✓</div>
+        <div class="theme-name" style="background:${t.preview.surface};color:${t.nameColor};">${t.name}</div>
       `;
       grid.appendChild(card);
     });
@@ -1945,8 +2130,7 @@ window.deleteProduct = () => {
   document.getElementById("editModal").style.display = "none";
   editingId = null;
 };
+</script>
 
-
-
-
-`
+</body>
+</html>
